@@ -1,4 +1,5 @@
 blinker==1.4
+certifi==2019.11.28
 click==6.7
 Flask==1.0.2
 Flask-DebugToolbar==0.10.1
@@ -6,13 +7,14 @@ Flask-SQLAlchemy==2.3.2
 itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
-psycopg2-binary==2.7.5
-SQLAlchemy==1.2.8
-Werkzeug==0.14.1
-
-certifi==2019.11.28
+pip==20.0.2
 pkg-resources==0.0.0
+psycopg2-binary==2.7.5
 python-dateutil==2.8.1
+setuptools==45.1.0
 six==1.14.0
+SQLAlchemy==1.2.8
 urllib3==1.25.8
 vericred-client==0.0.11
+Werkzeug==0.14.1
+wheel==0.34.2
