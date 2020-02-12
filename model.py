@@ -3,12 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class User(db.Model):
-    """Users looking to seek healthcare"""
+    """User looking to seek healthcare"""
 
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)   
-    age = db.Column(db.Integer, nullable=False)
+    age = db.Column(db.Integer, nullable=True)
     child = db.Column(db.Boolean, nullable=True)                                                           
     email = db.Column(db.String(100), nullable=False)
     market = db.Column(db.String(15), nullable=False)
@@ -16,10 +16,11 @@ class User(db.Model):
     fips_code = db.Column(db.String(6), nullable=False)
     zip_code = db.Column(db.String(5), nullable=False)
 
+
     def __repr__(self):
 
         return f"<User user_id={self.user_id} email={self.email}>"
-
+                                                
 
 class Carrier(db.Model):
     """Types of health insurance carriers"""
@@ -28,11 +29,7 @@ class Carrier(db.Model):
 
     carrier_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(25), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
 
-    #Define relationship to user
-    user = db.relationship("User", 
-                           backref=db.backref("carriers", order_by=carrier_id))
 
     def __repr__(self):
 
@@ -40,22 +37,15 @@ class Carrier(db.Model):
                                 
 
 class Coverage(db.Model):
-    """Benefit's coverage information for in-network and out-of-network"""
+    """Plan's coverage information for in-network and out-of-network"""
 
     __tablename__ = "coverages"
 
     coverage_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    in_network = db.Column(db.String(150), nullable=True)
-    out_of_network = db.Column(db.String(150), nullable=True)
-    carrier_id = db.Column(db.Integer, db.ForeignKey('carriers.carrier_id'), 
-                           index=True)
-    benefits_id = db.Column(db.Integer, db.ForeignKey('benefits_fields.benefits_id'),
-                            index=True)
-
-    #Define relationship to carrier
-
-    #Define relationship to benefit
-
+    in_network = db.Column(db.String(250), nullable=False)
+    out_of_network = db.Column(db.String(250), nullable=True)
+    cost = db.Column(db.Integer, nullable=True)
+    
 
     def __repr__(self):
 
@@ -64,97 +54,95 @@ class Coverage(db.Model):
                     out_of_network={self.out_of_network}>"""
 
 
-class Benefits_Field(db.Model):
+class Service(db.Model):
     """Specific type of service in the Benefits Plan"""
 
-    __tablename__ = "benefits_fields" 
+    __tablename__ = "services" 
 
-    benefits_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    benefits_type = db.Column(db.String(64),nullable=False)   
-
-    def __repr__(self):
-
-        return f"<Benefits_Field benefits_id={self.benefits_id} 
-                                 benefits_type={self.benefits_type}>"
-
-                        
-class User_Cost(db.Model):
-    """User's cost based off their qualifications, selected plan and coverage"""
-
-    __tablename__ = "user_costs"
-
-    cost_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    cost = db.Column(db.Integer, nullable=False)
-    benefits_id = db.Column(db.Integer, db.ForeignKey('benefits_fields.benefits_id'),
-                            index=True)
-
-    #define relationship to benefit
-
+    service_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    service_type = db.Column(db.String(64),nullable=False)   
 
     def __repr__(self):
 
-        return f"<User Cost cost_id={self.cost_id} cost={self.cost}>"
+        return f"<Service service_id={self.service_id} \
+                          service_type={self.service_type}>"
 
 
-class Provider(db.Model):
-    """Providers that accepts the type of Benefit's coverage plan"""
+class Plan(db.Model):
+    """Create relation between Coverage, Service and Carrier"""
 
-    __tablename__ = "providers"
+    __tablename__ = "plans"
 
-    provider_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    location = db.Column(db.String(25), nullable=False)
-    company = db.Column(db.String(25), nullable=True)
-    specialty = db.Column(db.String(30), nullable=True)
-    # coverage_id = db.Column(db.Integer, db.ForeignKey('coverages.coverage_id'),
-    #                                     index=True)
-
-    def __repr__(self):
-
-        return f"<Provider provider_id={self.provider_id} location={self.location}>"                                    
-
-                                                        
-class ProviderCoverage(db.Model):
-    """Connecting the Provider and Coverage tables to set many-to-many relation"""
-
-    __tablename__ = "providercoverages"
-
-    provider_id = db.Column(db.Integer, db.ForeignKey('providers.provider_id'),
-                            index=True)
-    coverage_id = db.Column(db.Integer, db.ForeignKey('coverages.coverage_id'),
-                            index=True)  
-
-    #define relationship to provider?
-
-    #define relationship to coverage?
-
-class Specialty(db.Model):
-    """Specialties that each Provider offers"""
-
-    __tablename__ = "specialties"
-
-    specialty_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column(db.String(25), nullable=True)
-    # provider_id = db.Column(db.Integer, db.ForeignKey('providers.provider_id'),
-    #                                     index=True)
-
-    def __repr__(self):
-
-        return f"<Specialty specialty_id={self.specialty_id} name={self.name}>"
+    plan_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    coverage_id = db.Column(db.Integer, 
+                            db.ForeignKey('coverages.coverage_id'), index=True)
+    service_id = db.Column(db.Integer, 
+                           db.ForeignKey('services.service_id'), index=True)
+    carrier_id = db.Column(db.Integer,
+                           db.ForeignKey('carriers.carrier_id'), index=True)
 
 
-class ProviderSpecialty(db.Model):
-    """Connecting Provider and Specialty tables to set many-to-many relation"""
+    # Define relationship to coverage
+    coverage = db.relationship("Coverage", 
+                               backref=db.backref("plans", order_by=plan_id))
 
-    __tablename__ = "providerspecialties"
+    # Define relationship to service
+    service = db.relationship("Service", 
+                              backref=db.backref("plans", order_by=plan_id))
 
-    provider_id = db.Column(db.Integer, db.ForeignKey('providers.provider_id'),
-                            index=True)
+    # Define relationship to carrier
+    carrier = db.relationship("Carrier",
+                              backref=db.backref("plans", order_by=plan_id))
 
-    specialty_id = db.Column(db.Integer, db.ForeignKey('specialties.specialty_id'),
-                             index=True)  
+# may not need association tables below:
+# class UserCarrier(db.Model):
+#     """Create relation between User and Carrier"""
 
-    #define relationship to provider?
+#     __tablename__ = "usercarriers"
 
-    #define relationship to specialty?
+#     usercarrier_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
+#     carrier_id = db.Column(db.Integer, 
+#                            db.ForeignKey('carriers.carrier_id'), index=True)
+
+#     # Define relationship to user
+#     user = db.relationship("User", backref=db.backref("usercarriers", 
+#                                    order_by=usercarrier_id)) 
+
+#     # Define relationship to carrier
+#     carrier = db.relationship("Carrier", backref=db.backref("usercarriers",
+#                                          order_by=usercarrier_id))       
 
 
+# class User_Cost(db.Model):
+#     """Create relation between User and Plan, includes cost for user per plan"""
+
+#     __tablename__ = "user_costs"
+
+#     user_cost_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     cost = db.Column(db.Integer, nullable=False)
+#     plan_id = db.Column(db.Integer, db.ForeignKey('plans.plan_id'), index=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
+
+                                       
+    # def __repr__(self):
+
+    #     return f"<User Cost cost_id={self.cost_id} cost={self.cost}>"
+
+def connect_to_db(app):
+
+    # Configure to use PostgreSQL database
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///healthcare'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_ECHO'] = True
+    db.app = app
+    db.init_app(app)
+
+
+if __name__ == "__main__":
+    # Work directly with database when running module interactively
+     
+    from server import app
+
+    connect_to_db(app)
+    print("Connected to DB.")
