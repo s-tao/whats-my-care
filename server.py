@@ -68,11 +68,11 @@ def login_process():
 
     if not user:
         flash("User does not exist")
-        return redirect("/login")
+        return redirect('/login')
 
     if user.password != password:
         flash("Incorrect password")
-        return redirect("/login")
+        return redirect('/login')
 
     session["user_id"] = user.user_id
 
@@ -88,10 +88,16 @@ def logout():
 
 
 @app.route('/users/<int:user_id>')
-def user_options():
+def user_options(user_id):
     """Main page allowing user to see plans"""
 
-    return render_template("user_main.html")
+    user = User.query.get(user_id)
+
+    user = {"email": user.email,
+            "market": user.market,
+            "zip code": user.zip_code}
+
+    return render_template("user_main.html", user=user)
 
 
 if __name__ == "__main__":

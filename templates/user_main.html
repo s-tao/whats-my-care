@@ -12,9 +12,23 @@
 {% block content %}
 <div class="container">
   <h1>Welcome!</h1>
-  <h3>Your User Info:</h3>
+  <div class="sub-container">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">Your User Info</th>
+        </tr>
+      </thead>
+      <tbody>        
+       {% for info in user %}
+        <tr>
+          <td>{{ info }}: {{ user[info] }}</td>
+        </tr>
+       {% endfor %}
+       </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-
 {% endblock %}
 
