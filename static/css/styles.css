@@ -5,3 +5,11 @@
 .nav, a{
   color: #ffffff
 }
+
+select{
+  background-color: white;
+  padding: 8px 25px;
+  text-align: center;
+  border: none;
+  width: auto;
+}

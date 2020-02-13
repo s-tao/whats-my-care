@@ -19,16 +19,36 @@ def index():
 
     return render_template("homepage.html")
 
+
 @app.route('/register', methods=['GET']) 
 def register_form():
     """Show form for user to signup"""
-    pass
-    # return render_template("register_form.html")
+
+    return render_template("register_form.html")
+
 
 @app.route('/register', methods=['POST'])
 def register_process():
     """Process registration"""
-    pass
+    
+    email = request.form.get("email")
+    password = request.form.get("password")
+    market = request.form.get("market")
+    zip_code = request.form.get("zipcode")
+
+    user = User.query.filter(User.email == email).first()
+
+    if user:
+        flash("User account already exists.")
+        return redirect('/login')
+
+    new_user = User(email=email, password=password, market=market, zip_code=zip_code)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return redirect(f"/users/{new_user.user_id}")
+
 
 @app.route('/login', methods=['GET'])
 def login_form():
@@ -36,14 +56,15 @@ def login_form():
 
     return render_template("login_form.html")
 
+
 @app.route('/login', methods=['POST'])
 def login_process():
     """Process login"""
     
-    email = request.form["email"]
-    password = request.form["password"]
+    email = request.form.get("email")
+    password = request.form.get("password")
 
-    user = User.query.filter(User.email=="email").first()
+    user = User.query.filter(User.email == email).first()
 
     if not user:
         flash("User does not exist")
@@ -56,14 +77,21 @@ def login_process():
     session["user_id"] = user.user_id
 
     flash("Successfully logged in")
-    return redirect(f"/{user.user_id}")
+    return redirect(f"/users/{user.user_id}")
+
 
 @app.route('/logout')
 def logout():
     """Log out"""
+
     pass
 
 
+@app.route('/users/<int:user_id>')
+def user_options():
+    """Main page allowing user to see plans"""
+
+    return render_template("user_main.html")
 
 
 if __name__ == "__main__":

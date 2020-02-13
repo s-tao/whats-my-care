@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Register
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/static/js/script.js""></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Register here</h1>
+  <form action="/register" id="register-user" method="POST">
+
+    <div class="form-account">
+      <label>Email:
+        <input type="email" name="email" required class="form-control">
+      </label>
+    </div>
+
+    <div class="form-account">
+      <label>Password:
+        <input type="password" name="password" required class="form-control">
+      </label>
+    </div>
+  
+    <div class="form-account">
+      <label>Market:</label>
+      <select name="market" required class="form-control">
+        <option value=""> --Please select an option-- </option>
+        <option value="individual">Individual</option>
+        <option value="small_group">Small Group</option>
+      </select>
+    </div>
+  
+    <div class="form-account">
+      <label>Zip Code:
+        <input type="zipcode" name="zipcode" required class="form-control">
+      </label>
+    </div>
+ 
+    <div class="form-account">
+      <input type="submit" value="Submit">
+    </div>
+
+  </form>
+  <!-- <span class="register-process"></span> -->
+</div>
+
+{% with messages = get_flashed_messages() %}
+  {% for message in messages %}
+    <div class="alert alert-warning">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+
+{% endblock %}
+

@@ -5,12 +5,14 @@
 {% endblock %}
 
 {% block js %}
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/static/js/script.js""></script>
 {% endblock %}
 
 {% block content %}
-<div>
+<div class="container">
   <h1>Login</h1>
-  <form action="/login" method="POST">
+  <form action="/login" id="get-login" method="POST">
 
     <div class="form-account">
       <label>Email:
@@ -29,8 +31,14 @@
     </div>
 
   </form>
+  <!-- <span class="login-process"></span> -->
 </div>
 
+{% with messages = get_flashed_messages() %}
+  {% for message in messages %}
+    <div class="alert alert-warning">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
 
 {% endblock %}
 
