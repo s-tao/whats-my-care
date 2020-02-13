@@ -33,12 +33,30 @@ def register_process():
 @app.route('/login', methods=['GET'])
 def login_form():
     """Show login form"""
-    pass
+
+    return render_template("login_form.html")
 
 @app.route('/login', methods=['POST'])
 def login_process():
     """Process login"""
-    pass
+    
+    email = request.form["email"]
+    password = request.form["password"]
+
+    user = User.query.filter(User.email=="email").first()
+
+    if not user:
+        flash("User does not exist")
+        return redirect("/login")
+
+    if user.password != password:
+        flash("Incorrect password")
+        return redirect("/login")
+
+    session["user_id"] = user.user_id
+
+    flash("Successfully logged in")
+    return redirect(f"/{user.user_id}")
 
 @app.route('/logout')
 def logout():
