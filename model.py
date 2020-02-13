@@ -8,10 +8,10 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)   
+    password = db.Column(db.String(15), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     market = db.Column(db.String(15), nullable=False)
     zip_code = db.Column(db.String(5), nullable=False)
-    cost = db.Column(db.Integer, nullable=True)
 
 
     def __repr__(self):
