@@ -62,7 +62,7 @@ class Plan(db.Model):
                     
 
 class PlanType(db.Model):
-    """Type of Plan"""
+    """Type of Plan""" 
 
     __tablename__ = "plan_types"
 
