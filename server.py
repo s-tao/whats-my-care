@@ -4,6 +4,10 @@ from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Carrier, Plan, PlanType
+import process_plans
+import requests
+import os
+
 
 app = Flask(__name__)
 
@@ -83,7 +87,6 @@ def login_process():
 @app.route('/logout')
 def logout():
     """Log out"""
-
     pass
 
 
@@ -93,11 +96,37 @@ def user_options(user_id):
 
     user = User.query.get(user_id)
 
-    user = {"email": user.email,
-            "market": user.market,
-            "zip code": user.zip_code}
+    user_dict = {"email": user.email,
+                 "market": user.market,
+                 "zip code": user.zip_code}
+    
 
-    return render_template("user_main.html", user=user)
+    return render_template("user_main.html", user=user, user_dict=user_dict)
+
+
+@app.route('/users/<int:user_id>')
+def all_plans(user_id):
+    """Generate all plans after selecting plan type"""
+
+    user = User.query.get(user_id)
+
+    user_dict = {"email": user.email,
+                 "market": user.market,
+                 "zip code": user.zip_code}
+
+    plan_type = request.args.get('choose-plan-type')
+
+    url = 'https://api.vericred.com/zip_counties'
+    payload = {'zip_prefix': user.zip_code,
+               'market': user.market,
+               ''}
+    headers = {'Content-Type': 'application/json',
+               'Vericred-Api-Key': os.environ['YOUR_API_KEY']}
+
+    res = requests.get(url, param=payload, headers=headers)
+    print(res, "\n\n\n\n\n")
+
+    return render_template("user_main.html", user=user, user_dict=user_dict)
 
 
 if __name__ == "__main__":

@@ -20,14 +20,26 @@
         </tr>
       </thead>
       <tbody>        
-       {% for info in user %}
+       {% for info in user_dict %}
         <tr>
-          <td>{{ info }}: {{ user[info] }}</td>
+          <td>{{ info }}: {{ user_dict[info] }}</td>
         </tr>
        {% endfor %}
        </tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="sub-container">
+    <form action="/users/{{ user.user_id }}" id="select-plan-type">
+      <select name="plan-type" required="required">
+        <option value=""> --Please select an option-- </option>
+        <option value="medical">Medical</option>
+        <option value="dental">Dental</option>
+        <option value="vision">Vision</option>
+      </select>
+      <input type="submit" value="Select">
+    </form>
   </div>
 </div>
 {% endblock %}
