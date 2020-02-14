@@ -1,11 +1,11 @@
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Carrier, Plan, PlanType
-import process_plans
-import requests
+from process_plans import find_fips_code, show_medical_plans
+# import requests
 import os
 
 
@@ -90,7 +90,7 @@ def logout():
     pass
 
 
-@app.route('/users/<int:user_id>')
+@app.route('/users/<int:user_id>', methods=['GET'])
 def user_options(user_id):
     """Main page allowing user to see plans"""
 
@@ -104,7 +104,7 @@ def user_options(user_id):
     return render_template("user_main.html", user=user, user_dict=user_dict)
 
 
-@app.route('/users/<int:user_id>')
+@app.route('/users/<int:user_id>', methods=['POST'])
 def all_plans(user_id):
     """Generate all plans after selecting plan type"""
 
@@ -114,19 +114,14 @@ def all_plans(user_id):
                  "market": user.market,
                  "zip code": user.zip_code}
 
-    plan_type = request.args.get('choose-plan-type')
+    # Get request from form in user_main.html
+    plan_type = request.form.get("choose-plan-type")
 
-    url = 'https://api.vericred.com/zip_counties'
-    payload = {'zip_prefix': user.zip_code,
-               'market': user.market,
-               ''}
-    headers = {'Content-Type': 'application/json',
-               'Vericred-Api-Key': os.environ['YOUR_API_KEY']}
+    fips_code = find_fips_code(user)
+    medical_plans = show_medical_plans(user, fips_code)
 
-    res = requests.get(url, param=payload, headers=headers)
-    print(res, "\n\n\n\n\n")
+    return jsonify(medical_plans)
 
-    return render_template("user_main.html", user=user, user_dict=user_dict)
 
 
 if __name__ == "__main__":

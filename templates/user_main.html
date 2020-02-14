@@ -6,7 +6,8 @@
 
 {% block js %}
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="/static/js/script.js""></script>
+<!-- <script src="/static/js/script.js""></script> -->
+
 {% endblock %}
 
 {% block content %}
@@ -25,13 +26,12 @@
           <td>{{ info }}: {{ user_dict[info] }}</td>
         </tr>
        {% endfor %}
-       </tr>
       </tbody>
     </table>
   </div>
 
   <div class="sub-container">
-    <form action="/users/{{ user.user_id }}" id="select-plan-type">
+    <form action="/users/{{ user.user_id }}" method="POST" id="select-plan-type">
       <select name="plan-type" required="required">
         <option value=""> --Please select an option-- </option>
         <option value="medical">Medical</option>
@@ -42,5 +42,10 @@
     </form>
   </div>
 </div>
+
+<button id="favorite" type="button">Add to favorites</button>
+
+<script src="/static/js/script.js"></script>
+
 {% endblock %}
 

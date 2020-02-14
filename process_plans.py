@@ -6,29 +6,37 @@
 # from pprint import pprint
 from model import User
 import os
+import requests
+import json
 # Configure API key authorization: Vericred-Api-Key
 
-"""
-1. Create a function that takes in required parameters to call 
-.RequestPlanFind and then return appropriate data required. Figure out
-pages later.
 
-2.In server.py, post request for medical submission will call function
-to pass in appropriate parameters of user choice. Also insert api call for
-fips code to pass in fips code in .RequestPlanFind. Information that is 
-returned can be jsonify, manipulate html and js to see how information can
-be displayed.
+HEADERS = {'Content-Type': 'application/json',
+           'Vericred-Api-Key': os.environ['YOUR_API_KEY']}
 
-3. in server, filter out all information to top 5 services covered
 
-"""
-
-def process_plan():
+def find_fips_code(user):
     url = 'https://api.vericred.com/zip_counties'
-    payload = {'zip_prefix': user.zip_code,
-               'market': user.market,
-               ''}
-    headers = {'Content-Type': 'application/json',
-               'Vericred-Api-Key': os.environ['YOUR_API_KEY']}
+    payload = {"zip_prefix": user.zip_code}
+    
+    req = requests.get(url, params=payload, headers=HEADERS)
+    req = req.json()
+    
+    counties = req['counties'][0]
 
-    res = requests.get(url, param=payload, headers=headers)
+    fips_code = counties.get('fips_code')
+
+    return fips_code
+    
+
+
+def show_medical_plans(user, fips_code):
+    url = 'https://api.vericred.com/plans'
+
+    payload = {'zip_code': user.zip_code,
+               'fips_code': fips_code, 
+               'market': user.market}
+
+    req = requests.get(url, params=payload, headers=HEADERS)
+
+    return req.json()
