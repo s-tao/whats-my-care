@@ -50,7 +50,7 @@ def register_process():
     new_user = User(email=email, 
                     password=password, 
                     market=market, 
-                    state=state,
+                    # state=state,
                     zip_code=zip_code)
 
     db.session.add(new_user)
@@ -103,7 +103,7 @@ def user_options(user_id):
 
     user_dict = {'email': user.email,
                  'market': user.market,
-                 'state': user.state,
+                #  'state': user.state,
                  'zip code': user.zip_code}
     
 
@@ -120,10 +120,12 @@ def all_plans(user_id):
     plan_type = request.form.get('choose-plan-type')
 
     # Return medical plans based off user's zip code and fips code
-    medical_plans = show_medical_plans(user)
-    # plans = parse_med_plans(medical_plans)
+    # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
+    # medical_plans = show_medical_plans(user)
 
-    return jsonify(medical_plans)
+    plans = parse_med_plans()
+
+    return jsonify(plans)
 
 
 if __name__ == '__main__':
