@@ -1,42 +1,75 @@
 """Processing healthcare plans"""
 
-# import time
-# import vericred_client
-# from vericred_client.rest import ApiException
-# from pprint import pprint
 from model import User
 import os
 import requests
 import json
-# Configure API key authorization: Vericred-Api-Key
 
 
-HEADERS = {'Content-Type': 'application/json',
-           'Vericred-Api-Key': os.environ['YOUR_API_KEY']}
+
+header = {'Accept': 'application/json',
+          'apikey': os.environ['YOUR_API_KEY']}
+          
 
 
 def find_fips_code(user):
-    url = 'https://api.vericred.com/zip_counties'
-    payload = {"zip_prefix": user.zip_code}
+    """Use user zip code to return county fips code"""
     
-    req = requests.get(url, params=payload, headers=HEADERS)
-    req = req.json()
+    url = f'https://marketplace.api.healthcare.gov/api/v1/counties/by/zip/{user.zip_code}'
     
-    counties = req['counties'][0]
+    req = requests.get(url, headers=header)
+    print(req.url, "url")
 
-    fips_code = counties.get('fips_code')
+    req = req.json()
+    print(req)
+
+    counties = req['counties'][0]
+    fips_code = counties.get('fips')
+    
+    print(fips_code, "fips code \n\n\n")
 
     return fips_code
     
 
+def show_medical_plans(user):
+    """Use user input to return all qualified medical plans"""
 
-def show_medical_plans(user, fips_code):
-    url = 'https://api.vericred.com/plans'
+    countyfips = find_fips_code(user)
+    # headers = {'apikey': os.environ['YOUR_API_KEY'],
+    #            'Accept': 'application/json'}
 
-    payload = {'zip_code': user.zip_code,
-               'fips_code': fips_code, 
-               'market': user.market}
+    url = 'https://marketplace.api.healthcare.gov/api/v1/plans/search'
+    
+    data = {"market": user.market,
+            "place": {
+                "countyfips": countyfips,
+                "state": user.state,
+                "zipcode": user.zip_code
+                }
+           }
 
-    req = requests.get(url, params=payload, headers=HEADERS)
-
+    req = requests.post(url, json=json.dumps(data), headers=header)
+    print(req.url)
+    print(req, "\n\n\n")
+    # return req
+    # headers = {'Accept': 'application/json'}
+   
     return req.json()
+
+
+# def parse_med_plans(medical_plans):
+#     """Reduce all data in plans to most commonly requested services"""
+
+#     # need carrier_name
+#     # need display_name
+#     # need id 
+
+#     condensed_data = {}
+
+#     for data in medical_plans['plans']:
+#         condensed_data['ambulance'] = data.get('ambulance')
+#         condensed_data['carrier_name'] = data.get('carrier_name')
+        
+#         return data
+
+

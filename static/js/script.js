@@ -26,3 +26,11 @@
 //   evt.preventDefault();
 
 
+// $('#favorite').on('click', () => {
+
+//   fetch('/test/1')
+//     .then((resp) => resp.json()) // Transform the data into json
+//     .then(function(data) {
+//     alert(JSON.stringify(data))
+//     });
+//   });
