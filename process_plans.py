@@ -40,26 +40,26 @@ def show_medical_plans(user):
 
     url = 'https://marketplace.api.healthcare.gov/api/v1/plans/search'
     
+    # Display # of insurance plans (every 10)
+    offset = 0
+
     data = {"market": user.market,
+            "offset": offset,
             "place": {
                 "countyfips": countyfips,
                 "state": user.state,
                 "zipcode": user.zip_code
                 }
            }
+    
+    req = requests.post(url, data=json.dumps(data), headers=header)
 
-    req = requests.post(url, json=json.dumps(data), headers=header)
-    print(req.url)
-    print(req, "\n\n\n")
-    # return req
-    # headers = {'Accept': 'application/json'}
-   
     return req.json()
 
 
-# def parse_med_plans(medical_plans):
+def parse_med_plans(medical_plans):
 #     """Reduce all data in plans to most commonly requested services"""
-
+    pass
 #     # need carrier_name
 #     # need display_name
 #     # need id 
