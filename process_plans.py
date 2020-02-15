@@ -48,29 +48,34 @@ def parse_med_plans():
     """Reduce all data in plans to most commonly requested services"""
     medical_plans = all_plans()
 
+    all_revised_plans = []
 
-    # need carrier_name
-    # need display_name
-    # need id 
-
-    condensed_data = {}
-
+    # loop through to add items to specific plan nested dict.
     for data in medical_plans['plans']:
-        # condensed_data['ambulance'] = data.get('ambulance')
-        condensed_data['id'] = data.get('id')
-        condensed_data['carrier_name'] = data.get('carrier_name')
-        condensed_data['display_name'] = data.get('display_name')
-        condensed_data['plan_type'] = data.get('plan_type')
-        condensed_data['primary_care_physician'] = data.get('primary_care_physician')
-        condensed_data['specialist'] = data.get('specialist')
-        condensed_data['emergency_room'] = data.get('emergency_room')
-        condensed_data['generic_drugs'] = data.get('generic_drugs')
-        condensed_data['inpatient_facility'] = data.get('inpatient_facility')
-        condensed_data['urgent_care'] = data.get('urgent_care')
-        condensed_data['individual_medical_deductible'] = data.get('individual_medical_deductible')
-        condensed_data['individual_medical_moop'] = data.get('individual_medical_moop')
 
+        individual_plan = {}
+        
+        # specific plan information
+        individual_plan['id'] = data.get('id')
+        individual_plan['carrier_name'] = data.get('carrier_name')
+        individual_plan['display_name'] = data.get('display_name')
+        individual_plan['plan_type'] = data.get('plan_type')
+        
+        # common services
+        individual_plan['primary_care_physician'] = data.get('primary_care_physician')
+        individual_plan['specialist'] = data.get('specialist')
+        individual_plan['emergency_room'] = data.get('emergency_room')
+        individual_plan['generic_drugs'] = data.get('generic_drugs')
+        # individual_plan['inpatient_facility'] = data.get('inpatient_facility')
+        individual_plan['urgent_care'] = data.get('urgent_care')
+        
+
+        # overall deductible costs
+        individual_plan['individual_medical_deductible'] = data.get('individual_medical_deductible')
+        individual_plan['individual_medical_moop'] = data.get('individual_medical_moop')
+
+        all_revised_plans.append(individual_plan)
     
-    return condensed_data
+    return all_revised_plans
 
 
