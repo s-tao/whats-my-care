@@ -2,27 +2,38 @@
 
 // function to display specific plan information
 function individualMedPlan(res) {
+  $('#plan-id-hdr').text('Plan ID');
+  $('#carrier-name-hdr').text('Carrier');
+  
 
   $('#display-name').html(res[num].display_name);
   $('#plan-id').html(res[num].id);
-  $('#carrier-name').html(res[num].carrier_name);
+  $('#carrier-name').html(res[num].user_options);
+  
 };
 
 // function to get flask response to display individualPlan 
 function showMedPlans(evt){
   evt.preventDefault();
 
+  let rowPlanType = "";
   // import user id instead of hard coding url
 
   // let url = `/users/${res[0].user_id}/show_plans`
+  $('#display-plans').show();
+  // $('#type-form').hide();
+
   $.get('/users/1/show_plans', individualMedPlan);
 };
 
-// event listener activates when user submits
-$('#form-plan-group').on('submit', showMedPlans);
+// table hidden until event listener activates when user submits
+$('#display-plans').hide();
+$('#type-form').on('submit', showMedPlans);
 
 // create function to obtain user_id
-// function getUserID()
+// function getUserID() {
+//   $.get()
+// }
 
 
   let num = 0;
@@ -30,7 +41,7 @@ $('#form-plan-group').on('submit', showMedPlans);
 
 
 
-
+// same action w.o functions
 //   $.get('/users/1/show_plans', (res) => {
 
 //     $('#display-name').html(res[num].display_name);
@@ -68,15 +79,3 @@ $('#form-plan-group').on('submit', showMedPlans);
 // // });
 
 
-// $('#select-plan-type').on('submit', (evt) => {
-//   evt.preventDefault();
-
-
-// $('#favorite').on('click', () => {
-
-//   fetch('/test/1')
-//     .then((resp) => resp.json()) // Transform the data into json
-//     .then(function(data) {
-//     alert(JSON.stringify(data))
-//     });
-//   });

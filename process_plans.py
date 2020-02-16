@@ -44,14 +44,15 @@ def show_medical_plans(user):
     return req.json() 
 
 
-def parse_med_plans(user):
+def parse_med_plans(user, plan_type):
     """Reduce all data in plans to most commonly requested services"""
     medical_plans = all_plans()
 
     all_revised_plans = []
 
     user_info = {'user_id': user.user_id,
-                 'user_zipcode': user.zip_code}
+                 'user_zipcode': user.zip_code,
+                 'user_options': plan_type}
     
     all_revised_plans.append(user_info)
 

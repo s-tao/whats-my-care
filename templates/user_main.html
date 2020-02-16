@@ -23,7 +23,8 @@
       <tbody>        
        {% for info in user_dict %}
         <tr>
-          <td>{{ info.capitalize() }}: {{ user_dict[info] }}</td>
+          <td>{{ info.capitalize() }}</td>
+          <td>{{ user_dict[info] }}</td>
         </tr>
        {% endfor %}
       </tbody>
@@ -31,10 +32,9 @@
   </div>
 
   <div class="sub-container">
-    <form action="/users/{{ user.user_id }}/show_plans" method="GET" id="form-plan-group">
+    <form action="/users/{{ user.user_id }}/show_plans" method="GET" id="type-form">
       <label>Plan Type</label>
-      <br>
-      <select id="plan-type-field" name="option" required="required">
+      <select name="plan-option" required="required">
         <option value=""> --Please select an option-- </option>
         <option value="medical">Medical</option>
         <option value="dental">Dental</option>
@@ -50,7 +50,8 @@
 
 <div class="container" id="display-plans">
   <div class="sub-container" id="indiv-plan">
-    <label>ALL MEDICAL PLANS</label>
+    <!-- v2.0 adjust "medical" to user selection -->
+    <label>ALL <span id="plan-type">MEDICAL</span> PLANS</label>
 
     <table class="table table-hover table-sm">
       <thead>
@@ -73,7 +74,6 @@
     </table>
 
 
-<script src="/static/js/script.js"></script>
 
 {% endblock %}
 

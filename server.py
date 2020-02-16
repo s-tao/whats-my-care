@@ -38,7 +38,7 @@ def register_process():
     email = request.form.get('email')
     password = request.form.get('password')
     market = request.form.get('market')
-    state = request.form.get('state')
+    # state = request.form.get('state')
     zip_code = request.form.get('zipcode')
 
     user = User.query.filter(User.email == email).first()
@@ -117,14 +117,16 @@ def all_plans(user_id):
     user = User.query.get(user_id)
 
     # Get request from form in user_main.html
-    plan_type = request.args.get('form-plan-group')
+    plan_type = request.args.get('plan-option')
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
     # medical_plans = show_medical_plans(user)
 
-    plans = parse_med_plans(user)
-
+    # if plan_type == "medical":
+        
+    plans = parse_med_plans(user, plan_type)
+    print(plan_type, "\n\n\n")
     return jsonify(plans)
 
 
