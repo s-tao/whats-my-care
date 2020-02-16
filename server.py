@@ -110,14 +110,14 @@ def user_options(user_id):
     return render_template('user_main.html', user=user, user_dict=user_dict)
 
 
-@app.route('/users/<int:user_id>', methods=['POST'])
+@app.route('/users/<int:user_id>/show_plans', methods=['GET'])
 def all_plans(user_id):
     """Generate all plans after selecting plan type"""
 
     user = User.query.get(user_id)
 
     # Get request from form in user_main.html
-    plan_type = request.form.get('choose-plan-type')
+    plan_type = request.args.get('choose-plan-type')
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING

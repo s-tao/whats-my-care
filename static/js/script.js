@@ -1,5 +1,17 @@
-// "use strict";
+"use strict";
 
+$('#form-plan-group').on('submit', (evt) => {
+  evt.preventDefault();
+  
+  const formData ={
+    option: $('#plan-type-field').val()
+  };
+
+  $.get('/users/{{ user.user_id }}/show_plans', formData, (res) => {
+    alert("hi");
+  });
+ 
+});
 
 // // $( "#get-login" ).submit(function( evt ) {
 // //   if ( $( "email" ).first().val() != { email } ) {
