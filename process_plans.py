@@ -49,8 +49,13 @@ def parse_med_plans(user):
     medical_plans = all_plans()
 
     all_revised_plans = []
+
+    user_info = {'user_id': user.user_id,
+                 'user_zipcode': user.zip_code}
     
-    all_revised_plans['user_id'] = user.user_id
+    all_revised_plans.append(user_info)
+
+
     # loop through to add items to specific plan nested dict.
     for data in medical_plans['plans']:
 

@@ -1,21 +1,52 @@
 "use strict";
 
+// function to display specific plan information
+function individualMedPlan(res) {
 
+  $('#display-name').html(res[num].display_name);
+  $('#plan-id').html(res[num].id);
+  $('#carrier-name').html(res[num].carrier_name);
+};
 
-$('#form-plan-group').on('submit', (evt) => {
+// function to get flask response to display individualPlan 
+function showMedPlans(evt){
   evt.preventDefault();
+
+  // import user id instead of hard coding url
+
+  // let url = `/users/${res[0].user_id}/show_plans`
+  $.get('/users/1/show_plans', individualMedPlan);
+};
+
+// event listener activates when user submits
+$('#form-plan-group').on('submit', showMedPlans);
+
+// create function to obtain user_id
+// function getUserID()
+
+
+  let num = 0;
+  num ++
+
+
+
+
+//   $.get('/users/1/show_plans', (res) => {
+
+//     $('#display-name').html(res[num].display_name);
+//     $('#plan-id').html(res[num].id);
+//     $('#carrier-name').html(res[num].carrier_name);
+//   });
+// };
+
+// $('#form-plan-group').on('submit', individualPlan, (evt) => {
+//   evt.preventDefault();
   
-  // find a way to transfer over user_id to obtain url 
-  $.get(`/users/${user_id}/show_plans`, (res) => {
-    $('#display-name').html(res.display_name);
-    $('#plan-id').html(res.id);
-    $('#carrier-name').html(res.carrier_name);
-  });
-});
 
 
 
 
+// LOGIN & REGISTER
 // // $( "#get-login" ).submit(function( evt ) {
 // //   if ( $( "email" ).first().val() != { email } ) {
 // //     $( ".login-process" ).text( "Incorrect Login" ).show().fadeOut( 1000 );

@@ -45,26 +45,33 @@
   </div>
 </div>
 
+
+    <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->    
+
 <div class="container" id="display-plans">
   <div class="sub-container" id="indiv-plan">
-    <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->
     <label>ALL MEDICAL PLANS</label>
-    <table>
+
+    <table class="table table-hover table-sm">
       <thead>
-        <tr id="display-name"></tr>
+        <tr>
+          <th scope="col" id="display-name"></th>
+        </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Plan Id:</td>
+          <th scope="row" id="plan-id-hdr"></th>
           <td id="plan-id"></td>
-        </tr> 
+      
+        </tr>
         <tr>
-          <td>Carrier:</td>
+          <th scope="row" id="carrier-name-hdr"></th>
           <td id="carrier-name"></td>
         </tr>
+        
       </tbody>
-  </div>
-</div>
+    </table>
+
 
 <script src="/static/js/script.js"></script>
 
