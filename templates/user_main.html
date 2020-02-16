@@ -32,7 +32,7 @@
 
   <div class="sub-container">
     <form action="/users/{{ user.user_id }}/show_plans" method="GET" id="form-plan-group">
-      <label id="plan-type-field">Plan Type</label>
+      <label>Plan Type</label>
       <br>
       <select id="plan-type-field" name="option" required="required">
         <option value=""> --Please select an option-- </option>
@@ -40,14 +40,29 @@
         <option value="dental">Dental</option>
         <option value="vision">Vision</option>
       </select>
-      <input type="submit" value="Select">
+      <input type="submit" value="Select" id="submit-btn">
     </form>
   </div>
 </div>
 
-<div class="container">
-  <div>
-    <span id="med-info"></span>
+<div class="container" id="display-plans">
+  <div class="sub-container" id="indiv-plan">
+    <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->
+    <label>ALL MEDICAL PLANS</label>
+    <table>
+      <thead>
+        <tr id="display-name"></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Plan Id:</td>
+          <td id="plan-id"></td>
+        </tr> 
+        <tr>
+          <td>Carrier:</td>
+          <td id="carrier-name"></td>
+        </tr>
+      </tbody>
   </div>
 </div>
 

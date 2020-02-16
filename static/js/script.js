@@ -1,17 +1,20 @@
 "use strict";
 
+
+
 $('#form-plan-group').on('submit', (evt) => {
   evt.preventDefault();
   
-  const formData ={
-    option: $('#plan-type-field').val()
-  };
-
-  $.get('/users/{{ user.user_id }}/show_plans', formData, (res) => {
-    alert("hi");
+  // find a way to transfer over user_id to obtain url 
+  $.get(`/users/${user_id}/show_plans`, (res) => {
+    $('#display-name').html(res.display_name);
+    $('#plan-id').html(res.id);
+    $('#carrier-name').html(res.carrier_name);
   });
- 
 });
+
+
+
 
 // // $( "#get-login" ).submit(function( evt ) {
 // //   if ( $( "email" ).first().val() != { email } ) {

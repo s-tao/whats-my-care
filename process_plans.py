@@ -44,12 +44,13 @@ def show_medical_plans(user):
     return req.json() 
 
 
-def parse_med_plans():
+def parse_med_plans(user):
     """Reduce all data in plans to most commonly requested services"""
     medical_plans = all_plans()
 
     all_revised_plans = []
-
+    
+    all_revised_plans['user_id'] = user.user_id
     # loop through to add items to specific plan nested dict.
     for data in medical_plans['plans']:
 

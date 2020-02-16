@@ -95,7 +95,7 @@ def logout():
     pass
 
 
-@app.route('/users/<int:user_id>', methods=['GET'])
+@app.route('/users/<int:user_id>')
 def user_options(user_id):
     """Main page allowing user to see plans"""
 
@@ -117,13 +117,13 @@ def all_plans(user_id):
     user = User.query.get(user_id)
 
     # Get request from form in user_main.html
-    plan_type = request.args.get('choose-plan-type')
+    plan_type = request.args.get('form-plan-group')
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
     # medical_plans = show_medical_plans(user)
 
-    plans = parse_med_plans()
+    plans = parse_med_plans(user)
 
     return jsonify(plans)
 
