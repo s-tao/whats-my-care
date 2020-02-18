@@ -86,16 +86,19 @@ def login_process():
     session['user_id'] = user.user_id
 
     flash('Successfully logged in')
-    return redirect(f'/users/{user.user_id}')
+    return redirect(f'/user-{user.user_id}/select_type')
 
 
 @app.route('/logout')
 def logout():
     """Log out"""
-    pass
+    
+    del session['user_id']
+    flash('Successfully logged out')
+    return redirect('/')
 
 
-@app.route('/users/<int:user_id>')
+@app.route('/user-<int:user_id>/select_type')
 def user_options(user_id):
     """Main page allowing user to see plans"""
 
@@ -110,7 +113,7 @@ def user_options(user_id):
     return render_template('user_main.html', user=user, user_dict=user_dict)
 
 
-@app.route('/users/<int:user_id>/show_plans', methods=['GET'])
+@app.route('/user-<int:user_id>/show_plans', methods=['GET'])
 def all_plans(user_id):
     """Generate all plans after selecting plan type"""
 
@@ -130,13 +133,21 @@ def all_plans(user_id):
     return jsonify(plans)
 
 
+@app.route('/user-<int:user_id>/saved_plans')
+def user_plans(user_id):
+    
+    user = User.query.get(user_id)
+    
+    return render_template('user_plans.html')
+
+
 if __name__ == '__main__':
 
     app.debug = True
 
     connect_to_db(app)
 
-    #     DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     app.run(host='0.0.0.0')

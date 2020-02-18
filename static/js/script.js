@@ -1,12 +1,11 @@
 "use strict";
 
 
-
 // function to display specific plan information
 function individualMedPlan(medicalPlans) {
   
   // create variable to get html table id
-  const displayPlanDiv = $('#display-plans-div')
+  const displayPlanDiv = $('#display-plans-div');
   // console.log('indivPlan', indivPlanDiv)
 
   // create variable to add all plans in list
@@ -15,7 +14,7 @@ function individualMedPlan(medicalPlans) {
   // loop through all plans
   for(let i = 1; i < medicalPlans.length; i++) {
     // create variable for each individual plan
-    const planDetails = medicalPlans[i]
+    const planDetails = medicalPlans[i];
     // console.log('planDetails', planDetails)
 
     // information needed per table
@@ -29,53 +28,53 @@ function individualMedPlan(medicalPlans) {
         </thead> \
         <tbody> \
           <tr> \
-            <th scope="row" id="plan-id-hdr">Plan ID</th> \
-            <td id="plan-id">${planDetails.id}</td> \
+            <th scope="row" class="plan-id-hdr">Plan ID</th> \
+            <td class="plan-detail">${planDetails.id}</td> \
           </tr> \
           <tr> \
-            <th scope="row" id="carrier-hdr">Carrier</th> \
-            <td id="plan-id">${planDetails.carrier_name}</td> \
+            <th scope="row" class="carrier-hdr">Carrier</th> \
+            <td class="plan-detail">${planDetails.carrier_name}</td> \
           </tr> \
           <tr> \
-            <th scope="row" id="type-hdr">Plan Type</th> \
-            <td id="plan-id">${planDetails.plan_type}</td> \
+            <th scope="row" class="type-hdr">Plan Type</th> \
+            <td class="plan-detail">${planDetails.plan_type}</td> \
           </tr> \
           <tr> \
-            <th scope="row" id="pcp-hdr">Primary Care Physician</th> \
-            <td id="plan-id">${planDetails.primary_care_physician}</td> \
+            <th scope="row" class="pcp-hdr">Primary Care Physician</th> \
+            <td class="plan-detail">${planDetails.primary_care_physician}</td> \
           </tr> \
           <tr> \
-            <th scope="row" id="specialist-hdr">Specialist</th> \
-            <td id="plan-id">${planDetails.specialist}</td> \
+            <th scope="row" class="specialist-hdr">Specialist</th> \
+            <td class="plan-detail">${planDetails.specialist}</td> \
           </tr> \
           <tr> \
-            <th scope="row" id="er-hdr">Emergency Room</th> \
-            <td id="plan-id">${planDetails.emergency_room}</td> \
+            <th scope="row" class="er-hdr">Emergency Room</th> \
+            <td class="plan-detail">${planDetails.emergency_room}</td> \
           </tr> \
           <tr> \
-            <th scope="row" id="gen-drug-hdr">Generic Drug</th> \
-            <td id="plan-id">${planDetails.generic_drugs}</td> \
+            <th scope="row" class="gen-drug-hdr">Generic Drug</th> \
+            <td class="plan-detail">${planDetails.generic_drugs}</td> \
           </tr> \
           <tr> \
-            <th scope="row" id="urg-care-hdr">Urgent Care</th> \
-            <td id="plan-id">${planDetails.urgent_care}</td> \
+            <th scope="row" class="urg-care-hdr">Urgent Care</th> \
+            <td class="plan-detail">${planDetails.urgent_care}</td> \
           </tr> \
           <tr> \
-            <th scope="row" id="indiv-deduc-hdr">Individual Deductible</th> \
-            <td id="plan-id">${planDetails.individual_medical_deductible}</td> \
+            <th scope="row" class="indiv-deduc-hdr">Individual Deductible</th> \
+            <td class="plan-detail">${planDetails.individual_medical_deductible}</td> \
           </tr> \
           <tr> \
-            <th scope="row" id="indiv-med-moop-hdr">Individual Max Out-of-Pocket</th> \
-            <td id="plan-id">${planDetails.individual_medical_moop}</td> \
+            <th scope="row" class="indiv-med-moop-hdr">Individual Max Out-of-Pocket</th> \
+            <td class="plan-detail">${planDetails.individual_medical_moop}</td> \
           </tr> \
         </tbody> \
       </table> \
     </div> \
-    `)
+    `);
 
-    allTablePlans.push(tablePlan)
+    allTablePlans.push(tablePlan);
   };
-  displayPlanDiv.html(allTablePlans)
+  displayPlanDiv.html(allTablePlans);
 };
 
 
@@ -85,17 +84,18 @@ $('#display-plans-div').hide();
 // event listener to show tables and get data from server
 $('#type-form').on('submit', individualMedPlan, (evt) => {
   evt.preventDefault();
+  
+  // let userId = $("div[id^='user-id-']").val();
+  let url = $(location).attr('href');
+  console.log(url, "url");
 
   // if (evt === "medical") {
-    $('#display-plans-div').show();
-    $.get('/users/1/show_plans', individualMedPlan);
+  $('#display-plans-div').show();
+  $.get('/user-1/show_plans', individualMedPlan);
 
 });
 
-// create function to obtain user_id
-// function getUserID() {
-//   $.get()
-// }
+
 
 
 
