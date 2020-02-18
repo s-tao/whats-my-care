@@ -1,26 +1,27 @@
 "use strict";
 
+let url = $(location).attr('href');
+const allTablePlans = [] 
+let i = 1
+// let clicked = false;
+
+// if (clicked) {
+//   i += 3
+//   console.log("clicked")
+// }
 
 // function to display specific plan information
 function individualMedPlan(medicalPlans) {
   
-  // create variable to get html table id
   const displayPlanDiv = $('#display-plans-div');
-  // console.log('indivPlan', indivPlanDiv)
 
-  // create variable to add all plans in list
-  const allTablePlans = [] 
+  for (i in medicalPlans.slice(i, i+2)) {
+  console.log(i,"i")
+  const planDetails = medicalPlans[i];
 
-  // loop through all plans
-  for(let i = 1; i < medicalPlans.length; i++) {
-    // create variable for each individual plan
-    const planDetails = medicalPlans[i];
-    // console.log('planDetails', planDetails)
-
-    // information needed per table
-    const tablePlan = $(`\
+  const tablePlan = $(`\
     <div class="sub-container indiv-plan"> \
-      <table class="table table-hover table-sm"> \
+      <table class="table table-hover table-sm" id="${planDetails.id}"> \
         <thead> \
           <tr> \
             <th scope="col" id="display-name">${planDetails.display_name}</th> \
@@ -71,7 +72,7 @@ function individualMedPlan(medicalPlans) {
       </table> \
     </div> \
     `);
-
+  
     allTablePlans.push(tablePlan);
   };
   displayPlanDiv.html(allTablePlans);
@@ -84,26 +85,41 @@ $('#display-plans-div').hide();
 // event listener to show tables and get data from server
 $('#type-form').on('submit', individualMedPlan, (evt) => {
   evt.preventDefault();
-  $('#display-plans-div').show();
 
   // let userId = $("div[id^='user-id-']").val();
-  let url = $(location).attr('href');
   // console.log(url, "url");
 
-  const planOption = $('#test');
-  console.log(planOption, "plan option")
 
-  // if (evt === "medical") {
+  $.post(url, individualMedPlan); 
 
-  // currently url hardcoded, fix url to change when form submitted
-  $.post(url, individualMedPlan);
+  $('#display-plans-div').show();
+  $('#more-plans').show();
 
+  
 });
 
 
 
+  $('#more-plans').on('click', individualMedPlan, (evt) => {
+    console.log(individualMedPlan);
+
+    // let clicked = true;
+    $.post(url, individualMedPlan); 
+
+
+  });
 
 
 
+// $('table.table').on('click', (evt) => {
+//   alert('this works');
+//   // const divColor = $(evt.target);
+//   // console.log("this work")
+
+//   // const selectedDiv = divColor.attr('id');
+//   // console.log("this work")
+
+//   // $('div').css('background-color', 'yellow');
+// });
 
 

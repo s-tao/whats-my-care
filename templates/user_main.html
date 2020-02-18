@@ -27,10 +27,10 @@
     </table>
   </div>
 
-  <div class="sub-container">
+  <div class="sub-container plan-form">
     <form action="/user-{{ user.user_id }}/show_plans" id="type-form" method="POST">
       <label>Plan Type</label>
-      <select name="plan-option" required="required" id="test">
+      <select name="plan-option" required="required">
         <option value=""> --Please select an option-- </option>
         <option value="medical">Medical</option>
         <option value="dental">Dental</option>
@@ -45,30 +45,14 @@
     <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->    
 
 <div class="container" id="display-plans-div">
-    <!-- v2.0 adjust "medical" to user selection -->
-    <!-- <label>ALL <span id="plan-type">MEDICAL</span> PLANS</label> -->
-<!-- 
-    <table class="table table-hover table-sm">
-      <thead>
-        <tr>
-          <th scope="col" id="display-name"></th>
-        </tr>
-      </thead>
-      <tbody id="table-plan-body">
-       <tr>
-          <th scope="row" id="plan-id-hdr"></th>
-          <td id="plan-id"></td>
-      
-        </tr>
-        <tr>
-          <th scope="row" id="carrier-name-hdr"></th>
-          <td id="carrier-name"></td>
-        </tr> 
-        
-      </tbody>
-    </table> -->
+  <form action="/user-{{ user.user_id }}/saved_plans" id="save-plans">
+    <input type="submit" value="Save Plans">
+  </form>
 </div>
 
+<div class="container">
+  <button id="more-plans" name="more-plans">View More</button>
+</div>
 
 {% endblock %}
 
