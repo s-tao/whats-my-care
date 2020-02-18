@@ -86,7 +86,7 @@ def login_process():
     session['user_id'] = user.user_id
 
     flash('Successfully logged in')
-    return redirect(f'/user-{user.user_id}/select_type')
+    return redirect(f'/user-{user.user_id}/show_plans')
 
 
 @app.route('/logout')
@@ -98,7 +98,7 @@ def logout():
     return redirect('/')
 
 
-@app.route('/user-<int:user_id>/select_type')
+@app.route('/user-<int:user_id>/show_plans', methods=['GET'])
 def user_options(user_id):
     """Main page allowing user to see plans"""
 
@@ -113,14 +113,14 @@ def user_options(user_id):
     return render_template('user_main.html', user=user, user_dict=user_dict)
 
 
-@app.route('/user-<int:user_id>/show_plans', methods=['GET'])
+@app.route('/user-<int:user_id>/show_plans', methods=['POST'])
 def all_plans(user_id):
     """Generate all plans after selecting plan type"""
 
     user = User.query.get(user_id)
 
     # Get request from form in user_main.html
-    plan_type = request.args.get('plan-option')
+    plan_type = request.form.get('plan-option')
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
@@ -128,7 +128,7 @@ def all_plans(user_id):
 
     # if plan_type == "medical":
         
-    plans = parse_med_plans(user, plan_type)
+    plans = parse_med_plans()
     print(plan_type, "\n\n\n")
     return jsonify(plans)
 

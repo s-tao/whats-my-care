@@ -84,14 +84,19 @@ $('#display-plans-div').hide();
 // event listener to show tables and get data from server
 $('#type-form').on('submit', individualMedPlan, (evt) => {
   evt.preventDefault();
-  
+  $('#display-plans-div').show();
+
   // let userId = $("div[id^='user-id-']").val();
   let url = $(location).attr('href');
-  console.log(url, "url");
+  // console.log(url, "url");
+
+  const planOption = $('#test');
+  console.log(planOption, "plan option")
 
   // if (evt === "medical") {
-  $('#display-plans-div').show();
-  $.get('/user-1/show_plans', individualMedPlan);
+
+  // currently url hardcoded, fix url to change when form submitted
+  $.post(url, individualMedPlan);
 
 });
 
