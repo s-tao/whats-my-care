@@ -3,12 +3,6 @@
 let url = $(location).attr('href');
 const allTablePlans = [] 
 let i = 1
-// let clicked = false;
-
-// if (clicked) {
-//   i += 3
-//   console.log("clicked")
-// }
 
 // function to display specific plan information
 function individualMedPlan(medicalPlans) {
@@ -76,40 +70,51 @@ function individualMedPlan(medicalPlans) {
     allTablePlans.push(tablePlan);
   };
   displayPlanDiv.html(allTablePlans);
+
+  // display shows once function runs to generate tables
+  $('#display-plans-div').show();
+
+  // click button shows
+  $('#click-more-plans').show();
 };
 
 
+
+// find better way to replace tables w/o browser pushing up
 // tables hidden until event listener activates when user submits
 $('#display-plans-div').hide();
-
+$('#click-more-plans').hide();
 // event listener to show tables and get data from server
 $('#type-form').on('submit', individualMedPlan, (evt) => {
-  evt.preventDefault();
+  // evt.currentTarget.submit().preventDefault();
 
+  evt.preventDefault();
+  // $('#plan-type').text(JSON.stringify($('#type-form').serialize()));
+
+  // evt.stopPropagation();
   // let userId = $("div[id^='user-id-']").val();
   // console.log(url, "url");
-
-
   $.post(url, individualMedPlan); 
 
-  $('#display-plans-div').show();
-  $('#more-plans').show();
-
-  
 });
 
 
+// click event to generate button allowing users to see more plans
+$('#click-more-plans').on('click', individualMedPlan, (evt) => {
+  console.log(individualMedPlan);
+  // supposed to hide old plans, generate new plans when function runs
+  $('#display-plans-div').hide();
 
-  $('#more-plans').on('click', individualMedPlan, (evt) => {
-    console.log(individualMedPlan);
+  let i = 3;
+  $.post(url, individualMedPlan); 
 
-    // let clicked = true;
-    $.post(url, individualMedPlan); 
+});
 
-
-  });
-
-
+// potential form submittal for users to submit plan based off click
+// in the works
+$('table').on('click', () => {
+  alert("this works");
+});
 
 // $('table.table').on('click', (evt) => {
 //   alert('this works');
