@@ -1,6 +1,7 @@
 "use strict";
 
 let url = $(location).attr('href');
+
 // set counter for slicing in for loop
 let i = 1
 
@@ -24,25 +25,21 @@ const showPreviousButton = () => {
 function individualMedPlan(medicalPlans) {
   const allTablePlans = [] 
 
+  // figure out how to hide button when there are no more plans
+  // currently only hiding once plans are gone
   if (i > medicalPlans.length) {
     hideMoreButton.call();
     console.log(i, "no more plans to show");
     console.log(medicalPlans.length, "length");
   };
 
-  console.log(allTablePlans, "allTables");
-  // let i = 1
-
-  console.log(i,"i after post click")
-  
   const displayPlanDiv = $('#display-plans-div');
   
   // slice to only display a few plans 
   const sliceCounter = medicalPlans.slice(i, i += 80);
 
   for (let data in sliceCounter) {
-    console.log(i, "i")
-  
+    
     const planDetails = sliceCounter[data];
 
     const tablePlan = $(`\
@@ -106,8 +103,6 @@ function individualMedPlan(medicalPlans) {
   // display shows once function runs to generate tables
   $('#display-plans-div').show();
 
-  // click button shows
-  showMoreButton.call();
 };
 
 
@@ -126,17 +121,18 @@ $('#type-form').on('submit', individualMedPlan, (evt) => {
 
   // send return value from front-end to server
   $.post(url, formInput, individualMedPlan); 
-
+  // click button shows
+  showMoreButton.call();
 });
 
 
 // click event to generate button allowing users to see more plans
 $('#click-more-plans').on('click', individualMedPlan, (evt) => {
-  console.log(individualMedPlan);
   // supposed to hide old plans, generate new plans when function runs
   $('#display-plans-div').hide();
 
-   i += 3;
+    // counter show next 5 tables every click
+    i += 5;
    
   $.post(url, individualMedPlan); 
 });
