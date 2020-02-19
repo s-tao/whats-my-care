@@ -6,7 +6,8 @@ let i = 1
 
 // function to display specific plan information
 function individualMedPlan(medicalPlans) {
-  
+  console.log(i,"i after post click")
+
   const displayPlanDiv = $('#display-plans-div');
 
   for (i in medicalPlans.slice(i, i+2)) {
@@ -83,18 +84,18 @@ function individualMedPlan(medicalPlans) {
 // find better way to replace tables w/o browser pushing up
 // tables hidden until event listener activates when user submits
 $('#display-plans-div').hide();
-$('#click-more-plans').hide();
+
 // event listener to show tables and get data from server
 $('#type-form').on('submit', individualMedPlan, (evt) => {
-  // evt.currentTarget.submit().preventDefault();
-
   evt.preventDefault();
-  // $('#plan-type').text(JSON.stringify($('#type-form').serialize()));
+  
+  // create key for form return value
+  const formInput = {
+    'planOption': $('#type-form').val()
+  }
 
-  // evt.stopPropagation();
-  // let userId = $("div[id^='user-id-']").val();
-  // console.log(url, "url");
-  $.post(url, individualMedPlan); 
+  // send return value from front-end to server
+  $.post(url, formInput, individualMedPlan); 
 
 });
 

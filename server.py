@@ -120,7 +120,7 @@ def all_plans(user_id):
     user = User.query.get(user_id)
 
     # Get request from form in user_main.html
-    plan_type = request.form.get('plan-option')
+    plan_type = request.form.get('planOption')
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
