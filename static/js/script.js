@@ -1,18 +1,23 @@
 "use strict";
 
 let url = $(location).attr('href');
-const allTablePlans = [] 
 let i = 1
 
 // function to display specific plan information
 function individualMedPlan(medicalPlans) {
+  const allTablePlans = [] 
+
+  // let i = 1
+
   console.log(i,"i after post click")
-
+  
   const displayPlanDiv = $('#display-plans-div');
+  console.log(medicalPlans)
+  console.log("i", i, "i+2", i+2)
+  
+  for (let data in medicalPlans.slice(i, i+2)) {
 
-  for (i in medicalPlans.slice(i, i+2)) {
-  console.log(i,"i")
-  const planDetails = medicalPlans[i];
+  const planDetails = medicalPlans[data];
 
   const tablePlan = $(`\
     <div class="sub-container indiv-plan"> \
@@ -106,9 +111,9 @@ $('#click-more-plans').on('click', individualMedPlan, (evt) => {
   // supposed to hide old plans, generate new plans when function runs
   $('#display-plans-div').hide();
 
-  let i = 3;
+   i += 3;
+   
   $.post(url, individualMedPlan); 
-
 });
 
 // potential form submittal for users to submit plan based off click
