@@ -2,6 +2,11 @@
   display: none;
 }
 
+#click-previous-plans {
+  display: none;
+}
+
+
 .nav { 
   background-color: #e9de4a;
 }
