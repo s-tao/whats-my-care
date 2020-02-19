@@ -2,7 +2,7 @@
 
 let url = $(location).attr('href');
 // set counter for slicing in for loop
-
+let i = 1
 
 const hideMoreButton = () => {
   $('#click-more-plans').hide();
