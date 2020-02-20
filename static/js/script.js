@@ -42,7 +42,7 @@ function individualMedPlan(medicalPlans) {
     
     const planDetails = sliceCounter[data];
 
-    const tablePlan = $(`\
+    const tablePlan = (`\
       <table class="table table-hover table-sm" id="${planDetails.id}"> \
         <thead> \
           <tr> \
@@ -93,10 +93,12 @@ function individualMedPlan(medicalPlans) {
 
           <tr> \
             <td colspan="2" align="center"> \
-              <div class="custom-control custom-checkbox"> \
-                <input type="checkbox" class="custom-control-input" id="${planDetails.id}"> \
-                <label class="custom-control-label" for="${planDetails.id}">Check this custom checkbox</label> \
-              </div> \
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="${planDetails.id}">
+            <label class="form-check-label" for="${planDetails.id}">
+              Default checkbox
+            </label>
+          </div>
             </td> \
           </tr> \
         </tbody> \
