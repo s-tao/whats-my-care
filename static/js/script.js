@@ -22,6 +22,77 @@ const showPreviousButton = () => {
   $('#click-previous-plans').show();
 };
 
+// standard table showing all plan's information including deductibles
+function tableDisplay(planDetails) {
+
+  const tablePlan = (`\
+  <table class="table table-hover table-sm" id="${planDetails.id}"> \
+    <thead> \
+      <tr> \
+        <th scope="col" id="display-name">${planDetails.display_name}</th> \
+      </tr> \
+    </thead> \
+    <tbody> \
+      <tr> \
+        <th scope="row" class="plan-id-hdr">Plan ID</th> \
+        <td class="plan-detail">${planDetails.id}</td> \
+      </tr> \
+      <tr> \
+        <th scope="row" class="carrier-hdr">Carrier</th> \
+        <td class="plan-detail">${planDetails.carrier_name}</td> \
+      </tr> \
+      <tr> \
+        <th scope="row" class="type-hdr">Plan Type</th> \
+        <td class="plan-detail">${planDetails.plan_type}</td> \
+      </tr> \
+      <tr> \
+        <th scope="row" class="pcp-hdr">Primary Care Physician</th> \
+        <td class="plan-detail">${planDetails.primary_care_physician}</td> \
+      </tr> \
+      <tr> \
+        <th scope="row" class="specialist-hdr">Specialist</th> \
+        <td class="plan-detail">${planDetails.specialist}</td> \
+      </tr> \
+      <tr> \
+        <th scope="row" class="er-hdr">Emergency Room</th> \
+        <td class="plan-detail">${planDetails.emergency_room}</td> \
+      </tr> \
+      <tr> \
+        <th scope="row" class="gen-drug-hdr">Generic Drug</th> \
+        <td class="plan-detail">${planDetails.generic_drugs}</td> \
+      </tr> \
+      <tr> \
+        <th scope="row" class="urg-care-hdr">Urgent Care</th> \
+        <td class="plan-detail">${planDetails.urgent_care}</td> \
+      </tr> \
+      <tr> \
+        <th scope="row" class="indiv-deduc-hdr">Individual Deductible</th> \
+        <td class="plan-detail">${planDetails.individual_medical_deductible}</td> \
+      </tr> \
+      <tr> \
+        <th scope="row" class="indiv-med-moop-hdr">Individual Max Out-of-Pocket</th> \
+        <td class="plan-detail">${planDetails.individual_medical_moop}</td> \
+      </tr> \
+
+      <tr> \
+        <td colspan="2" align="center"> \
+        <div class="form-check"> \
+          <input class="form-check-input" type="checkbox" \
+                                          value="${planDetails.id}" \
+                                          id="${planDetails.id}"> \
+          <label class="form-check-label" for="${planDetails.id}"> \
+            Default checkbox \
+          </label> \
+        </div> \
+        </td> \
+      </tr> \
+    </tbody> \
+  </table> \
+`);
+
+return tablePlan;
+};
+
 // function to display specific plan information
 function individualMedPlan(medicalPlans) {
   const allTablePlans = [] 
@@ -34,6 +105,7 @@ function individualMedPlan(medicalPlans) {
     console.log(medicalPlans.length, "length");
   };
 
+  // create variable to query html class
   const indivPlan = $('.indiv-plan');
 
   // slice to only display a few plans 
@@ -42,70 +114,7 @@ function individualMedPlan(medicalPlans) {
   for (let data in sliceCounter) {
     const planDetails = sliceCounter[data];
 
-    const tablePlan = (`\
-      <table class="table table-hover table-sm" id="${planDetails.id}"> \
-        <thead> \
-          <tr> \
-            <th scope="col" id="display-name">${planDetails.display_name}</th> \
-          </tr> \
-        </thead> \
-        <tbody> \
-          <tr> \
-            <th scope="row" class="plan-id-hdr">Plan ID</th> \
-            <td class="plan-detail">${planDetails.id}</td> \
-          </tr> \
-          <tr> \
-            <th scope="row" class="carrier-hdr">Carrier</th> \
-            <td class="plan-detail">${planDetails.carrier_name}</td> \
-          </tr> \
-          <tr> \
-            <th scope="row" class="type-hdr">Plan Type</th> \
-            <td class="plan-detail">${planDetails.plan_type}</td> \
-          </tr> \
-          <tr> \
-            <th scope="row" class="pcp-hdr">Primary Care Physician</th> \
-            <td class="plan-detail">${planDetails.primary_care_physician}</td> \
-          </tr> \
-          <tr> \
-            <th scope="row" class="specialist-hdr">Specialist</th> \
-            <td class="plan-detail">${planDetails.specialist}</td> \
-          </tr> \
-          <tr> \
-            <th scope="row" class="er-hdr">Emergency Room</th> \
-            <td class="plan-detail">${planDetails.emergency_room}</td> \
-          </tr> \
-          <tr> \
-            <th scope="row" class="gen-drug-hdr">Generic Drug</th> \
-            <td class="plan-detail">${planDetails.generic_drugs}</td> \
-          </tr> \
-          <tr> \
-            <th scope="row" class="urg-care-hdr">Urgent Care</th> \
-            <td class="plan-detail">${planDetails.urgent_care}</td> \
-          </tr> \
-          <tr> \
-            <th scope="row" class="indiv-deduc-hdr">Individual Deductible</th> \
-            <td class="plan-detail">${planDetails.individual_medical_deductible}</td> \
-          </tr> \
-          <tr> \
-            <th scope="row" class="indiv-med-moop-hdr">Individual Max Out-of-Pocket</th> \
-            <td class="plan-detail">${planDetails.individual_medical_moop}</td> \
-          </tr> \
-
-          <tr> \
-            <td colspan="2" align="center"> \
-            <div class="form-check"> \
-              <input class="form-check-input" type="checkbox" \
-                                              value="${planDetails.id}" \
-                                              id="${planDetails.id}"> \
-              <label class="form-check-label" for="${planDetails.id}"> \
-                Default checkbox \
-              </label> \
-            </div> \
-            </td> \
-          </tr> \
-        </tbody> \
-      </table> \
-    `);
+    const tablePlan = tableDisplay(planDetails);
 
     allTablePlans.push(tablePlan);
   };
@@ -129,7 +138,7 @@ $('#type-form').on('submit', individualMedPlan, (evt) => {
   // create key for form return value
   const formInput = {
     'planOption': $('#type-form').val()
-  }
+  };
 
   // send return value from front-end to server
   $.post(url, formInput, individualMedPlan); 
@@ -156,6 +165,24 @@ $('#click-previous-plans').on('click', individualMedPlan, (evt) => {
 
   i -= 10;
   $.post(url, individualMedPlan); 
+});
+
+
+$('#save-plans-form').on('submit', (evt) => {
+  evt.preventDefault();
+  
+  // create key for form return value
+  const formInput = {
+    'planSaved': $('#save-plans-form').val()
+  };
+
+  // send return value from front-end to server
+  $.post(url, formInput, (res) => {
+    alert(res);
+    console.log(res);
+    console.log(formInput, "form");
+  }); 
+  // click button shows
 });
 
 

@@ -32,7 +32,8 @@
   </div>
 
   <div class="sub-container plan-form">
-    <form action="/user-{{ user.user_id }}/show_plans" id="type-form" method="POST">
+    <form action="/user-{{ user.user_id }}/show_plans" id="type-form" 
+                                                       method="POST">
       <label>Plan Type</label>
       <select name="plan-option" required="required">
         <option value=""> --Please select an option-- </option>
@@ -50,7 +51,8 @@
 
 <div class="container" id="display-plans-div">
   <fieldset>
-    <form action="/user-{{ user.user_id }}/saved_plans" id="save-plans-form">
+    <form action="/user-{{ user.user_id }}/saved_plans" id="save-plans-form" 
+                                                        method="POST">
         <div class="indiv-plan"> 
         </div>
       <input type="submit" value="Save Plans">

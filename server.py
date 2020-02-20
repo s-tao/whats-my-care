@@ -47,6 +47,7 @@ def register_process():
         flash('User account already exists.')
         return redirect('/login')
 
+    # potentially modify to helper function
     new_user = User(email=email, 
                     password=password, 
                     market=market, 
@@ -133,12 +134,13 @@ def all_plans(user_id):
     return jsonify(plans)
 
 
-@app.route('/user-<int:user_id>/saved_plans')
+@app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
 def user_plans(user_id):
     
     user = User.query.get(user_id)
-    
-    return render_template('user_plans.html')
+    plan = request.form.get('planSaved')
+    print(plan, "\n\n")
+    return render_template('saved_plans.html')
 
 
 if __name__ == '__main__':
