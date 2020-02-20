@@ -3,7 +3,8 @@
 let url = $(location).attr('href');
 
 // set counter for slicing in for loop
-let i = 1
+let i = 0
+
 
 const hideMoreButton = () => {
   $('#click-more-plans').hide();
@@ -34,12 +35,11 @@ function individualMedPlan(medicalPlans) {
   };
 
   const indivPlan = $('.indiv-plan');
-  
+
   // slice to only display a few plans 
   const sliceCounter = medicalPlans.slice(i, i += 5);
 
   for (let data in sliceCounter) {
-    
     const planDetails = sliceCounter[data];
 
     const tablePlan = (`\
@@ -144,21 +144,18 @@ $('#click-more-plans').on('click', individualMedPlan, (evt) => {
   $('#display-plans-div').hide();
 
     // counter show next 5 tables every click
-    i += 5;
+  i += 5;
    
   $.post(url, individualMedPlan); 
   showPreviousButton.call();
-  console.log(i, "more click")
 });
 
-
+// click event to generate button allowing users to see previous plans
 $('#click-previous-plans').on('click', individualMedPlan, (evt) => {
   $('#display-plans-div').hide();
 
-    i -= 5;
-
-    $.post(url, individualMedPlan); 
-    console.log(i, "previous click")
+  i -= 10;
+  $.post(url, individualMedPlan); 
 });
 
 
