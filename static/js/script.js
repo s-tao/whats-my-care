@@ -93,12 +93,14 @@ function individualMedPlan(medicalPlans) {
 
           <tr> \
             <td colspan="2" align="center"> \
-            <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="${planDetails.id}">
-            <label class="form-check-label" for="${planDetails.id}">
-              Default checkbox
-            </label>
-          </div>
+            <div class="form-check"> \
+              <input class="form-check-input" type="checkbox" \
+                                              value="${planDetails.id}" \
+                                              id="${planDetails.id}"> \
+              <label class="form-check-label" for="${planDetails.id}"> \
+                Default checkbox \
+              </label> \
+            </div> \
             </td> \
           </tr> \
         </tbody> \
@@ -145,7 +147,20 @@ $('#click-more-plans').on('click', individualMedPlan, (evt) => {
     i += 5;
    
   $.post(url, individualMedPlan); 
+  showPreviousButton.call();
+  console.log(i, "more click")
 });
+
+
+$('#click-previous-plans').on('click', individualMedPlan, (evt) => {
+  $('#display-plans-div').hide();
+
+    i -= 5;
+
+    $.post(url, individualMedPlan); 
+    console.log(i, "previous click")
+});
+
 
 // potential form submittal for users to submit plan based off click
 // in the works
