@@ -36,7 +36,7 @@ function individualMedPlan(medicalPlans) {
   const displayPlanDiv = $('#display-plans-div');
   
   // slice to only display a few plans 
-  const sliceCounter = medicalPlans.slice(i, i += 80);
+  const sliceCounter = medicalPlans.slice(i, i += 5);
 
   for (let data in sliceCounter) {
     
@@ -90,6 +90,16 @@ function individualMedPlan(medicalPlans) {
             <tr> \
               <th scope="row" class="indiv-med-moop-hdr">Individual Max Out-of-Pocket</th> \
               <td class="plan-detail">${planDetails.individual_medical_moop}</td> \
+            </tr> \
+
+            <tr> \
+              <td colspan="2" align="center"> \
+              <div class="custom-control custom-checkbox"> \
+                <input type="checkbox" class="custom-control-input" id="${planDetails.id}"> \
+                <label class="custom-control-label" for="customCheck1">Select Plan</label> \
+              </div> \
+              
+              </td> \
             </tr> \
           </tbody> \
         </table> \
