@@ -49,14 +49,19 @@
     <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->    
 
 <div class="container" id="display-plans-div">
-  <form action="/user-{{ user.user_id }}/saved_plans" id="save-plans">
-    <input type="submit" value="Save Plans">
-  </form>
+  <fieldset>
+    <form action="/user-{{ user.user_id }}/saved_plans" id="save-plans-form">
+        <div class="indiv-plan"> 
+        </div>
+      <input type="submit" value="Save Plans">
+    </form>
+  </fieldset> 
 </div>
 
 <div class="container">
   <button id="click-more-plans" name="more-plans">View More</button>
 </div>
+
 <div class="container">
   <button id="click-previous-plans" name="previous-plans">View Previous</button>
 </div>
