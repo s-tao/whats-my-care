@@ -4,8 +4,8 @@ from flask import Flask, render_template, request, flash, redirect, session, jso
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Carrier, Plan, PlanType
-from process_plans import show_medical_plans, parse_med_plans, find_fips_code
-from seed import add_user
+from process_plans import show_medical_plans, parse_med_plans, find_fips_code, search_medical_plan, temp_data_call
+from seed import add_user, add_plan
 import os
 
 
@@ -109,8 +109,6 @@ def user_options(user_id):
 def all_plans(user_id):
     """Generate all plans after selecting plan type"""
 
-    user = User.query.get(user_id)
-
     # Get request from form in user_main.html --future feature
     plan_type = request.form.get('planOption')
 
@@ -120,9 +118,9 @@ def all_plans(user_id):
 
     # if plan_type == "medical":
         
-    plans = parse_med_plans()
+    plans = temp_data_call()
 
-    # return jsonify(medical_plans['plans']) --uncomment when running api call
+    # return jsonify(medical_plans['plans']) #--uncomment when running api call
     return jsonify(plans)
 
 
@@ -130,16 +128,12 @@ def all_plans(user_id):
 def user_plans(user_id):
     
     user = User.query.get(user_id)
-    plan = request.form.keys()
+    plan_ids = request.form.keys()
 
-    for i in plan:
-        print(i,"i")
-    print(*plan, "plan \n\n")
-    print(request.form)
-    # print(carrier, "carrier \n\n")
-    # print(plan_type, "plan_type \n\n")
+    plans = add_plan(plan_ids, user)
 
     return render_template('saved_plans.html')
+    # return redirect(f'/user-{user.user_id}/saved_plans')
 
 
 if __name__ == '__main__':

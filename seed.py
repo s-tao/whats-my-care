@@ -1,7 +1,7 @@
 from sqlalchemy import func
 
 from model import User, Carrier, Plan, PlanType, connect_to_db, db
-from process_plans import find_fips_code
+from process_plans import find_fips_code, search_medical_plan
 
 
 def add_user(email, password, market, zip_code):
@@ -18,6 +18,16 @@ def add_user(email, password, market, zip_code):
     db.session.commit()
 
     return new_user
+
+
+def add_plan(plan_ids, user):
+
+    plan_data = search_medical_plan(plan_ids)
+
+    return plan_data
+
+    
+
 
 if __name__ == "__main__":
     # connect_to_db(app)

@@ -78,7 +78,7 @@ function tableDisplay(planDetails) {
         <td colspan="2" align="center"> \
         <div class="form-check"> \
           <input class="form-check-input" type="checkbox" \
-                                          value="${planDetails.id}" \
+                                          value="plan_id" \
                                           name="${planDetails.id}"> \
           <label class="form-check-label" for="${planDetails.id}"> \
             Default checkbox \
