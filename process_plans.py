@@ -45,7 +45,17 @@ def show_medical_plans(user):
 
 def search_medical_plan(plan_id):
     """Find a specific plan through plan id"""
-    pass
+
+    url = 'https://api.vericred.com/plans/medical'
+
+    payload = {'id': plan_id}
+
+    req = requests.get(url, params=payload, headers=HEADERS)
+    print(req.url, "req.url")
+    print(req)
+    print(req.json(), "json")
+    return req.json() 
+
 
 
 

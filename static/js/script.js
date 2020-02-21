@@ -113,7 +113,7 @@ function individualMedPlan(medicalPlans) {
   const sliceCounter = medicalPlans.slice(i, i += 5);
 
   for (let data in sliceCounter) {
-    // index into slice 
+
     const planDetails = sliceCounter[data];
 
     const tablePlan = tableDisplay(planDetails);
