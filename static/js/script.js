@@ -79,7 +79,7 @@ function tableDisplay(planDetails) {
         <div class="form-check"> \
           <input class="form-check-input" type="checkbox" \
                                           value="${planDetails.id}" \
-                                          class="${planDetails.id}"> \
+                                          name="${planDetails.id}"> \
           <label class="form-check-label" for="${planDetails.id}"> \
             Default checkbox \
           </label> \
@@ -191,54 +191,34 @@ $('#click-previous-plans').on('click', individualMedPlan, (evt) => {
 
 
 //need to save plan_id, carrier_name, display_name, plan_type
-$('#save-plans-form').on('submit', (evt) => {
-  evt.preventDefault();
-  const planInfo = [];
-  // create key for form return value
-  const formData = {
-    'planSaved': $('hidden').val(),
+// $('#save-plans-form').on('submit', (evt) => {
+//   evt.preventDefault();
+//   const planInfo = [];
+//   // create key for form return value
+//   const formData = {
+//     'planSaved': $('#save-plans-form').val(),
     
-    'planCarrier': $(this).data('.plan-detail-carrier'),
-    'planType': $('.plan-detail-type').data('.plan-detail-type'),
+//     'planCarrier': $(this).data('.plan-detail-carrier'),
+//     'planType': $('.plan-detail-type').data('.plan-detail-type'),
 
-  };
+//   };
 
-  planInfo.push(formData)
+//   planInfo.push(formData)
 
-  // const rows = $('.table-hover').find('tr');
-  //   rows.find('td').each(function() {
-  //     planInfo.push($(this).val());
-  //   });
-  console.log(formData, "formData");
-  console.log(planInfo, "planinfo1");
+//   // const rows = $('.table-hover').find('tr');
+//   //   rows.find('td').each(function() {
+//   //     planInfo.push($(this).val());
+//   //   });
+//   console.log(formData, "formData");
+//   console.log(planInfo, "planinfo1");
 
-  // send return value from front-end to server
-  $.post(url, planInfo); 
-  console.log(planInfo, "planinfo2")
-  });
+//   // send return value from front-end to server
+//   $.post(url, planInfo); 
+//   console.log(planInfo, "planinfo2")
+//   });
 
 
   
-
-
-// function getTableData() {
-//   const data = [];
-//   const counter = 0;
-
-//   $('tbody tr').each(function(index, tr) {
-//     const tds = $(tr).find('td');
-
-//     if (tds.length > 1) {
-
-//       deta[counter++] = {
-//         planCarrier: tds[1].textContent,
-        
-//       };
-//     };
-//   });
-//   console.log(data);
-//   return data
-// };
 
 
 
