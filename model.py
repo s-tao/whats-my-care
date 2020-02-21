@@ -11,7 +11,7 @@ class User(db.Model):
     password = db.Column(db.String(15), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     market = db.Column(db.String(15), nullable=False)
-    # state = db.Column(db.String(2), nullable=False)
+    fips_code = db.Column(db.String(5), nullable=True)
     zip_code = db.Column(db.String(5), nullable=False)
 
 

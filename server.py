@@ -4,8 +4,8 @@ from flask import Flask, render_template, request, flash, redirect, session, jso
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Carrier, Plan, PlanType
-from process_plans import show_medical_plans, parse_med_plans
-# import requests
+from process_plans import show_medical_plans, parse_med_plans, find_fips_code
+from seed import add_user
 import os
 
 
@@ -38,7 +38,6 @@ def register_process():
     email = request.form.get('email')
     password = request.form.get('password')
     market = request.form.get('market')
-    # state = request.form.get('state')
     zip_code = request.form.get('zipcode')
 
     user = User.query.filter(User.email == email).first()
@@ -47,17 +46,10 @@ def register_process():
         flash('User account already exists.')
         return redirect('/login')
 
-    # potentially modify to helper function
-    new_user = User(email=email, 
-                    password=password, 
-                    market=market, 
-                    # state=state,
-                    zip_code=zip_code)
-
-    db.session.add(new_user)
-    db.session.commit()
-
-    return redirect(f'/users/{new_user.user_id}')
+    # seed user information into database
+    new_user = add_user(email, password, market, zip_code)
+  
+    return redirect(f'/user-{new_user.user_id}/show_plans')
 
 
 @app.route('/login', methods=['GET'])
@@ -107,7 +99,6 @@ def user_options(user_id):
 
     user_dict = {'email': user.email,
                  'market': user.market,
-                #  'state': user.state,
                  'zip code': user.zip_code}
     
 
@@ -120,7 +111,7 @@ def all_plans(user_id):
 
     user = User.query.get(user_id)
 
-    # Get request from form in user_main.html
+    # Get request from form in user_main.html --future feature
     plan_type = request.form.get('planOption')
 
     # Return medical plans based off user's zip code and fips code
@@ -130,7 +121,8 @@ def all_plans(user_id):
     # if plan_type == "medical":
         
     plans = parse_med_plans()
-    print(plan_type, "\n\n\n")
+
+    # return jsonify(medical_plans['plans']) --uncomment when running api call
     return jsonify(plans)
 
 
@@ -139,8 +131,7 @@ def user_plans(user_id):
     
     user = User.query.get(user_id)
     plan = request.form.keys()
-    # carrier = request.form.get('planCarrier')
-    # plan_type = request.form.get('planType')
+
     for i in plan:
         print(i,"i")
     print(*plan, "plan \n\n")

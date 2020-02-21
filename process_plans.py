@@ -11,12 +11,12 @@ HEADERS = {'Content-Type': 'application/json',
           
 
 
-def find_fips_code(user):
+def find_fips_code(zip_code):
     """Use user zip code to return county fips code"""
 
     url = 'https://api.vericred.com/zip_counties'
 
-    payload = {"zip_prefix": user.zip_code}
+    payload = {"zip_prefix": zip_code}
 
     req = requests.get(url, params=payload, headers=HEADERS)
     req = req.json()
@@ -31,12 +31,11 @@ def find_fips_code(user):
 
 def show_medical_plans(user):
     """Show all medical plans based on user's location"""
-    fips_code = find_fips_code(user)
 
     url = 'https://api.vericred.com/plans'
 
     payload = {'zip_code': user.zip_code,
-               'fips_code': fips_code, 
+               'fips_code': user.fips_code, 
                'market': user.market}
 
     req = requests.get(url, params=payload, headers=HEADERS)
@@ -44,45 +43,19 @@ def show_medical_plans(user):
     return req.json() 
 
 
+def search_medical_plan(plan_id):
+    """Find a specific plan through plan id"""
+    pass
+
+
+
 def parse_med_plans():
-    """Reduce all data in plans to most commonly requested services"""
+    """Temporarily return plans for testing"""
     medical_plans = all_plans()
-
-    # all_revised_plans = []
-
-    # user_info = {'user_id': user.user_id,
-    #              'user_zipcode': user.zip_code,
-    #              'user_options': plan_type}
-    
-    # all_revised_plans.append(user_info)
-
-
-    # # loop through to add items to specific plan nested dict.
-    # for data in medical_plans['plans']:
-
-    #     individual_plan = {}
-        
-    #     # specific plan information
-    #     individual_plan['id'] = data.get('id')
-    #     individual_plan['carrier_name'] = data.get('carrier_name')
-    #     individual_plan['display_name'] = data.get('display_name')
-    #     individual_plan['plan_type'] = data.get('plan_type')
-        
-    #     # common services
-    #     individual_plan['primary_care_physician'] = data.get('primary_care_physician')
-    #     individual_plan['specialist'] = data.get('specialist')
-    #     individual_plan['emergency_room'] = data.get('emergency_room')
-    #     individual_plan['generic_drugs'] = data.get('generic_drugs')
-    #     # individual_plan['inpatient_facility'] = data.get('inpatient_facility')
-    #     individual_plan['urgent_care'] = data.get('urgent_care')
-        
-
-    #     # overall deductible costs
-    #     individual_plan['individual_medical_deductible'] = data.get('individual_medical_deductible')
-    #     individual_plan['individual_medical_moop'] = data.get('individual_medical_moop')
-
-    #     all_revised_plans.append(individual_plan)
-    
+  
+    # return json file as itself to access total plans for pagination - 
+    # json[meta]['total']
+    # and to access plans dictionary json['plans']
     return medical_plans['plans']
 
 
