@@ -19,18 +19,61 @@ def add_user(email, password, market, zip_code):
 
     return new_user
 
+def add_carrier(plan_datas):
+
+    existing_carriers = Carrier.query.all()
+
+    for plan_data in plan_datas:
+        
+        if plan_data['carrier_name'] not in existing_carriers:
+            new_carrier = Carrier(name=plan_data['carrier_name'])
+
+            db.session.add(new_carrier)
+
+    db.session.commit()
+
 
 def add_plan(plan_ids, user):
 
-    plan_data = search_medical_plan(plan_ids)
+    # plan_datas = search_medical_plan(plan_ids)
+    plan_datas = [{'id': '40513CA0380003-04', 
+        'carrier_name': 'Kaiser Permanente', 
+        'display_name': 'Silver 73 HMO', 
+        'plan_type': 'HMO', 
+        'primary_care_physician': 'In-Network: $35 / Out-of-Network: Not Covered', 
+        'specialist': 'In-Network: $75 / Out-of-Network: Not Covered', 
+        'emergency_room': 'In-Network: $400 / Out-of-Network: $400 | limit: waived if admitted', 
+        'generic_drugs': 'In-Network: $16 per script after deductible / Out-of-Network: Not Covered', 
+        'urgent_care': 'In-Network: $35 / Out-of-Network: Not Covered', 
+        'individual_medical_deductible': 'In-Network: $3,700 / Out-of-Network: Not Covered', 
+        'individual_medical_moop': 'In-Network: $6,500 / Out-of-Network: Not Covered'}]
+    
+    # check to see if carrier from plan is in database
+    add_carrier(plan_datas)
 
-    return plan_data
+    for plan_data in plan_datas:
+
+        carrier_id = Carrier.query.filter(Carrier.name == plan_data['carrier_name']).first()
+
+        new_plan = Plan(plan_org=plan_data['carrier_name'],
+                        name=plan_data['display_name'],
+                        vericred_id=plan_data['id'],
+                        plan_type=plan_data['plan_type'],
+                        user_id=user.user_id,
+                        carrier_id=carrier_id)
+
+        db.session.add(new_plan)
+
+    db.session.commit()        
 
     
 
 
 if __name__ == "__main__":
-    # connect_to_db(app)
+
+    from server import app
+
+    connect_to_db(app)
     db.create_all()
 
 
