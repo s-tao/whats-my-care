@@ -139,7 +139,12 @@ def user_plans(user_id):
     
     user = User.query.get(user_id)
     plan = request.form.get('planSaved')
-    print(plan, "\n\n")
+    carrier = request.form.get('planCarrier')
+    plan_type = request.form.get('planType')
+    print(plan, "plan \n\n")
+    print(carrier, "carrier \n\n")
+    print(plan_type, "plan_type \n\n")
+
     return render_template('saved_plans.html')
 
 
