@@ -93,18 +93,6 @@ function tableDisplay(planDetails) {
 return tablePlan;
 };
 
-// find how to pass selected plan id
-function hiddenId(planDetails) {
-
-  const hidden = (`<input type="hidden" \
-                    id="save-plan" \
-                    name="save-plan" \
-                    value="${planDetails.id}"> \
-                `);
-  return hidden
-        
-};
-
 
 // function to display specific plan information
 function individualMedPlan(medicalPlans) {
@@ -140,12 +128,6 @@ function individualMedPlan(medicalPlans) {
 
 };
 
-// hidden input for html depends on selected id to establish value
-function importHiddenInput() {
-  const hiddenDiv = $('.hidden-div');
-  const returnPlanId = hiddenId();
-  hiddenDiv.html(returnPlanId);
-};
 
 // tables hidden until event listener activates when user submits
 $('#display-plans-div').hide();
@@ -154,8 +136,6 @@ $('#display-plans-div').hide();
 $('#type-form').on('submit', individualMedPlan, (evt) => {
   evt.preventDefault();
   
-  
-
   // create key for form return value
   const formInput = {
     'planOption': $('#type-form').val()
@@ -188,55 +168,3 @@ $('#click-previous-plans').on('click', individualMedPlan, (evt) => {
   i -= 10;
   $.post(url, individualMedPlan); 
 });
-
-
-//need to save plan_id, carrier_name, display_name, plan_type
-// $('#save-plans-form').on('submit', (evt) => {
-//   evt.preventDefault();
-//   const planInfo = [];
-//   // create key for form return value
-//   const formData = {
-//     'planSaved': $('#save-plans-form').val(),
-    
-//     'planCarrier': $(this).data('.plan-detail-carrier'),
-//     'planType': $('.plan-detail-type').data('.plan-detail-type'),
-
-//   };
-
-//   planInfo.push(formData)
-
-//   // const rows = $('.table-hover').find('tr');
-//   //   rows.find('td').each(function() {
-//   //     planInfo.push($(this).val());
-//   //   });
-//   console.log(formData, "formData");
-//   console.log(planInfo, "planinfo1");
-
-//   // send return value from front-end to server
-//   $.post(url, planInfo); 
-//   console.log(planInfo, "planinfo2")
-//   });
-
-
-  
-
-
-
-// potential form submittal for users to submit plan based off click
-// in the works
-// $('table').on('click', () => {
-//   alert("this works");
-// });
-
-// $('table.table').on('click', (evt) => {
-//   alert('this works');
-//   // const divColor = $(evt.target);
-//   // console.log("this work")
-
-//   // const selectedDiv = divColor.attr('id');
-//   // console.log("this work")
-
-//   // $('div').css('background-color', 'yellow');
-// });
-
-
