@@ -5,6 +5,7 @@ from process_plans import find_fips_code, search_medical_plan
 
 
 def add_user(email, password, market, zip_code):
+    """Add user information to database when user registers"""
      # only runs once when user registers to store user's fips code
     fips_code = find_fips_code(zip_code)
 
@@ -19,10 +20,12 @@ def add_user(email, password, market, zip_code):
 
     return new_user
 
+
 def add_carrier(plan_datas):
+    """Add carrier to database when user saves plans"""
 
     for plan_data in plan_datas:
-
+        
         check_carrier = Carrier.query.filter(Carrier.name == plan_data['carrier_name']).first()
     
         if not check_carrier:
@@ -33,6 +36,7 @@ def add_carrier(plan_datas):
 
 
 def add_plan(plan_ids, user):
+    """Add plan to database when user saves plans"""
 
     plan_datas = search_medical_plan(plan_ids)
     # plan_datas = [{'id': '40513CA0380003-04', 

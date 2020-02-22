@@ -11,11 +11,37 @@
   <h1>See your saved plans below:</h1>
 </div>
 
-
-<div class="container" id="display-plans-div">
-  <div class="indiv-plan"> 
+<div class="container" id="saved-plans">
+  {% for plan in plans %}
+  <div class="sub-container"> 
+    <table class="table table-hover table-sm"> 
+      <thead> 
+        <tr> 
+          <th scope="col" id="display-name">{{ plan.name }}</th> 
+        </tr> 
+      </thead> 
+      <tbody> 
+        <tr> 
+          <th scope="row">Plan ID</th> 
+          <td>{{ plan.vericred_id }}</td>
+        </tr> 
+        <tr>
+          <th scope="row">Carrier</th>
+          <td>query carrier name here</td>
+        </tr>
+        <tr>
+          <th scope="row">Plan Type</th>
+          <td>{{ plan.plan_org }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+  <div class="sub-container">
+    <button id="click-more-info" name="see-plan-{{ plan.plan_id }}">More Information</button>
+  </div>
+  {% endfor %}
 </div>
+
 
 
 {% endblock %}

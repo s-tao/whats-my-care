@@ -115,8 +115,6 @@ def all_plans(user_id):
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
     # medical_plans = show_medical_plans(user)
-
-    # if plan_type == "medical":
         
     plans = temp_data_call()
 
@@ -133,15 +131,18 @@ def seed_plans(user_id):
     add_plan(plan_ids, user)
 
     return redirect(f'/user-{user.user_id}/saved_plans')
-    # return redirect(f'/user-{user.user_id}/saved_plans')
 
 
 @app.route('/user-<int:user_id>/saved_plans')
 def show_saved_plans(user_id):
     
     user = User.query.get(user_id)
-    
-    return render_template('saved_plans.html', user=user)
+    plans = Plan.query.filter(Plan.user_id == user_id).all()
+    return render_template('saved_plans.html', user=user, plans=plans)
+
+
+#  [<Plan plan_id=4 name=Oscar Simple Silver EPO, 
+#   <Plan plan_id=3 name=Oscar Simple Bronze EPO]
 
 if __name__ == '__main__':
 
