@@ -130,7 +130,7 @@ def user_plans(user_id):
     user = User.query.get(user_id)
     plan_ids = request.form.keys()
 
-    plans = add_plan(plan_ids, user)
+    add_plan(plan_ids, user)
 
     return render_template('saved_plans.html')
     # return redirect(f'/user-{user.user_id}/saved_plans')

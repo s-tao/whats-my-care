@@ -49,7 +49,7 @@ def show_medical_plans(user):
 def search_medical_plan(plan_ids):
     """Find a specific plan through plan id"""
 
-    plan_data = []
+    plan_datas = []
 
     for plan_id in plan_ids:
 
@@ -63,9 +63,9 @@ def search_medical_plan(plan_ids):
 
         extracted_plan_data = parse_med_plans(req.json())
 
-        plan_data.append(extracted_plan_data)
+        plan_datas.append(extracted_plan_data)
 
-    return plan_data
+    return plan_datas
 
 
 def parse_med_plans(plan):

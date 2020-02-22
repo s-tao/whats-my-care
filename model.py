@@ -42,8 +42,8 @@ class Plan(db.Model):
     plan_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     plan_org = db.Column(db.String(10), nullable = True)
     name = db.Column(db.String(100), nullable=False)
-    vericred_id = db.Column(db.Integer, nullable=True)
-    plan_type = db.Column(db.Integer, nullable=False)
+    vericred_id = db.Column(db.String(25), nullable=False)
+    # plan_type = db.Column(db.Integer, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
     carrier_id = db.Column(db.Integer,
                            db.ForeignKey('carriers.carrier_id'), index=True)
@@ -61,7 +61,7 @@ class Plan(db.Model):
 
         return f"<Plan plan_id={self.plan_id} name={self.name}"
                     
-
+# future datatable
 class PlanType(db.Model):
     """Type of Plan""" 
 
@@ -94,3 +94,4 @@ if __name__ == "__main__":
 
     connect_to_db(app)
     print("Connected to DB.")
+    
