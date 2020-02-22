@@ -11,9 +11,9 @@
           crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css">
   <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
-  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <!-- <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script> -->
 </head>
   <body>
     <ul class="nav justify-content-end">
@@ -26,7 +26,7 @@
         <a class="nav-link" href="/user-{{ user.user_id }}/show_plans">Search Plans</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/user-{{ user.user_id }}/user_plans">Saved Plans</a>
+        <a class="nav-link" href="/user-{{ user.user_id }}/saved_plans">Saved Plans</a>
       </li>
         {% endif %}
 

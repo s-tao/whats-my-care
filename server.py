@@ -102,14 +102,14 @@ def user_options(user_id):
                  'zip code': user.zip_code}
     
 
-    return render_template('user_main.html', user=user, user_dict=user_dict)
+    return render_template('search_plans.html', user=user, user_dict=user_dict)
 
 
 @app.route('/user-<int:user_id>/show_plans', methods=['POST'])
 def all_plans(user_id):
     """Generate all plans after selecting plan type"""
 
-    # Get request from form in user_main.html --future feature
+    # Get request from form in search_plans.html --future feature
     plan_type = request.form.get('planOption')
 
     # Return medical plans based off user's zip code and fips code
@@ -125,16 +125,23 @@ def all_plans(user_id):
 
 
 @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
-def user_plans(user_id):
+def seed_plans(user_id):
     
     user = User.query.get(user_id)
     plan_ids = request.form.keys()
 
     add_plan(plan_ids, user)
 
-    return render_template('saved_plans.html')
+    return redirect(f'/user-{user.user_id}/saved_plans')
     # return redirect(f'/user-{user.user_id}/saved_plans')
 
+
+@app.route('/user-<int:user_id>/saved_plans')
+def show_saved_plans(user_id):
+    
+    user = User.query.get(user_id)
+    
+    return render_template('saved_plans.html', user=user)
 
 if __name__ == '__main__':
 
