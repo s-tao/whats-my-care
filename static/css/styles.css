@@ -6,6 +6,9 @@
   display: none;
 }
 
+#display-plans-div {
+  display: none;
+}
 
 .nav { 
   background-color: #e9de4a;

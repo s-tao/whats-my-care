@@ -3,24 +3,12 @@
 let url = $(location).attr('href');
 
 // set counter for slicing in for loop
-let i = 0
+let begin = 0;
+let end = 5;
 
+const moreButton = $('#click-more-plans');
+const previousButton = $('#click-previous-plans');
 
-const hideMoreButton = () => {
-  $('#click-more-plans').hide();
-};
-
-const showMoreButton = () => {
-  $('#click-more-plans').show();
-};
-
-const hidePreviousButton = () => {
-  $('#click-previous-plans').hide();
-};
-
-const showPreviousButton = () => {
-  $('#click-previous-plans').show();
-};
 
 // standard table showing all plan's information including deductibles
 function tableDisplay(planDetails) {
@@ -98,41 +86,34 @@ return tablePlan;
 function individualMedPlan(medicalPlans) {
   const allTablePlans = [] 
 
-  // figure out how to hide button when there are no more plans
-  // currently only hiding once plans are gone
-  if (i > medicalPlans.length) {
-    hideMoreButton.call();
-    console.log(i, "no more plans to show");
-    console.log(medicalPlans.length, "length");
-  };
-
-  // create variable to query html class
+  // querying class to insert tables 
   const indivPlan = $('.indiv-plan');
 
   // slice to only display a few plans 
-  const sliceCounter = medicalPlans.slice(i, i += 5);
+  const sliceCounter = medicalPlans.slice(begin, end);
+
+  if (end > medicalPlans.length) {
+    moreButton.hide();
+  };
+
+  if (end <= 5) {
+    previousButton.hide();
+  };
 
   for (let data in sliceCounter) {
 
     const planDetails = sliceCounter[data];
-
     const tablePlan = tableDisplay(planDetails);
 
     allTablePlans.push(tablePlan);
   };
-  // get contents of elements in indivPlan, convert allTablesPlans to html
+  // convert allTablesPlans to html
   indivPlan.html(allTablePlans);
-
-  // display shows once function runs to generate tables
-  $('#display-plans-div').show();
 
 };
 
 
-// tables hidden until event listener activates when user submits
-$('#display-plans-div').hide();
-
-// event listener to show tables and get data from server
+// event listener to show tables and get data from server when user submits
 $('#type-form').on('submit', individualMedPlan, (evt) => {
   evt.preventDefault();
   
@@ -143,28 +124,33 @@ $('#type-form').on('submit', individualMedPlan, (evt) => {
 
   // send return value from front-end to server
   $.post(url, formInput, individualMedPlan); 
-  // click button shows
-  showMoreButton.call();
+
+  // display shows once function runs to generate tables
+  $('#display-plans-div').show();
+  moreButton.show();
 });
 
 
 // click event to generate button allowing users to see more plans
 $('#click-more-plans').on('click', individualMedPlan, (evt) => {
-  // supposed to hide old plans, generate new plans when function runs
-  $('#display-plans-div').hide();
+  // $('#display-plans-div').hide();
 
   // counter show next 5 tables every click
-  i += 5;
+  begin += 5;
+  end += 5;
    
   $.post(url, individualMedPlan); 
-  showPreviousButton.call();
+  previousButton.show();
+
 });
 
 
 // click event to generate button allowing users to see previous plans
 $('#click-previous-plans').on('click', individualMedPlan, (evt) => {
-  $('#display-plans-div').hide();
-
-  i -= 10;
+  
+  // counter show previous 5 tables every click
+  begin -= 5;
+  end -= 5;
   $.post(url, individualMedPlan); 
+  
 });
