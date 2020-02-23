@@ -32,7 +32,7 @@
   </div>
 
   <div class="sub-container plan-form">
-    <form action="/user-{{ user.user_id }}/show_plans" id="type-form" 
+    <form action="/user-{{ user_id }}/show_plans" id="type-form" 
                                                        method="POST">
       <label>Plan Type</label>
       <select name="plan-option" required="required">
@@ -50,7 +50,7 @@
     <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->    
 
 <div class="container" id="display-plans-div">
-  <form action="/user-{{ user.user_id }}/saved_plans" id="save-plans-form" 
+  <form action="/user-{{ user_id }}/saved_plans" id="save-plans-form" 
                                                       method="POST">
     <fieldset>
       <div class="indiv-plan"> 

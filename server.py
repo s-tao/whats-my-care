@@ -95,6 +95,10 @@ def logout():
 def user_options(user_id):
     """Main page allowing user to see plans"""
 
+    if session['user_id'] != user_id:
+        flash('Please login')
+        return redirect('/login')
+
     user = User.query.get(user_id)
 
     user_dict = {'email': user.email,
@@ -102,7 +106,7 @@ def user_options(user_id):
                  'zip code': user.zip_code}
     
 
-    return render_template('search_plans.html', user=user, user_dict=user_dict)
+    return render_template('search_plans.html', user_id=user_id, user_dict=user_dict)
 
 
 @app.route('/user-<int:user_id>/show_plans', methods=['POST'])
@@ -135,6 +139,10 @@ def seed_plans(user_id):
 
 @app.route('/user-<int:user_id>/saved_plans')
 def show_saved_plans(user_id):
+
+    if session['user_id'] != user_id:
+        flash('Please login')
+        return redirect('/login')
 
     plans = Plan.query.filter(Plan.user_id == user_id).all()
 
