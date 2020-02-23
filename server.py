@@ -125,24 +125,21 @@ def all_plans(user_id):
 @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
 def seed_plans(user_id):
     
-    user = User.query.get(user_id)
     plan_ids = request.form.keys()
 
-    add_plan(plan_ids, user)
+    add_plan(plan_ids, user_id)
 
-    return redirect(f'/user-{user.user_id}/saved_plans')
+
+    return redirect(f'/user-{user_id}/saved_plans')
 
 
 @app.route('/user-<int:user_id>/saved_plans')
 def show_saved_plans(user_id):
-    
-    user = User.query.get(user_id)
+
     plans = Plan.query.filter(Plan.user_id == user_id).all()
-    return render_template('saved_plans.html', user=user, plans=plans)
 
+    return render_template('saved_plans.html', user_id=user_id, plans=plans)
 
-#  [<Plan plan_id=4 name=Oscar Simple Silver EPO, 
-#   <Plan plan_id=3 name=Oscar Simple Bronze EPO]
 
 if __name__ == '__main__':
 

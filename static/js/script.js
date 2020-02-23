@@ -84,6 +84,7 @@ return tablePlan;
 
 // function to display specific plan information
 function individualMedPlan(medicalPlans) {
+
   const allTablePlans = [] 
 
   // querying class to insert tables 
@@ -132,7 +133,7 @@ $('#type-form').on('submit', individualMedPlan, (evt) => {
 
 
 // click event to generate button allowing users to see more plans
-$('#click-more-plans').on('click', individualMedPlan, (evt) => {
+moreButton.on('click', individualMedPlan, (evt) => {
   // $('#display-plans-div').hide();
 
   // counter show next 5 tables every click
@@ -146,7 +147,7 @@ $('#click-more-plans').on('click', individualMedPlan, (evt) => {
 
 
 // click event to generate button allowing users to see previous plans
-$('#click-previous-plans').on('click', individualMedPlan, (evt) => {
+previousButton.on('click', individualMedPlan, (evt) => {
   
   // counter show previous 5 tables every click
   begin -= 5;

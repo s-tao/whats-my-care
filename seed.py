@@ -35,7 +35,7 @@ def add_carrier(plan_datas):
             db.session.commit()
 
 
-def add_plan(plan_ids, user):
+def add_plan(plan_ids, user_id):
     """Add plan to database when user saves plans"""
 
     plan_datas = search_medical_plan(plan_ids)
@@ -61,7 +61,7 @@ def add_plan(plan_ids, user):
         new_plan = Plan(plan_org=plan_data['plan_type'],
                         name=plan_data['display_name'],
                         vericred_id=plan_data['id'],
-                        user_id=user.user_id,
+                        user_id=user_id,
                         carrier_id=carrier.carrier_id)
 
         db.session.add(new_plan)
