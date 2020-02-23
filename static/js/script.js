@@ -114,6 +114,11 @@ function individualMedPlan(medicalPlans) {
 };
 
 
+// if user clicks to view more information, call function to run api call to 
+// gather information to render on screen 
+// $('#click-more-info').on('click'
+
+
 // event listener to show tables and get data from server when user submits
 $('#type-form').on('submit', individualMedPlan, (evt) => {
   evt.preventDefault();

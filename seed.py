@@ -68,7 +68,6 @@ def add_plan(plan_ids, user_id):
 
     db.session.commit()        
 
-    
 
 
 if __name__ == "__main__":

@@ -60,7 +60,25 @@ class Plan(db.Model):
     def __repr__(self):
 
         return f"<Plan plan_id={self.plan_id} name={self.name}"
-                    
+
+
+class PlanCoverage(db.Model):
+    """Deductible coverages for common services in a plan"""
+
+    __tablename__ = "plan_coverages"
+
+    pc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    pc_pcp = db.Column(db.Text, nullable=True)  
+    pc_specialist = db.Column(db.Text, nullable=True)             
+    pc_er = db.Column(db.Text, nullable=True)             
+    pc_gd = db.Column(db.Text, nullable=True)             
+    pc_uc = db.Column(db.Text, nullable=True)             
+    pc_med_deduct = db.Column(db.Text, nullable=True)             
+    pc_med_moop = db.Column(db.Text, nullable=True) 
+
+    # Define relationship to plan
+
+
 # future datatable
 class PlanType(db.Model):
     """Type of Plan""" 

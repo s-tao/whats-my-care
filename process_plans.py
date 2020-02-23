@@ -53,7 +53,6 @@ def search_medical_plan(plan_ids):
 
     for plan_id in plan_ids:
 
-        # payload['id'] = plan_id
         url = f'https://api.vericred.com/plans/medical/{plan_id}'
 
         req = requests.get(url, headers=HEADERS)
