@@ -113,10 +113,14 @@ function individualMedPlan(medicalPlans) {
 
 };
 
+// function expandTable() {
+//   const planDetails = 
+//   tableDisplay(planDetails);
 
-// if user clicks to view more information, call function to run api call to 
-// gather information to render on screen 
-// $('#click-more-info').on('click'
+// };
+
+// if user clicks to view more information, table expands
+// $('#click-more-info').on('click')
 
 
 // event listener to show tables and get data from server when user submits

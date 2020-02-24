@@ -50,7 +50,6 @@ def show_medical_plans(user):
 
         all_extracted_plans.append(extracted_plan_data)
 
-    # return req.json()
     return all_extracted_plans
 
 
@@ -65,10 +64,9 @@ def search_medical_plan(plan_ids):
 
         req = requests.get(url, headers=HEADERS)
 
-        print(req.url, "req.url")
-        print(req)
-        print(req.json())
-
+        # print(req.url, "req.url")
+        # print(req)
+   
         extracted_plan_data = parse_single_med_plan(req.json())
 
         plan_datas.append(extracted_plan_data)

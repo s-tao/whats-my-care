@@ -78,6 +78,11 @@ def login_process():
 
     session['user_id'] = user.user_id
 
+    user_plans = Plan.query.filter(Plan.user_id == user.user_id).first()
+
+    if user_plans:
+        return redirect(f'/user-{user.user_id}/saved_plans')
+
     flash('Successfully logged in')
     return redirect(f'/user-{user.user_id}/show_plans')
 
@@ -121,12 +126,12 @@ def all_plans(user_id):
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
-    medical_plans = show_medical_plans(user)
+    # medical_plans = show_medical_plans(user)
         
-    # plans = temp_data_call()
+    plans = temp_data_call()
 
-    return jsonify(medical_plans) #--uncomment when running api call
-    # return jsonify(plans)
+    # return jsonify(medical_plans) #--uncomment when running api call
+    return jsonify(plans)
 
 
 @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
@@ -135,7 +140,6 @@ def seed_plans(user_id):
     plan_ids = request.form.keys()
 
     add_plan(plan_ids, user_id)
-
 
     return redirect(f'/user-{user_id}/saved_plans')
 
@@ -158,7 +162,7 @@ if __name__ == '__main__':
 
     connect_to_db(app)
 
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
-    # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     app.run(host='0.0.0.0')
