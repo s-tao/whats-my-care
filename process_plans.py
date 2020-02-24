@@ -43,7 +43,7 @@ def show_medical_plans(user):
     all_plans = req.json()
 
     all_extracted_plans = []
-    
+
     for plan in all_plans['plans']:
 
         extracted_plan_data = parse_med_plans(plan)
@@ -67,8 +67,9 @@ def search_medical_plan(plan_ids):
 
         print(req.url, "req.url")
         print(req)
+        print(req.json())
 
-        extracted_plan_data = parse_med_plans(req.json())
+        extracted_plan_data = parse_single_med_plan(req.json())
 
         plan_datas.append(extracted_plan_data)
 
@@ -76,7 +77,7 @@ def search_medical_plan(plan_ids):
 
 
 def parse_med_plans(plan):
-    """Temporarily return plans for testing"""
+    """Parse through plans to only show specific information"""
       
     extracted_plan = {}
 
@@ -98,6 +99,32 @@ def parse_med_plans(plan):
     extracted_plan['med_moop'] = plan.get('individual_medical_moop')
 
     return extracted_plan
+
+
+def parse_single_med_plan(plan):
+    """Parse through single plan to only show specific information"""
+      
+    extracted_plan = {}
+
+    # specific plan information
+    extracted_plan['id'] = plan['plan'].get('id')
+    extracted_plan['carrier_name'] = plan['plan'].get('carrier_name')
+    extracted_plan['display_name'] = plan['plan'].get('display_name')
+    extracted_plan['plan_type'] = plan['plan'].get('plan_type')
+
+    # common services
+    extracted_plan['pcp'] = plan['plan'].get('primary_care_physician')
+    extracted_plan['specialist'] = plan['plan'].get('specialist')
+    extracted_plan['emerg_room'] = plan['plan'].get('emergency_room')
+    extracted_plan['gen_drugs'] = plan['plan'].get('generic_drugs')
+    extracted_plan['urg_care'] = plan['plan'].get('urgent_care')
+
+    # overall deductible costs
+    extracted_plan['med_deduct'] = plan['plan'].get('individual_medical_deductible')
+    extracted_plan['med_moop'] = plan['plan'].get('individual_medical_moop')
+
+    return extracted_plan
+
 
 
 def temp_data_call():
