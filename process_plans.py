@@ -32,6 +32,7 @@ def find_fips_code(zip_code):
 def show_medical_plans(user):
     """Show all medical plans based on user's location"""
 
+
     url = 'https://api.vericred.com/plans'
 
     payload = {'zip_code': user.zip_code,
@@ -39,11 +40,18 @@ def show_medical_plans(user):
                'market': user.market}
 
     req = requests.get(url, params=payload, headers=HEADERS)
+    all_plans = req.json()
 
-    # return json file as itself to access total plans for pagination - 
-    # json[meta]['total']
-    # and to access plans dictionary json['plans']
-    return req.json() 
+    all_extracted_plans = []
+    
+    for plan in all_plans['plans']:
+
+        extracted_plan_data = parse_med_plans(plan)
+
+        all_extracted_plans.append(extracted_plan_data)
+
+    # return req.json()
+    return all_extracted_plans
 
 
 def search_medical_plan(plan_ids):
@@ -70,26 +78,26 @@ def search_medical_plan(plan_ids):
 def parse_med_plans(plan):
     """Temporarily return plans for testing"""
       
-    extracted_data = {}
+    extracted_plan = {}
 
     # specific plan information
-    extracted_data['id'] = plan['plan'].get('id')
-    extracted_data['carrier_name'] = plan['plan'].get('carrier_name')
-    extracted_data['display_name'] = plan['plan'].get('display_name')
-    extracted_data['plan_type'] = plan['plan'].get('plan_type')
+    extracted_plan['id'] = plan.get('id')
+    extracted_plan['carrier_name'] = plan.get('carrier_name')
+    extracted_plan['display_name'] = plan.get('display_name')
+    extracted_plan['plan_type'] = plan.get('plan_type')
 
     # common services
-    extracted_data['pcp'] = plan['plan'].get('primary_care_physician')
-    extracted_data['specialist'] = plan['plan'].get('specialist')
-    extracted_data['emerg_room'] = plan['plan'].get('emergency_room')
-    extracted_data['gen_drugs'] = plan['plan'].get('generic_drugs')
-    extracted_data['urg_care'] = plan['plan'].get('urgent_care')
+    extracted_plan['pcp'] = plan.get('primary_care_physician')
+    extracted_plan['specialist'] = plan.get('specialist')
+    extracted_plan['emerg_room'] = plan.get('emergency_room')
+    extracted_plan['gen_drugs'] = plan.get('generic_drugs')
+    extracted_plan['urg_care'] = plan.get('urgent_care')
 
     # overall deductible costs
-    extracted_data['med_deduct'] = plan['plan'].get('individual_medical_deductible')
-    extracted_data['med_moop'] = plan['plan'].get('individual_medical_moop')
+    extracted_plan['med_deduct'] = plan.get('individual_medical_deductible')
+    extracted_plan['med_moop'] = plan.get('individual_medical_moop')
 
-    return extracted_data
+    return extracted_plan
 
 
 def temp_data_call():

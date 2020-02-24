@@ -35,7 +35,7 @@ function tableDisplay(planDetails) {
       </tr> \
       <tr> \
         <th scope="row" class="pcp-hdr">Primary Care Physician</th> \
-        <td class="plan-detail-pcp">${planDetails.primary_care_physician}</td> \
+        <td class="plan-detail-pcp">${planDetails.pcp}</td> \
       </tr> \
       <tr> \
         <th scope="row" class="specialist-hdr">Specialist</th> \
@@ -43,23 +43,23 @@ function tableDisplay(planDetails) {
       </tr> \
       <tr> \
         <th scope="row" class="er-hdr">Emergency Room</th> \
-        <td class="plan-detail-er">${planDetails.emergency_room}</td> \
+        <td class="plan-detail-er">${planDetails.emerg_room}</td> \
       </tr> \
       <tr> \
         <th scope="row" class="gen-drug-hdr">Generic Drug</th> \
-        <td class="plan-detail-gd">${planDetails.generic_drugs}</td> \
+        <td class="plan-detail-gd">${planDetails.gen_drugs}</td> \
       </tr> \
       <tr> \
         <th scope="row" class="urg-care-hdr">Urgent Care</th> \
-        <td class="plan-detail-uc">${planDetails.urgent_care}</td> \
+        <td class="plan-detail-uc">${planDetails.urg_care}</td> \
       </tr> \
       <tr> \
         <th scope="row" class="indiv-deduc-hdr">Individual Deductible</th> \
-        <td class="plan-detail-imd">${planDetails.individual_medical_deductible}</td> \
+        <td class="plan-detail-imd">${planDetails.med_deduct}</td> \
       </tr> \
       <tr> \
         <th scope="row" class="indiv-med-moop-hdr">Individual Max Out-of-Pocket</th> \
-        <td class="plan-detail-moop">${planDetails.individual_medical_moop}</td> \
+        <td class="plan-detail-moop">${planDetails.med_moop}</td> \
       </tr> \
 
       <tr> \

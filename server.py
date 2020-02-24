@@ -114,17 +114,19 @@ def user_options(user_id):
 def all_plans(user_id):
     """Generate all plans after selecting plan type"""
 
+    user = User.query.get(user_id)
+
     # Get request from form in search_plans.html --future feature
     plan_type = request.form.get('planOption')
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
-    # medical_plans = show_medical_plans(user)
+    medical_plans = show_medical_plans(user)
         
-    plans = temp_data_call()
+    # plans = temp_data_call()
 
-    # return jsonify(medical_plans['plans']) #--uncomment when running api call
-    return jsonify(plans)
+    return jsonify(medical_plans) #--uncomment when running api call
+    # return jsonify(plans)
 
 
 @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
