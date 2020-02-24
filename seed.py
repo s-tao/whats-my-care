@@ -74,13 +74,13 @@ def add_plan_coverage(plan_datas):
         plan_id = plan.plan_id
 
         new_plan_coverage = PlanCoverage(
-                                pcp=plan_data['primary_care_physician'],
+                                pcp=plan_data['pcp'],
                                 specialist=plan_data['specialist'],
-                                emerg_rm=plan_data['emergency_room'],
-                                gen_drug=plan_data['generic_drugs'],
-                                urg_care=plan_data['urgent_care'],
-                                med_deduct=plan_data['individual_medical_deductible'],
-                                med_moop=plan_data['individual_medical_moop'],
+                                emerg_rm=plan_data['emerg_room'],
+                                gen_drug=plan_data['gen_drugs'],
+                                urg_care=plan_data['urg_care'],
+                                med_deduct=plan_data['med_deduct'],
+                                med_moop=plan_data['med_moop'],
                                 plan_id=plan_id)
 
         db.session.add(new_plan_coverage)

@@ -95,6 +95,7 @@ def logout():
 def user_options(user_id):
     """Main page allowing user to see plans"""
 
+    # slightly buggy --fix when bug occurs again
     if session['user_id'] != user_id:
         flash('Please login')
         return redirect('/login')
@@ -155,7 +156,7 @@ if __name__ == '__main__':
 
     connect_to_db(app)
 
-    # DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
 
-    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+    # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     app.run(host='0.0.0.0')
