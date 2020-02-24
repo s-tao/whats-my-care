@@ -1,6 +1,6 @@
 from sqlalchemy import func
 
-from model import User, Carrier, Plan, PlanType, connect_to_db, db
+from model import User, Carrier, Plan, PlanCoverage, PlanType, connect_to_db, db
 from process_plans import find_fips_code, search_medical_plan
 
 
@@ -26,7 +26,8 @@ def add_carrier(plan_datas):
 
     for plan_data in plan_datas:
         
-        check_carrier = Carrier.query.filter(Carrier.name == plan_data['carrier_name']).first()
+        check_carrier = Carrier.query.filter(Carrier.name == 
+                                             plan_data['carrier_name']).first()
     
         if not check_carrier:
             new_carrier = Carrier(name=plan_data['carrier_name'])
@@ -39,35 +40,52 @@ def add_plan(plan_ids, user_id):
     """Add plan to database when user saves plans"""
 
     plan_datas = search_medical_plan(plan_ids)
-    # plan_datas = [{'id': '40513CA0380003-04', 
-    #     'carrier_name': 'Kaiser Permanente', 
-    #     'display_name': 'Silver 73 HMO', 
-    #     'plan_type': 'HMO', 
-    #     'primary_care_physician': 'In-Network: $35 / Out-of-Network: Not Covered', 
-    #     'specialist': 'In-Network: $75 / Out-of-Network: Not Covered', 
-    #     'emergency_room': 'In-Network: $400 / Out-of-Network: $400 | limit: waived if admitted', 
-    #     'generic_drugs': 'In-Network: $16 per script after deductible / Out-of-Network: Not Covered', 
-    #     'urgent_care': 'In-Network: $35 / Out-of-Network: Not Covered', 
-    #     'individual_medical_deductible': 'In-Network: $3,700 / Out-of-Network: Not Covered', 
-    #     'individual_medical_moop': 'In-Network: $6,500 / Out-of-Network: Not Covered'}]
-    
+
     # check to see if carrier from plan is in database
     add_carrier(plan_datas)
 
     for plan_data in plan_datas:
+        check_plan = Plan.query.filter(Plan.name == 
+                                       plan_data['display_name']).first()
+        
+        if not check_plan:
+            carrier = Carrier.query.filter(Carrier.name == 
+                                           plan_data['carrier_name']).first()
 
-        carrier = Carrier.query.filter(Carrier.name == plan_data['carrier_name']).first()
+            new_plan = Plan(plan_org=plan_data['plan_type'],
+                            name=plan_data['display_name'],
+                            vericred_id=plan_data['id'],
+                            user_id=user_id,
+                            carrier_id=carrier.carrier_id)
 
-        new_plan = Plan(plan_org=plan_data['plan_type'],
-                        name=plan_data['display_name'],
-                        vericred_id=plan_data['id'],
-                        user_id=user_id,
-                        carrier_id=carrier.carrier_id)
+            db.session.add(new_plan)
 
-        db.session.add(new_plan)
+    db.session.commit()    
 
-    db.session.commit()        
+    add_plan_coverage(plan_datas)
 
+
+def add_plan_coverage(plan_datas):
+    """Add plan coverage to database when user saves plans"""
+
+    for plan_data in plan_datas:
+
+        plan = Plan.query.filter(Plan.vericred_id == plan_data['id']).first()
+        plan_id = plan.plan_id
+
+        new_plan_coverage = PlanCoverage(
+                                pcp=plan_data['primary_care_physician'],
+                                specialist=plan_data['specialist'],
+                                emerg_rm=plan_data['emergency_room'],
+                                gen_drug=plan_data['generic_drugs'],
+                                urg_care=plan_data['urgent_care'],
+                                med_deduct=plan_data['individual_medical_deductible'],
+                                med_moop=plan_data['individual_medical_moop'],
+                                plan_id=plan_id)
+
+        db.session.add(new_plan_coverage)
+
+    db.session.commit()
 
 
 if __name__ == "__main__":

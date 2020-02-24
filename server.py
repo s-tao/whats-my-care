@@ -3,7 +3,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User, Carrier, Plan, PlanType
+from model import connect_to_db, db, User, Carrier, Plan, PlanCoverage, PlanType
 from process_plans import show_medical_plans, parse_med_plans, find_fips_code, search_medical_plan, temp_data_call
 from seed import add_user, add_plan
 import os

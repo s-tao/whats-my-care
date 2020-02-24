@@ -69,7 +69,7 @@ class PlanCoverage(db.Model):
     pc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     pcp = db.Column(db.Text, nullable=True)  
     specialist = db.Column(db.Text, nullable=True)             
-    emgy_rm = db.Column(db.Text, nullable=True)             
+    emerg_rm = db.Column(db.Text, nullable=True)             
     gen_drug = db.Column(db.Text, nullable=True)             
     urg_care = db.Column(db.Text, nullable=True)             
     med_deduct = db.Column(db.Text, nullable=True)             

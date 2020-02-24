@@ -79,15 +79,15 @@ def parse_med_plans(plan):
     extracted_data['plan_type'] = plan['plan'].get('plan_type')
 
     # common services
-    extracted_data['primary_care_physician'] = plan['plan'].get('primary_care_physician')
+    extracted_data['pcp'] = plan['plan'].get('primary_care_physician')
     extracted_data['specialist'] = plan['plan'].get('specialist')
-    extracted_data['emergency_room'] = plan['plan'].get('emergency_room')
-    extracted_data['generic_drugs'] = plan['plan'].get('generic_drugs')
-    extracted_data['urgent_care'] = plan['plan'].get('urgent_care')
+    extracted_data['emerg_room'] = plan['plan'].get('emergency_room')
+    extracted_data['gen_drugs'] = plan['plan'].get('generic_drugs')
+    extracted_data['urg_care'] = plan['plan'].get('urgent_care')
 
     # overall deductible costs
-    extracted_data['individual_medical_deductible'] = plan['plan'].get('individual_medical_deductible')
-    extracted_data['individual_medical_moop'] = plan['plan'].get('individual_medical_moop')
+    extracted_data['med_deduct'] = plan['plan'].get('individual_medical_deductible')
+    extracted_data['med_moop'] = plan['plan'].get('individual_medical_moop')
 
     return extracted_data
 
