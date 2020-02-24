@@ -32,7 +32,7 @@ class Carrier(db.Model):
     def __repr__(self):
 
         return f"<Carrier carrier_id={self.carrier_id} name={self.name}>"
-                                
+
 
 class Plan(db.Model):
     """User's choice of plan(s)"""
@@ -47,7 +47,6 @@ class Plan(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
     carrier_id = db.Column(db.Integer,
                            db.ForeignKey('carriers.carrier_id'), index=True)
-
 
     # Define relationship to carrier
     carrier = db.relationship("Carrier",
@@ -68,15 +67,18 @@ class PlanCoverage(db.Model):
     __tablename__ = "plan_coverages"
 
     pc_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    pc_pcp = db.Column(db.Text, nullable=True)  
-    pc_specialist = db.Column(db.Text, nullable=True)             
-    pc_er = db.Column(db.Text, nullable=True)             
-    pc_gd = db.Column(db.Text, nullable=True)             
-    pc_uc = db.Column(db.Text, nullable=True)             
-    pc_med_deduct = db.Column(db.Text, nullable=True)             
-    pc_med_moop = db.Column(db.Text, nullable=True) 
+    pcp = db.Column(db.Text, nullable=True)  
+    specialist = db.Column(db.Text, nullable=True)             
+    emgy_rm = db.Column(db.Text, nullable=True)             
+    gen_drug = db.Column(db.Text, nullable=True)             
+    urg_care = db.Column(db.Text, nullable=True)             
+    med_deduct = db.Column(db.Text, nullable=True)             
+    med_moop = db.Column(db.Text, nullable=True) 
+    plan_id = db.Column(db.Integer, db.ForeignKey('plans.plan_id'), index=True)
 
     # Define relationship to plan
+    plan = db.relationship("Plan", backref=db.backref("plan_coverages", 
+                                   order_by=pc_id))
 
 
 # future datatable
