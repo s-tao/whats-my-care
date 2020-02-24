@@ -153,7 +153,16 @@ def show_saved_plans(user_id):
 
     plans = Plan.query.filter(Plan.user_id == user_id).all()
 
-    return render_template('saved_plans.html', user_id=user_id, plans=plans)
+    plan_coverage_list = []
+
+    for plan in plans:
+        plan_coverages = PlanCoverage.query.filter(PlanCoverage.plan_id == 
+                                                   plan.plan_id).first()
+        plan_coverage_list.append(plan_coverages)
+
+    # return render_template('saved_plans.html', user_id=user_id, plans=plans)
+    return render_template('saved_plans.html', user_id=user_id, 
+                                               pc_list=plan_coverage_list)
 
 
 if __name__ == '__main__':

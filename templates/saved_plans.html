@@ -12,26 +12,26 @@
 </div>
 
 <div class="container" id="saved-plans">
-  {% for plan in plans %}
+  {% for plan in pc_list %}
   <div class="sub-container"> 
     <table class="table table-hover table-sm"> 
       <thead> 
         <tr> 
-          <th scope="col" id="display-name">{{ plan.name }}</th> 
+          <th scope="col" id="display-name">{{ plan.plan.name }}</th> 
         </tr> 
       </thead> 
       <tbody> 
         <tr> 
           <th scope="row">Plan ID</th> 
-          <td>{{ plan.vericred_id }}</td>
+          <td>{{ plan.plan.vericred_id }}</td>
         </tr> 
         <tr>
           <th scope="row">Carrier</th>
-          <td>{{ plan.carrier.name }}</td>
+          <td>{{ plan.plan.carrier.name }}</td>
         </tr>
         <tr>
           <th scope="row">Plan Type</th>
-          <td>{{ plan.plan_org }}</td>
+          <td>{{ plan.plan.plan_org }}</td>
         </tr>
       </tbody>
     </table>

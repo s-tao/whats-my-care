@@ -55,10 +55,10 @@ class Plan(db.Model):
     # Define relationship to user
     user = db.relationship("User", backref=db.backref("plans", order_by=plan_id))                              
 
-
+    
     def __repr__(self):
 
-        return f"<Plan plan_id={self.plan_id} name={self.name}"
+        return f"<Plan plan_id={self.plan_id} name={self.name}>"
 
 
 class PlanCoverage(db.Model):
@@ -80,6 +80,9 @@ class PlanCoverage(db.Model):
     plan = db.relationship("Plan", backref=db.backref("plan_coverages", 
                                    order_by=pc_id))
 
+    def __repr__(self):
+
+        return f"<PlanCoverage pc_id={self.pc_id} plan_id={self.plan.plan_id}>"
 
 # future datatable
 class PlanType(db.Model):
