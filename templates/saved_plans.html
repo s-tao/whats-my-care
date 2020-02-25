@@ -17,7 +17,7 @@
     <table class="table table-condensed table-hover table-sm" style="border-collapse:collapse;"> 
       <thead> 
         <tr> 
-          <th scope="col" id="display-name" style="text-align:center">{{ plan.plan.name }}</th> 
+          <th scope="col" id="display-name" style="text-align:center">{{ plan.name }}</th> 
         </tr> 
       </thead> 
       <tbody> 
@@ -70,7 +70,7 @@
     </div>
     <div class="sub-container">
       <button type="remove-plan" class="remove-plan"
-              id="{{ plan.plan.vericred_id }}">Remove Plan</button>
+              id="{{ plan.vericred_id }}">Remove Plan</button>
     </div>
   {% endfor %}
 </div>

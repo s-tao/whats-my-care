@@ -91,7 +91,9 @@ def login_process():
 def logout():
     """Log out"""
     
-    del session['user_id']
+    user_id = session.get('user_id')
+
+    del user_id
     flash('Successfully logged out')
     return redirect('/')
 
@@ -100,8 +102,9 @@ def logout():
 def user_options(user_id):
     """Main page allowing user to see plans"""
 
-    # slightly buggy --fix when bug occurs again
-    if session['user_id'] != user_id:
+    check_user = session.get('user_id')
+
+    if check_user != user_id:
         flash('Please login')
         return redirect('/login')
 
@@ -147,7 +150,9 @@ def seed_plans(user_id):
 @app.route('/user-<int:user_id>/saved_plans')
 def show_saved_plans(user_id):
 
-    if session['user_id'] != user_id:
+    check_user = session.get('user_id')
+
+    if check_user != user_id:
         flash('Please login')
         return redirect('/login')
 
@@ -167,7 +172,8 @@ def show_saved_plans(user_id):
 @app.route('/remove_plan', methods=['POST'])
 def remove_userplan():
 
-    user_id = session['user_id']
+    user_id = session.get('user_id')
+
     print(user_id, "user_id \n\n")
     v_id = request.form.get('planId')
     print(v_id, "\n\n\n")
@@ -184,7 +190,7 @@ if __name__ == '__main__':
 
     connect_to_db(app)
 
-    # DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
 
-    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+    # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     app.run(host='0.0.0.0')

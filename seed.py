@@ -54,16 +54,17 @@ def add_plan(plan_ids, user_id):
         
         if not check_plan:
 
+            current_pc = add_plan_coverage(plan_data)
+
             new_plan = Plan(plan_org=plan_data['plan_type'],
                             name=plan_data['display_name'],
                             vericred_id=plan_data['id'],
-                            carrier_id=current_carrier.carrier_id)
+                            carrier_id=current_carrier.carrier_id,
+                            pc_id=current_pc.pc_id)
 
             db.session.add(new_plan)
 
             db.session.commit()    
-
-            add_plan_coverage(plan_data)
 
             add_user_plan(new_plan, user_id)
 
@@ -81,22 +82,20 @@ def add_user_plan(new_plan, user_id):
 def add_plan_coverage(plan_data):
     """Add plan coverage to database when user saves plans"""
 
-    plan = Plan.query.filter(Plan.vericred_id == plan_data['id']).first()
-    plan_id = plan.plan_id
-
     new_plan_coverage = PlanCoverage(
                             pcp=plan_data['pcp'],
                             specialist=plan_data['specialist'],
-                            emerg_rm=plan_data['emerg_room'],
-                            gen_drug=plan_data['gen_drugs'],
+                            emerg_rm=plan_data['emerg_rm'],
+                            gen_drug=plan_data['gen_drug'],
                             urg_care=plan_data['urg_care'],
                             med_deduct=plan_data['med_deduct'],
-                            med_moop=plan_data['med_moop'],
-                            plan_id=plan_id)
+                            med_moop=plan_data['med_moop'])
 
     db.session.add(new_plan_coverage)
 
     db.session.commit()
+
+    return new_plan_coverage
 
 
 def remove_plan(v_id, user_id):
