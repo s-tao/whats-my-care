@@ -98,11 +98,11 @@ def add_plan_coverage(plan_data):
     return new_plan_coverage
 
 
-def remove_plan(v_id, user_id):
+def remove_plan(plan, user_id):
     """Remove plan that's associated with user"""
 
-    indiv_plan = Plan.query.filter(Plan.vericred_id == v_id).first()
-
+    indiv_plan = Plan.query.filter(Plan.vericred_id == plan.vericred_id).first()
+    print(indiv_plan, "indiv plan \n\n\n")
     UserPlan.query.filter(UserPlan.plan_id == indiv_plan.plan_id,
                           UserPlan.user_id == user_id).delete()
 
