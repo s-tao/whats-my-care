@@ -3,7 +3,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User, Carrier, Plan, PlanCoverage, PlanType
+from model import connect_to_db, db, User, Carrier, Plan, PlanCoverage, UserPlan
 from process_plans import show_medical_plans, parse_med_plans, find_fips_code, search_medical_plan, temp_data_call
 from seed import add_user, add_plan, remove_plan
 import os
@@ -78,7 +78,7 @@ def login_process():
 
     session['user_id'] = user.user_id
 
-    user_plans = Plan.query.filter(Plan.user_id == user.user_id).first()
+    user_plans = UserPlan.query.filter(UserPlan.user_id == user.user_id).first()
 
     if user_plans:
         return redirect(f'/user-{user.user_id}/saved_plans')
@@ -151,18 +151,17 @@ def show_saved_plans(user_id):
         flash('Please login')
         return redirect('/login')
 
-    plans = Plan.query.filter(Plan.user_id == user_id).all()
+    user_plans = UserPlan.query.filter(UserPlan.user_id == user_id).all()
 
-    plan_coverage_list = []
+    plans = []
 
-    for plan in plans:
-        plan_coverages = PlanCoverage.query.filter(PlanCoverage.plan_id == 
-                                                   plan.plan_id).first()
-        plan_coverage_list.append(plan_coverages)
+    for plan in user_plans:
+        p = Plan.query.filter(Plan.plan_id == plan.plan_id).first()
+        plans.append(p)
 
     # return render_template('saved_plans.html', user_id=user_id, plans=plans)
     return render_template('saved_plans.html', user_id=user_id, 
-                                               pc_list=plan_coverage_list)
+                                               plans=plans)
 
 
 @app.route('/remove_plan', methods=['POST'])

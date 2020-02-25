@@ -45,10 +45,16 @@ class Plan(db.Model):
     vericred_id = db.Column(db.String(25), nullable=False)
     carrier_id = db.Column(db.Integer,
                            db.ForeignKey('carriers.carrier_id'), index=True)
+    pc_id = db.Column(db.Integer, 
+                      db.ForeignKey('plan_coverages.pc_id'), index=True)
 
     # Define relationship to carrier
     carrier = db.relationship("Carrier",
                               backref=db.backref("plans", order_by=plan_id))
+
+    # Define relationship to plan
+    p_cov = db.relationship("PlanCoverage", backref=db.backref("plans", 
+                                            order_by=plan_id))
 
 
     def __repr__(self):
@@ -93,15 +99,7 @@ class PlanCoverage(db.Model):
     urg_care = db.Column(db.Text, nullable=True)             
     med_deduct = db.Column(db.Text, nullable=True)             
     med_moop = db.Column(db.Text, nullable=True) 
-    plan_id = db.Column(db.Integer, db.ForeignKey('plans.plan_id'), index=True)
 
-    # Define relationship to plan
-    plan = db.relationship("Plan", backref=db.backref("plan_coverages", 
-                                   order_by=pc_id))
-
-    def __repr__(self):
-
-        return f"<PlanCoverage pc_id={self.pc_id} plan_id={self.plan.plan_id}>"
 
 # future datatable
 class PlanType(db.Model):

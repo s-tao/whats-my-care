@@ -107,10 +107,9 @@ def remove_plan(v_id, user_id):
     UserPlan.query.filter(UserPlan.plan_id == indiv_plan.plan_id,
                           UserPlan.user_id == user_id).delete()
 
-    ext_plan = UserPlan.query.filter(UserPlan.plan_id == indiv_plan.plan_id).first()
+    check_plan = UserPlan.query.filter(UserPlan.plan_id == indiv_plan.plan_id).first()
 
-
-    if ext_plan:
+    if not check_plan:
 
         Plan.query.filter(Plan.plan_id == indiv_plan.plan_id).delete()
 

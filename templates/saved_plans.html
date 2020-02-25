@@ -12,7 +12,7 @@
 </div>
 
 <div class="container" id="saved-plans">
-  {% for plan in pc_list %}
+  {% for plan in plans %}
   <div class="sub-container"> 
     <table class="table table-condensed table-hover table-sm" style="border-collapse:collapse;"> 
       <thead> 
@@ -23,15 +23,15 @@
       <tbody> 
         <tr> 
           <th scope="row">Plan ID</th> 
-          <td>{{ plan.plan.vericred_id }}</td>
+          <td>{{ plan.vericred_id }}</td>
         </tr> 
         <tr>
           <th scope="row">Carrier</th>
-          <td>{{ plan.plan.carrier.name }}</td>
+          <td>{{ plan.carrier.name }}</td>
         </tr>
         <tr>
           <th scope="row">Plan Type</th>
-          <td>{{ plan.plan.plan_org }}</td>
+          <td>{{ plan.plan_org }}</td>
         </tr>
         <tr data-toggle="collapse" data-target="#pc_id-{{ plan.pc_id }}" 
                                    class="accordion-toggle"
@@ -50,15 +50,15 @@
                   <tbody>
                     <tr>
                       <th scope="row">Primary Care Physician</th>
-                      <td>{{ plan.pcp }}</td>
+                      <td>{{ plan.p_cov.pcp }}</td>
                     </tr>
                     <tr>
                       <th scope="row">Specialist</th>
-                      <td>{{ plan.specialist }}</td>
+                      <td>{{ plan.p_cov.specialist }}</td>
                     </tr>
                     <tr>
                       <th scope="row">Emergency Room</th>
-                      <td>{{ plan.emerg_rm }}</td>
+                      <td>{{ plan.p_cov.emerg_rm }}</td>
                     </tr>
                   </tbody>
                 </table>
