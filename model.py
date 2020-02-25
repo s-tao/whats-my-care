@@ -43,8 +43,6 @@ class Plan(db.Model):
     plan_org = db.Column(db.String(10), nullable = True)
     name = db.Column(db.String(100), nullable=False)
     vericred_id = db.Column(db.String(25), nullable=False)
-    # plan_type = db.Column(db.Integer, nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
     carrier_id = db.Column(db.Integer,
                            db.ForeignKey('carriers.carrier_id'), index=True)
 
@@ -52,13 +50,34 @@ class Plan(db.Model):
     carrier = db.relationship("Carrier",
                               backref=db.backref("plans", order_by=plan_id))
 
-    # Define relationship to user
-    user = db.relationship("User", backref=db.backref("plans", order_by=plan_id))                              
 
-    
     def __repr__(self):
 
         return f"<Plan plan_id={self.plan_id} name={self.name}>"
+
+
+class UserPlan(db.Model):
+    """Association between User and Model many-to-many relationship"""
+    
+    __tablename__ = "userplans"
+
+    userplan_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
+    plan_id = db.Column(db.Integer, db.ForeignKey('plans.plan_id'), index=True)                        
+
+    # Define relationship to user
+    user = db.relationship("User", backref=db.backref("userplans", 
+                                   order_by=userplan_id))                              
+
+    # Define relationship to plan
+    plan = db.relationship("Plan", backref=db.backref("userplans", 
+                                   order_by=userplan_id))
+    
+    def __repr__(self):
+
+        return f"""<Userplan userplan_id={self.userplan_id} 
+                                 user_id={self.user.user_id}
+                                 plan_id={self.plan.plan_id}"""
 
 
 class PlanCoverage(db.Model):
@@ -85,19 +104,19 @@ class PlanCoverage(db.Model):
         return f"<PlanCoverage pc_id={self.pc_id} plan_id={self.plan.plan_id}>"
 
 # future datatable
-class PlanType(db.Model):
-    """Type of Plan""" 
+# class PlanType(db.Model):
+#     """Type of Plan""" 
 
-    __tablename__ = "plan_types"
+#     __tablename__ = "plan_types"
 
-    plan_type_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name_type = db.Column(db.String(10), nullable=False)
-    plan_id = db.Column(db.Integer, db.ForeignKey('plans.plan_id'), index=True)
+#     plan_type_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     name_type = db.Column(db.String(10), nullable=False)
+#     plan_id = db.Column(db.Integer, db.ForeignKey('plans.plan_id'), index=True)
 
-    # Define relationship to plan
-    plan = db.relationship("Plan", 
-                           backref=db.backref("plan_types", 
-                           order_by=plan_type_id))
+#     # Define relationship to plan
+#     plan = db.relationship("Plan", 
+#                            backref=db.backref("plan_types", 
+#                            order_by=plan_type_id))
 
 
 def connect_to_db(app):
