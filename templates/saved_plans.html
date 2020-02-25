@@ -14,10 +14,10 @@
 <div class="container" id="saved-plans">
   {% for plan in pc_list %}
   <div class="sub-container"> 
-    <table class="table table-hover table-sm"> 
+    <table class="table table-condensed table-hover table-sm" style="border-collapse:collapse;"> 
       <thead> 
         <tr> 
-          <th scope="col" id="display-name">{{ plan.plan.name }}</th> 
+          <th scope="col" id="display-name" style="text-align:center">{{ plan.plan.name }}</th> 
         </tr> 
       </thead> 
       <tbody> 
@@ -33,16 +33,44 @@
           <th scope="row">Plan Type</th>
           <td>{{ plan.plan.plan_org }}</td>
         </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="sub-container">
-    <button id="click-more-info" name="see-plan-{{ plan.plan_id }}">More Information</button>
-  </div>
+        <tr data-toggle="collapse" data-target="#pc_id-{{ plan.pc_id }}" 
+                                   class="accordion-toggle"
+                                   aria-expanded="false" 
+                                   aria-controls="pc_id-{{ plan.pc_id }}">
+        <td>
+          <button class="btn btn-link">
+            View More Information
+          </button>
+        </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="hiddenRow">
+              <div class="accordian-body collapse" id="pc_id-{{ plan.pc_id }}">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Primary Care Physician</th>
+                      <td>{{ plan.pcp }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Specialist</th>
+                      <td>{{ plan.specialist }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Emergency Room</th>
+                      <td>{{ plan.emerg_rm }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   {% endfor %}
 </div>
 
 
 
 {% endblock %}
-

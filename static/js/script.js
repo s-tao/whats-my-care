@@ -43,11 +43,11 @@ function tableDisplay(planDetails) {
       </tr> \
       <tr> \
         <th scope="row" class="er-hdr">Emergency Room</th> \
-        <td class="plan-detail-er">${planDetails.emerg_room}</td> \
+        <td class="plan-detail-er">${planDetails.emerg_rm}</td> \
       </tr> \
       <tr> \
         <th scope="row" class="gen-drug-hdr">Generic Drug</th> \
-        <td class="plan-detail-gd">${planDetails.gen_drugs}</td> \
+        <td class="plan-detail-gd">${planDetails.gen_drug}</td> \
       </tr> \
       <tr> \
         <th scope="row" class="urg-care-hdr">Urgent Care</th> \

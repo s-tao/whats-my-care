@@ -88,8 +88,8 @@ def parse_med_plans(plan):
     # common services
     extracted_plan['pcp'] = plan.get('primary_care_physician')
     extracted_plan['specialist'] = plan.get('specialist')
-    extracted_plan['emerg_room'] = plan.get('emergency_room')
-    extracted_plan['gen_drugs'] = plan.get('generic_drugs')
+    extracted_plan['emerg_rm'] = plan.get('emergency_room')
+    extracted_plan['gen_drug'] = plan.get('generic_drugs')
     extracted_plan['urg_care'] = plan.get('urgent_care')
 
     # overall deductible costs
@@ -113,8 +113,8 @@ def parse_single_med_plan(plan):
     # common services
     extracted_plan['pcp'] = plan['plan'].get('primary_care_physician')
     extracted_plan['specialist'] = plan['plan'].get('specialist')
-    extracted_plan['emerg_room'] = plan['plan'].get('emergency_room')
-    extracted_plan['gen_drugs'] = plan['plan'].get('generic_drugs')
+    extracted_plan['emerg_rm'] = plan['plan'].get('emergency_room')
+    extracted_plan['gen_drug'] = plan['plan'].get('generic_drugs')
     extracted_plan['urg_care'] = plan['plan'].get('urgent_care')
 
     # overall deductible costs
