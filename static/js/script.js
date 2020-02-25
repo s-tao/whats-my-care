@@ -170,10 +170,16 @@ const removePlan = $('.remove-plan');
 
 removePlan.click(function() {
 
-  const planId = this.id;
-  console.log(planId)
+  const planId = $(this).attr('id');
 
-  $.post('/remove_plan', planId, (res) => {
+  const formInput = {
+
+    'planId': planId
+  };
+
+  console.log(formInput)
+
+  $.post('/remove_plan', formInput, (res) => {
     alert(res);
   });
 });
