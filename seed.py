@@ -89,6 +89,14 @@ def add_plan_coverage(plan_datas):
     db.session.commit()
 
 
+def remove_plan(plan, user_id):
+    """Remove plan that's associated with user"""
+
+    pass
+
+
+
+
 if __name__ == "__main__":
 
     from server import app

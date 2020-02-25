@@ -164,3 +164,16 @@ previousButton.on('click', individualMedPlan, (evt) => {
   $.post(url, individualMedPlan); 
   
 });
+
+
+const removePlan = $('.remove-plan');
+
+removePlan.click(function() {
+
+  const planId = this.id;
+  console.log(planId)
+
+  $.post('/remove_plan', planId, (res) => {
+    alert(res);
+  });
+});

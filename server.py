@@ -5,7 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Carrier, Plan, PlanCoverage, PlanType
 from process_plans import show_medical_plans, parse_med_plans, find_fips_code, search_medical_plan, temp_data_call
-from seed import add_user, add_plan
+from seed import add_user, add_plan, remove_plan
 import os
 
 
@@ -163,6 +163,20 @@ def show_saved_plans(user_id):
     # return render_template('saved_plans.html', user_id=user_id, plans=plans)
     return render_template('saved_plans.html', user_id=user_id, 
                                                pc_list=plan_coverage_list)
+
+
+@app.route('/remove_plan', methods=['POST'])
+def remove_userplan():
+
+    user_id = session['user_id']
+
+    plan_id = request.form.get('planId')
+    print(plan_id, "\n\n\n")
+    plan = Plan.query.filter(Plan.plan_id == plan_id).first()
+
+    # remove_plan(plan, user_id)
+
+    return "Plan Removed"
 
 
 if __name__ == '__main__':
