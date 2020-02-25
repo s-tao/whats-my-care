@@ -104,19 +104,19 @@ class PlanCoverage(db.Model):
         return f"<PlanCoverage pc_id={self.pc_id} plan_id={self.plan.plan_id}>"
 
 # future datatable
-# class PlanType(db.Model):
-#     """Type of Plan""" 
+class PlanType(db.Model):
+    """Type of Plan""" 
 
-#     __tablename__ = "plan_types"
+    __tablename__ = "plan_types"
 
-#     plan_type_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     name_type = db.Column(db.String(10), nullable=False)
-#     plan_id = db.Column(db.Integer, db.ForeignKey('plans.plan_id'), index=True)
+    plan_type_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name_type = db.Column(db.String(10), nullable=False)
+    plan_id = db.Column(db.Integer, db.ForeignKey('plans.plan_id'), index=True)
 
-#     # Define relationship to plan
-#     plan = db.relationship("Plan", 
-#                            backref=db.backref("plan_types", 
-#                            order_by=plan_type_id))
+    # Define relationship to plan
+    plan = db.relationship("Plan", 
+                           backref=db.backref("plan_types", 
+                           order_by=plan_type_id))
 
 
 def connect_to_db(app):
