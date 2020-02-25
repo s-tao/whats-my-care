@@ -49,24 +49,23 @@ def add_plan(plan_ids, user_id):
         # check to see if carrier from plan is in database
         current_carrier = add_carrier(plan_data)
 
-        check_plan = Plan.query.filter(Plan.name == 
-                                       plan_data['display_name']).first()
+        plan = Plan.query.filter(Plan.name == plan_data['display_name']).first()
         
-        if not check_plan:
+        if not plan:
 
             current_pc = add_plan_coverage(plan_data)
 
-            new_plan = Plan(plan_org=plan_data['plan_type'],
+            plan = Plan(plan_org=plan_data['plan_type'],
                             name=plan_data['display_name'],
                             vericred_id=plan_data['id'],
                             carrier_id=current_carrier.carrier_id,
                             pc_id=current_pc.pc_id)
 
-            db.session.add(new_plan)
+            db.session.add(plan)
 
             db.session.commit()    
 
-            add_user_plan(new_plan, user_id)
+        add_user_plan(plan, user_id)
 
 
 def add_user_plan(new_plan, user_id):
@@ -111,8 +110,10 @@ def remove_plan(plan, user_id):
     if not check_plan:
 
         Plan.query.filter(Plan.plan_id == indiv_plan.plan_id).delete()
+        PlanCoverage.query.filter(PlanCoverage.pc_id == indiv_plan.pc_id).delete()
 
     db.session.commit()
+
 
 if __name__ == "__main__":
 
