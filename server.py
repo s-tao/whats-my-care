@@ -168,13 +168,13 @@ def show_saved_plans(user_id):
 @app.route('/remove_plan', methods=['POST'])
 def remove_userplan():
 
-    # user_id = session['user_id']
-
-    plan_id = request.form.get('planId')
-    print(plan_id, "\n\n\n")
-    plan = Plan.query.filter(Plan.plan_id == plan_id).first()
-    # print(plan, "plan \n\n\n")
-    # remove_plan(plan, user_id)
+    user_id = session['user_id']
+    print(user_id, "user_id \n\n")
+    v_id = request.form.get('planId')
+    print(v_id, "\n\n\n")
+    plan = Plan.query.filter(Plan.vericred_id == v_id).first()
+    print(plan, "plan \n\n\n")
+    remove_plan(plan, user_id)
 
     return "Plan Removed"
 
