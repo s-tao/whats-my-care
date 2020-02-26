@@ -14,7 +14,8 @@
 <div class="container" id="saved-plans">
   {% for plan in plans %}
   <div class="sub-container"> 
-    <table class="table table-condensed table-hover table-sm" style="border-collapse:collapse;"> 
+    <table class="table table-condensed table-hover table-sm" style="border-collapse:collapse;"
+           id="table-{{ plan.vericred_id }}"> 
       <thead> 
         <tr> 
           <th scope="col" id="display-name" style="text-align:center">{{ plan.name }}</th> 

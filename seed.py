@@ -1,7 +1,7 @@
 from sqlalchemy import func
 
 from model import User, Carrier, Plan, PlanCoverage, UserPlan, connect_to_db, db
-from process_plans import find_fips_code, search_medical_plan
+from process_plans import find_fips_code, search_medical_plan, parse_med_plans
 
 
 def add_user(email, password, market, zip_code):
@@ -110,6 +110,7 @@ def remove_plan(plan, user_id):
     if not check_plan:
 
         Plan.query.filter(Plan.plan_id == indiv_plan.plan_id).delete()
+
         PlanCoverage.query.filter(PlanCoverage.pc_id == indiv_plan.pc_id).delete()
 
     db.session.commit()

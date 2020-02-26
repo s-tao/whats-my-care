@@ -164,7 +164,6 @@ def show_saved_plans(user_id):
         p = Plan.query.filter(Plan.plan_id == plan.plan_id).first()
         plans.append(p)
 
-    # return render_template('saved_plans.html', user_id=user_id, plans=plans)
     return render_template('saved_plans.html', user_id=user_id, 
                                                plans=plans)
 
@@ -173,16 +172,18 @@ def show_saved_plans(user_id):
 def remove_userplan():
 
     user_id = session.get('user_id')
-
-    print(user_id, "user_id \n\n")
+    
     v_id = request.form.get('planId')
-    print(v_id, "\n\n\n")
+
     plan = Plan.query.filter(Plan.vericred_id == v_id).first()
-    print(plan, "plan \n\n\n")
-    remove_plan(plan, user_id)
+       
+    if plan:
+
+        remove_plan(plan, user_id)
 
     return "Plan Removed"
 
+    # return "Unexpected Error"
 
 if __name__ == '__main__':
 

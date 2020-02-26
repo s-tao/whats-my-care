@@ -1,6 +1,5 @@
 """Processing healthcare plans"""
-
-from model import User
+from model import User, Carrier, Plan, UserPlan, PlanCoverage
 import os
 import requests
 from temp_seed import all_plans
@@ -130,3 +129,6 @@ def temp_data_call():
     medical_plans = all_plans()
 
     return medical_plans['plans']
+
+
+

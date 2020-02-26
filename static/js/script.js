@@ -113,15 +113,6 @@ function individualMedPlan(medicalPlans) {
 
 };
 
-// function expandTable() {
-//   const planDetails = 
-//   tableDisplay(planDetails);
-
-// };
-
-// if user clicks to view more information, table expands
-// $('#click-more-info').on('click')
-
 
 // event listener to show tables and get data from server when user submits
 $('#type-form').on('submit', individualMedPlan, (evt) => {
@@ -165,21 +156,28 @@ previousButton.on('click', individualMedPlan, (evt) => {
   
 });
 
-
+// click event to remove plan from user profile 
 const removePlan = $('.remove-plan');
 
 removePlan.click(function() {
 
   const planId = $(this).attr('id');
-
   const formInput = {
 
     'planId': planId
   };
 
-  console.log(formInput)
-
   $.post('/remove_plan', formInput, (res) => {
+
+    const removeTable = $(`#table-${planId}`);
+    
+    removeTable.fadeOut(1000, function() {
+    removeTable.remove();
+    });
+
     alert(res);
+    $(`#${planId}`).hide();
+
   });
 });
+
