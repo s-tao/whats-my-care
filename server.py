@@ -5,9 +5,9 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Carrier, Plan, PlanCoverage, UserPlan
 from process_plans import (show_medical_plans, parse_med_plans, find_fips_code, 
-                           search_medical_plan, temp_data_call)
-                           
-from process_providers import search_providers
+                           search_medical_plan, user_saved_plans, temp_data_call)
+
+from process_providers import find_providers
 from seed import add_user, add_plan, remove_plan
 import os
 
@@ -105,7 +105,7 @@ def logout():
 
 @app.route('/user-<int:user_id>/show_plans', methods=['GET'])
 def user_options(user_id):
-    """Main page allowing user to see plans"""
+    """User information with form to generate all qualifying user plans"""
 
     check_user = session.get('user_id')
 
@@ -151,16 +151,10 @@ def show_saved_plans(user_id):
         flash('Please login')
         return redirect('/login')
 
-    user_plans = UserPlan.query.filter(UserPlan.user_id == user_id).all()
+    plans = user_saved_plans(user_id)
 
-    plans = []
-
-    for plan in user_plans:
-        p = Plan.query.filter(Plan.plan_id == plan.plan_id).first()
-        plans.append(p)
-
-    show_providers(user_id)
-
+    # providers = show_providers(user_id)
+    # print(providers, "providers \n\n\n")
     return render_template('saved_plans.html', user_id=user_id, 
                                                plans=plans)
 
@@ -177,9 +171,12 @@ def show_providers(user_id):
     if not zip_code:
         zip_code = user.zip_code
 
-    print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
+    # print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
+    providers = find_providers(zip_code, radius, plan_id)
 
-                                            
+    return providers
+
+
 @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
 def seed_plans(user_id):
     """Form action to save user's choice of plan into database"""

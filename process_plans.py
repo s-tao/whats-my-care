@@ -30,7 +30,6 @@ def find_fips_code(zip_code):
 def show_medical_plans(user):
     """Show all medical plans based on user's location"""
 
-
     url = 'https://api.vericred.com/plans'
 
     payload = {'zip_code': user.zip_code,
@@ -122,6 +121,18 @@ def parse_single_med_plan(plan):
     return extracted_plan
 
 
+def user_saved_plans(user_id):
+    """Return all user's saved plans"""
+
+    user_plans = UserPlan.query.filter(UserPlan.user_id == user_id).all()
+
+    plans = []
+
+    for plan in user_plans:
+        p = Plan.query.filter(Plan.plan_id == plan.plan_id).first()
+        plans.append(p)
+
+    return plans
 
 def temp_data_call():
     """Temporarily return plans for testing"""
