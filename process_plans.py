@@ -9,7 +9,6 @@ HEADERS = {'Content-Type': 'application/json',
            'Vericred-Api-Key': os.environ['YOUR_API_KEY']}
           
 
-
 def find_fips_code(zip_code):
     """Use user zip code to return county fips code"""
 

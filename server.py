@@ -4,7 +4,10 @@ from flask import Flask, render_template, request, flash, redirect, session, jso
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Carrier, Plan, PlanCoverage, UserPlan
-from process_plans import show_medical_plans, parse_med_plans, find_fips_code, search_medical_plan, temp_data_call
+from process_plans import (show_medical_plans, parse_med_plans, find_fips_code, 
+                           search_medical_plan, temp_data_call)
+                           
+from process_providers import search_providers
 from seed import add_user, add_plan, remove_plan
 import os
 
@@ -139,9 +142,9 @@ def all_plans(user_id):
     return jsonify(plans)
 
 
-@app.route('/user-<int:user_id>/saved_plans')
+@app.route('/user-<int:user_id>/saved_plans', methods=['GET'])
 def show_saved_plans(user_id):
-
+    """Display all user's saved plans"""
     check_user = session.get('user_id')
 
     if check_user != user_id:
@@ -156,18 +159,31 @@ def show_saved_plans(user_id):
         p = Plan.query.filter(Plan.plan_id == plan.plan_id).first()
         plans.append(p)
 
+    show_providers(user_id)
+
     return render_template('saved_plans.html', user_id=user_id, 
                                                plans=plans)
 
 
 def show_providers(user_id):
-    pass
+    """Form submittal to search providers"""
 
+    user = User.query.filter(User.user_id == user_id).first()
 
+    zip_code = request.args.get("zipcode")
+    radius = request.args.get("radius")
+    plan_id = request.args.get("plan_id")
 
+    if not zip_code:
+        zip_code = user.zip_code
+
+    print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
+
+                                            
 @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
 def seed_plans(user_id):
-    
+    """Form action to save user's choice of plan into database"""
+
     plan_ids = request.form.keys()
 
     add_plan(plan_ids, user_id)
@@ -175,9 +191,9 @@ def seed_plans(user_id):
     return redirect(f'/user-{user_id}/saved_plans')
 
 
-
 @app.route('/remove_plan', methods=['POST'])
 def remove_userplan():
+    """Form action to remove user's choice of plan from database"""
 
     user_id = session.get('user_id')
     
@@ -186,9 +202,7 @@ def remove_userplan():
     plan = Plan.query.filter(Plan.vericred_id == v_id).first()
        
     if plan:
-
         remove_plan(plan, user_id)
-
         return "Plan Removed"
 
     return "Unexpected Error"
@@ -203,5 +217,5 @@ if __name__ == '__main__':
     # DebugToolbarExtension(app)
 
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-    
+
     app.run(host='0.0.0.0')
