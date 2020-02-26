@@ -181,9 +181,9 @@ def remove_userplan():
 
         remove_plan(plan, user_id)
 
-    return "Plan Removed"
+        return "Plan Removed"
 
-    # return "Unexpected Error"
+    return "Unexpected Error"
 
 if __name__ == '__main__':
 
