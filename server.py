@@ -171,10 +171,14 @@ def show_providers(user_id):
     if not zip_code:
         zip_code = user.zip_code
 
-    # print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
-    providers = find_providers(zip_code, radius, plan_id)
+    print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
+   
+    if radius:
+        providers = find_providers(zip_code, radius, plan_id)
 
-    return providers
+        return providers
+    
+    return 
 
 
 @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
