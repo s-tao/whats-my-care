@@ -13,7 +13,6 @@
 <div class="container">
   <h1>Register here</h1>
   <form action="/register" id="register-user" method="POST">
-
     <div class="form-account">
       <label>Email:
         <input type="email" name="email" required class="form-control">
@@ -36,25 +35,17 @@
         <!-- <option value="Any">Any</option> -->
       </select>
     </div>
-  
+
     <div class="form-account">
       <label>Zip Code:
         <input type="zipcode" name="zipcode" required class="form-control">
       </label>
     </div>
- 
-    <!-- <div class="form-account">
-      <label>State:
-        <input type="state" name="state" required class="form-control">
-      </label>
-    </div>
-  -->
+
     <div class="form-account">
       <input type="submit" value="Submit">
     </div>
-
   </form>
-  <!-- <span class="register-process"></span> -->
 </div>
 
 {% with messages = get_flashed_messages() %}

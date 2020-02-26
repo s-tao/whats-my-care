@@ -21,7 +21,9 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage"""
 
-    return render_template('homepage.html')
+    check_user = session.get('user_id')
+
+    return render_template('homepage.html', user_id=check_user)
 
 
 @app.route('/register', methods=['GET']) 
@@ -137,16 +139,6 @@ def all_plans(user_id):
     return jsonify(plans)
 
 
-@app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
-def seed_plans(user_id):
-    
-    plan_ids = request.form.keys()
-
-    add_plan(plan_ids, user_id)
-
-    return redirect(f'/user-{user_id}/saved_plans')
-
-
 @app.route('/user-<int:user_id>/saved_plans')
 def show_saved_plans(user_id):
 
@@ -168,6 +160,22 @@ def show_saved_plans(user_id):
                                                plans=plans)
 
 
+def show_providers(user_id):
+    pass
+
+
+
+@app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
+def seed_plans(user_id):
+    
+    plan_ids = request.form.keys()
+
+    add_plan(plan_ids, user_id)
+
+    return redirect(f'/user-{user_id}/saved_plans')
+
+
+
 @app.route('/remove_plan', methods=['POST'])
 def remove_userplan():
 
@@ -185,6 +193,7 @@ def remove_userplan():
 
     return "Unexpected Error"
 
+
 if __name__ == '__main__':
 
     app.debug = True
@@ -194,4 +203,5 @@ if __name__ == '__main__':
     # DebugToolbarExtension(app)
 
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+    
     app.run(host='0.0.0.0')

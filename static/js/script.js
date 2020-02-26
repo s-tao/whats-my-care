@@ -156,6 +156,7 @@ previousButton.on('click', individualMedPlan, (evt) => {
   
 });
 
+
 // click event to remove plan from user profile 
 const removePlan = $('.remove-plan');
 
@@ -173,10 +174,11 @@ removePlan.click(function() {
     
     removeTable.fadeOut(1000, function() {
     removeTable.remove();
+    $(`#${planId}`).hide();
+
     });
 
     alert(res);
-    $(`#${planId}`).hide();
 
   });
 });
