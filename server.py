@@ -151,10 +151,16 @@ def show_saved_plans(user_id):
         flash('Please login')
         return redirect('/login')
 
+    # return all plans belonging to user
     plans = user_saved_plans(user_id)
 
-    # providers = show_providers(user_id)
-    # print(providers, "providers \n\n\n")
+    # check if user submitted form
+    submit = request.args.get('submit')
+    print(submit, "submit \n\n\n")
+
+    if submit:
+        show_providers(user_id)
+
     return render_template('saved_plans.html', user_id=user_id, 
                                                plans=plans)
 
@@ -164,21 +170,19 @@ def show_providers(user_id):
 
     user = User.query.filter(User.user_id == user_id).first()
 
-    zip_code = request.args.get("zipcode")
-    radius = request.args.get("radius")
-    plan_id = request.args.get("plan_id")
+    zip_code = request.args.get('zipCode')
+    radius = request.args.get('radius')
+    plan_id = request.args.get('planId')
 
     if not zip_code:
         zip_code = user.zip_code
 
     print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
    
-    if radius:
-        providers = find_providers(zip_code, radius, plan_id)
+    # providers = find_providers(zip_code, radius, plan_id)
 
-        return providers
+    # return providers
     
-    return 
 
 
 @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])

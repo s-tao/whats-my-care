@@ -56,10 +56,10 @@ def add_plan(plan_ids, user_id):
             current_pc = add_plan_coverage(plan_data)
 
             plan = Plan(plan_org=plan_data['plan_type'],
-                            name=plan_data['display_name'],
-                            vericred_id=plan_data['id'],
-                            carrier_id=current_carrier.carrier_id,
-                            pc_id=current_pc.pc_id)
+                        name=plan_data['display_name'],
+                        vericred_id=plan_data['id'],
+                        carrier_id=current_carrier.carrier_id,
+                        pc_id=current_pc.pc_id)
 
             db.session.add(plan)
 

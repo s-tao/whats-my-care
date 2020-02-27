@@ -85,7 +85,7 @@
   </p>
 </div>
 <div class="container">
-  <form action="/user-{{ user_id }}/saved_plans" method="GET">
+  <form action="/user-{{ user_id }}/saved_plans" method="GET" id="provider-form">
     <div class="sub-container">
       <label>Zip Code</label>
         <input type="zipcode" name="zipcode">
@@ -110,7 +110,7 @@
         <input type="plan-id" name="plan_id" required class="form-control">
     </div>
 
-    <input type="submit" value="Find Provider">
+    <input type="submit" value="Find Provider" id="find-provider-btn">
   </form>
 </div>
 
