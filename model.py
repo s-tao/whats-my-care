@@ -26,7 +26,7 @@ class Carrier(db.Model):
     __tablename__ = "carriers"
 
     carrier_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column(db.String(25), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
 
 
     def __repr__(self):

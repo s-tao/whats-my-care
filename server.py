@@ -142,7 +142,7 @@ def all_plans(user_id):
     return jsonify(plans)
 
 
-@app.route('/user-<int:user_id>/saved_plans', methods=['GET'])
+@app.route('/user-<int:user_id>/saved_plans', methods=['GET', 'POST'])
 def show_saved_plans(user_id):
     """Display all user's saved plans"""
     check_user = session.get('user_id')
@@ -151,11 +151,13 @@ def show_saved_plans(user_id):
         flash('Please login')
         return redirect('/login')
 
+    # seed_plans()
+
     # return all plans belonging to user
     plans = user_saved_plans(user_id)
 
     # check if user submitted form
-    submit = request.args.get('submit')
+    submit = request.form.get('submit')
     print(submit, "submit \n\n\n")
 
     if submit:
@@ -170,9 +172,9 @@ def show_providers(user_id):
 
     user = User.query.filter(User.user_id == user_id).first()
 
-    zip_code = request.args.get('zipCode')
-    radius = request.args.get('radius')
-    plan_id = request.args.get('planId')
+    zip_code = request.form.get('zipCode')
+    radius = request.form.get('radius')
+    plan_id = request.form.get('planId')
 
     if not zip_code:
         zip_code = user.zip_code
@@ -182,18 +184,28 @@ def show_providers(user_id):
     # providers = find_providers(zip_code, radius, plan_id)
 
     # return providers
-    
 
-
-@app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
 def seed_plans(user_id):
     """Form action to save user's choice of plan into database"""
 
     plan_ids = request.form.keys()
 
-    add_plan(plan_ids, user_id)
+    if plan_ids:
+        add_plan(plan_ids, user_id)
+        print("this ran, \n\n")
 
-    return redirect(f'/user-{user_id}/saved_plans')
+    return show_saved_plans(user_id)
+
+
+# @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
+# def seed_plans(user_id):
+#     """Form action to save user's choice of plan into database"""
+
+#     plan_ids = request.form.keys()
+
+#     add_plan(plan_ids, user_id)
+
+#     return redirect(f'/user-{user_id}/saved_plans')
 
 
 @app.route('/remove_plan', methods=['POST'])
