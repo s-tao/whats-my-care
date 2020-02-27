@@ -172,11 +172,11 @@ def show_providers(user_id):
     if not zip_code:
         zip_code = user.zip_code
 
-    print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
-    # if radius:
-    #     providers = find_providers(zip_code, radius, plan_id)
+    # print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
+    if radius:
+        providers = find_providers(zip_code, radius, plan_id)
 
-    return None
+    return providers
 
 
 @app.route('/save_plans', methods=['POST'])
@@ -186,10 +186,9 @@ def seed_plans():
     user_id = session.get('user_id')
 
     plan_ids = request.form.keys()
-    print(*plan_ids, "plan id form key \n\n")
     add_plan(plan_ids, user_id)
 
-    return show_saved_plans(user_id)
+    return redirect(f'/user-{user_id}/saved_plans')
 
 
 @app.route('/remove_plan', methods=['POST'])
@@ -215,8 +214,8 @@ if __name__ == '__main__':
 
     connect_to_db(app)
 
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
-    # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     app.run(host='0.0.0.0')

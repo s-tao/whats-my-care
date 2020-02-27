@@ -56,13 +56,10 @@ def search_medical_plan(plan_ids):
     plan_datas = []
 
     for plan_id in plan_ids:
-        print(plan_id, "plan_id search med plan \n\n")
+
         url = f'https://api.vericred.com/plans/medical/{plan_id}'
 
         req = requests.get(url, headers=HEADERS)
-
-        print(req.url, "req.url")
-        print(req)
    
         extracted_plan_data = parse_single_med_plan(req.json())
 

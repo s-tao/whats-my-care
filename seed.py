@@ -6,6 +6,7 @@ from process_plans import find_fips_code, search_medical_plan, parse_med_plans
 
 def add_user(email, password, market, zip_code):
     """Add user information to database when user registers"""
+    
      # only runs once when user registers to store user's fips code
     fips_code = find_fips_code(zip_code)
 
@@ -42,6 +43,7 @@ def add_carrier(plan_data):
 def add_plan(plan_ids, user_id):
     """Add plan to database when user saves plans"""
 
+
     plan_datas = search_medical_plan(plan_ids)
 
     for plan_data in plan_datas:
@@ -52,7 +54,6 @@ def add_plan(plan_ids, user_id):
         plan = Plan.query.filter(Plan.name == plan_data['display_name']).first()
         
         if not plan:
-            print("seeding... \n\n\n")
             current_pc = add_plan_coverage(plan_data)
 
             plan = Plan(plan_org=plan_data['plan_type'],
@@ -101,7 +102,7 @@ def remove_plan(plan, user_id):
     """Remove plan that's associated with user"""
 
     indiv_plan = Plan.query.filter(Plan.vericred_id == plan.vericred_id).first()
-    print(indiv_plan, "indiv plan \n\n\n")
+
     UserPlan.query.filter(UserPlan.plan_id == indiv_plan.plan_id,
                           UserPlan.user_id == user_id).delete()
 
