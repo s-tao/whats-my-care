@@ -151,7 +151,12 @@ def show_saved_plans(user_id):
         flash('Please login')
         return redirect('/login')
 
-    # seed_plans()
+    save = request.args.get('save')
+    
+    print(save, "save \n\n")
+    if save:
+        print("this runs")
+        seed_plans(user_id)
 
     # return all plans belonging to user
     plans = user_saved_plans(user_id)
@@ -188,13 +193,17 @@ def show_providers(user_id):
 def seed_plans(user_id):
     """Form action to save user's choice of plan into database"""
 
-    plan_ids = request.form.keys()
+    # plan_ids = request.form.keys()
+    plan_ids = request.form.get('plan')
+    plan_id = request.form.get('plan2')
 
-    if plan_ids:
-        add_plan(plan_ids, user_id)
-        print("this ran, \n\n")
+    print(plan_ids, plan_id, "plan ids \n\n")
 
-    return show_saved_plans(user_id)
+    # if plan_ids:
+    #     add_plan(plan_ids, user_id)
+    #     print("this ran, \n\n")
+
+    return redirect(f'/user-{user_id}/saved_plans')
 
 
 # @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])

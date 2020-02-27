@@ -66,8 +66,8 @@ function tableDisplay(planDetails) {
         <td colspan="2" align="center"> \
         <div class="form-check"> \
           <input class="form-check-input" type="checkbox" \
-                                          value="plan_id" \
-                                          name="${planDetails.id}"> \
+                                          value="${planDetails.id}" \
+                                          name="plan-id> \
           <label class="form-check-label" for="${planDetails.id}"> \
             Default checkbox \
           </label> \
@@ -155,6 +155,33 @@ previousButton.on('click', individualMedPlan, (evt) => {
   $.post(url, individualMedPlan); 
   
 });
+
+
+// click event to send to server plan is submitted
+$('#save-plans-form').on('submit', () => {
+
+  const userId = $('input[type="hidden"]').attr('id');
+  const planFormName = $('input[name="plan-id"]').val()
+  const planForm = $('input[type="checkbox"]').val()
+
+  const saveSubmit = {
+    'save': true,
+    'plan': planFormName,
+    'plan2': planForm
+  };
+
+  console.log(planFormName)
+
+  let url = `/user-${userId}/saved_plans`;
+  
+  $.get(url, saveSubmit);
+
+});
+
+  
+
+
+
 
 
 // click event to remove plan from user profile 
