@@ -52,7 +52,7 @@ def add_plan(plan_ids, user_id):
         plan = Plan.query.filter(Plan.name == plan_data['display_name']).first()
         
         if not plan:
-
+            print("seeding... \n\n\n")
             current_pc = add_plan_coverage(plan_data)
 
             plan = Plan(plan_org=plan_data['plan_type'],

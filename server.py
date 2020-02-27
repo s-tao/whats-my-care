@@ -25,9 +25,10 @@ def index():
     """Homepage"""
 
     check_user = session.get('user_id')
+    if check_user:
+        return render_template('homepage.html', user_id=check_user)
 
-    return render_template('homepage.html', user_id=check_user)
-
+    return render_template('homepage.html')
 
 @app.route('/register', methods=['GET']) 
 def register_form():
@@ -142,7 +143,7 @@ def all_plans(user_id):
     return jsonify(plans)
 
 
-@app.route('/user-<int:user_id>/saved_plans', methods=['GET', 'POST'])
+@app.route('/user-<int:user_id>/saved_plans')
 def show_saved_plans(user_id):
     """Display all user's saved plans"""
     check_user = session.get('user_id')
@@ -151,70 +152,44 @@ def show_saved_plans(user_id):
         flash('Please login')
         return redirect('/login')
 
-    save = request.args.get('save')
-    
-    print(save, "save \n\n")
-    if save:
-        print("this runs")
-        seed_plans(user_id)
-
-    # return all plans belonging to user
     plans = user_saved_plans(user_id)
 
-    # check if user submitted form
-    submit = request.form.get('submit')
-    print(submit, "submit \n\n\n")
-
-    if submit:
-        show_providers(user_id)
-
-    return render_template('saved_plans.html', user_id=user_id, 
-                                               plans=plans)
+    # providers = show_providers(user_id)
+    # print(providers, "providers \n\n\n")
+    return render_template('saved_plans.html', user_id=user_id, plans=plans)
 
 
+@app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
 def show_providers(user_id):
     """Form submittal to search providers"""
 
     user = User.query.filter(User.user_id == user_id).first()
 
-    zip_code = request.form.get('zipCode')
-    radius = request.form.get('radius')
-    plan_id = request.form.get('planId')
+    zip_code = request.args.get("zipCode")
+    radius = request.args.get("radius")
+    plan_id = request.args.get("planId")
 
     if not zip_code:
         zip_code = user.zip_code
 
     print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
-   
-    # providers = find_providers(zip_code, radius, plan_id)
+    # if radius:
+    #     providers = find_providers(zip_code, radius, plan_id)
 
-    # return providers
+    return None
 
-def seed_plans(user_id):
+
+@app.route('/save_plans', methods=['POST'])
+def seed_plans():
     """Form action to save user's choice of plan into database"""
 
-    # plan_ids = request.form.keys()
-    plan_ids = request.form.get('plan')
-    plan_id = request.form.get('plan2')
+    user_id = session.get('user_id')
 
-    print(plan_ids, plan_id, "plan ids \n\n")
+    plan_ids = request.form.keys()
+    print(*plan_ids, "plan id form key \n\n")
+    add_plan(plan_ids, user_id)
 
-    # if plan_ids:
-    #     add_plan(plan_ids, user_id)
-    #     print("this ran, \n\n")
-
-    return redirect(f'/user-{user_id}/saved_plans')
-
-
-# @app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
-# def seed_plans(user_id):
-#     """Form action to save user's choice of plan into database"""
-
-#     plan_ids = request.form.keys()
-
-#     add_plan(plan_ids, user_id)
-
-#     return redirect(f'/user-{user_id}/saved_plans')
+    return show_saved_plans(user_id)
 
 
 @app.route('/remove_plan', methods=['POST'])
@@ -240,8 +215,8 @@ if __name__ == '__main__':
 
     connect_to_db(app)
 
-    # DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
 
-    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+    # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     app.run(host='0.0.0.0')
