@@ -143,9 +143,10 @@ def all_plans(user_id):
     return jsonify(plans)
 
 
-@app.route('/user-<int:user_id>/saved_plans')
+@app.route('/user-<int:user_id>/saved_plans', methods=['GET'])
 def show_saved_plans(user_id):
     """Display all user's saved plans"""
+
     check_user = session.get('user_id')
 
     if check_user != user_id:
@@ -154,27 +155,30 @@ def show_saved_plans(user_id):
 
     plans = user_saved_plans(user_id)
 
-    # providers = show_providers(user_id)
-    # print(providers, "providers \n\n\n")
+    submit = request.args.get('submit')
+
+    if submit:
+        providers = show_providers(user_id)
+
+        return jsonify(providers)
+
     return render_template('saved_plans.html', user_id=user_id, plans=plans)
 
 
-@app.route('/user-<int:user_id>/saved_plans', methods=['POST'])
+# @app.route('/user-<int:user_id>/saved_plans', methods=['GET'])
 def show_providers(user_id):
     """Form submittal to search providers"""
 
     user = User.query.filter(User.user_id == user_id).first()
 
-    zip_code = request.args.get("zipCode")
-    radius = request.args.get("radius")
-    plan_id = request.args.get("planId")
+    zip_code = request.args.get('zipCode')
+    radius = request.args.get('radius')
+    plan_id = request.args.get('planId')
 
-    if not zip_code:
-        zip_code = user.zip_code
-
-    # print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
+    print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
+    
     if radius:
-        providers = find_providers(zip_code, radius, plan_id)
+        providers = find_providers(zip_code, radius, plan_id, user_id)
 
     return providers
 
@@ -203,9 +207,9 @@ def remove_userplan():
        
     if plan:
         remove_plan(plan, user_id)
-        return "Plan Removed"
+        return 'Plan Removed'
 
-    return "Unexpected Error"
+    return 'Unexpected Error'
 
 
 if __name__ == '__main__':

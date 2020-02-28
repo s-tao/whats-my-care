@@ -92,7 +92,6 @@ function individualMedPlan(medicalPlans) {
 
   // slice to only display a few plans 
   const sliceCounter = medicalPlans.slice(begin, end);
-
   if (end > medicalPlans.length) {
     moreButton.hide();
   };
@@ -120,6 +119,7 @@ $('#type-form').on('submit', individualMedPlan, (evt) => {
   
   // create key for form return value
   const formInput = {
+    'submit': true,
     'planOption': $('#type-form').val()
   };
 

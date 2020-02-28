@@ -30,13 +30,13 @@ def find_fips_code(zip_code):
 def show_medical_plans(user):
     """Show all medical plans based on user's location"""
 
-    url = 'https://api.vericred.com/plans'
+    url = 'https://api.vericred.com/plans/search'
 
     payload = {'zip_code': user.zip_code,
                'fips_code': user.fips_code, 
                'market': user.market}
 
-    req = requests.get(url, params=payload, headers=HEADERS)
+    req = requests.post(url, params=payload, headers=HEADERS)
     all_plans = req.json()
 
     all_extracted_plans = []

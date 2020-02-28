@@ -16,9 +16,11 @@ $('#provider-form').on('submit', (evt) => {
   };
   
   // add return value -json after api call is fixed
-  $.post(url, formInput);
-
+  $.get(url, formInput);
+  
 });
+
+
 
   
 
