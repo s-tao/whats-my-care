@@ -116,9 +116,7 @@ function individualMedPlan(medicalPlans) {
 };
 
 
-// event listener to show tables and get data from server when user submits
-$('#type-form').on('submit', individualMedPlan, (evt) => {
-  evt.preventDefault();
+const applicantForm = () => {
 
   if ($('input[name="smoker"]:checked').length > 0) {
     var smoker = $('input[name="smoker"]:checked').val();
@@ -135,6 +133,16 @@ $('#type-form').on('submit', individualMedPlan, (evt) => {
     'smoker': smoker,
     'child': child
   };
+
+  return formInput;
+};
+
+
+// event listener to show tables and get data from server when user submits
+$('#type-form').on('submit', individualMedPlan, (evt) => {
+  evt.preventDefault();
+
+  const formInput = applicantForm();
 
   console.log(formInput);
   // send return value from front-end to server
@@ -153,8 +161,10 @@ moreButton.on('click', individualMedPlan, (evt) => {
   // counter show next 5 tables every click
   begin += 5;
   end += 5;
-   
-  $.get('/show_plans', individualMedPlan); 
+
+  const formInput = applicantForm();
+
+  $.get('/show_plans', formInput, individualMedPlan); 
   previousButton.show();
 
 });
@@ -166,36 +176,12 @@ previousButton.on('click', individualMedPlan, (evt) => {
   // counter show previous 5 tables every click
   begin -= 5;
   end -= 5;
-  $.get('/show_plans', individualMedPlan); 
+
+  const formInput = applicantForm()
+
+  $.get('/show_plans', formInput, individualMedPlan); 
   
 });
-
-
-// click event to send to server plan is submitted
-// $('#save-plans-form').on('submit', () => {
-
-//   const userId = $('input[type="hidden"]').attr('id');
-//   const planFormName = $('input[name="plan-id"]').val()
-//   const planForm = $('input[type="checkbox"]').val()
-
-//   const saveSubmit = {
-//     'save': true,
-//     'plan': planFormName,
-//     'plan2': planForm
-//   };
-
-//   console.log(planFormName)
-
-//   let url = `/user-${userId}/saved_plans`;
-  
-//   $.get(url, saveSubmit);
-
-// });
-
-  
-
-
-
 
 
 // click event to remove plan from user profile 

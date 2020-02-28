@@ -30,21 +30,19 @@ def find_fips_code(zip_code):
 def show_medical_plans(user, age=None, smoker=None, child=None):
     """Show all medical plans based on user's location"""
 
-    # print(user, "user", age, "age", smoker, "smoker", child, "child \n\n")
     url = 'https://api.vericred.com/plans/search'
 
     if age and smoker and child:
         payload = {'zip_code': user.zip_code,
-                'fips_code': user.fips_code, 
-                'market': user.market,
-                'applicants': [
-                    {
-                        'age': age,
+                   'fips_code': user.fips_code, 
+                   'market': user.market,
+                   'applicants': [
+                       {'age': age,
                         'child': child,
                         'smoker': smoker
-                    }
-                    ],
-                'sort': 'premium:asc'}
+                        }
+                      ],
+                   'sort': 'premium:asc'}
     else:
         payload = {'zip_code': user.zip_code,
                    'fips_code': user.fips_code, 
@@ -60,7 +58,6 @@ def show_medical_plans(user, age=None, smoker=None, child=None):
     for plan in all_plans['plans']:
 
         extracted_plan_data = parse_med_plans(plan)
-
         all_extracted_plans.append(extracted_plan_data)
 
     return all_extracted_plans
@@ -106,7 +103,7 @@ def parse_med_plans(plan):
     extracted_plan['med_deduct'] = plan.get('individual_medical_deductible')
     extracted_plan['med_moop'] = plan.get('individual_medical_moop')
     extracted_plan['premium'] = plan.get('premium')
-    
+
     if extracted_plan['premium'] == 0:
         extracted_plan['premium'] = 'N/A'
         
