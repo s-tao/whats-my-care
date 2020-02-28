@@ -1,6 +1,6 @@
 "use strict";
 
-let url = $(location).attr('href');
+// let url = $(location).attr('href');
 
 // set counter for slicing in for loop
 let begin = 0;
@@ -119,12 +119,11 @@ $('#type-form').on('submit', individualMedPlan, (evt) => {
   
   // create key for form return value
   const formInput = {
-    'submit': true,
     'planOption': $('#type-form').val()
   };
 
   // send return value from front-end to server
-  $.post(url, formInput, individualMedPlan); 
+  $.get('/show_plans', formInput, individualMedPlan); 
 
   // display shows once function runs to generate tables
   $('#display-plans-div').show();
@@ -140,7 +139,7 @@ moreButton.on('click', individualMedPlan, (evt) => {
   begin += 5;
   end += 5;
    
-  $.post(url, individualMedPlan); 
+  $.get('/show_plans', individualMedPlan); 
   previousButton.show();
 
 });
@@ -152,7 +151,7 @@ previousButton.on('click', individualMedPlan, (evt) => {
   // counter show previous 5 tables every click
   begin -= 5;
   end -= 5;
-  $.post(url, individualMedPlan); 
+  $.get('/show_plans', individualMedPlan); 
   
 });
 

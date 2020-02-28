@@ -7,7 +7,7 @@ from model import connect_to_db, db, User, Carrier, Plan, PlanCoverage, UserPlan
 from process_plans import (show_medical_plans, parse_med_plans, find_fips_code, 
                            search_medical_plan, user_saved_plans, temp_data_call)
 
-from process_providers import find_providers
+from process_providers import find_providers, temp_provider_call
 from seed import add_user, add_plan, remove_plan
 import os
 
@@ -84,13 +84,9 @@ def login_process():
 
     session['user_id'] = user.user_id
 
-    user_plans = UserPlan.query.filter(UserPlan.user_id == user.user_id).first()
-
-    if user_plans:
-        return redirect(f'/user-{user.user_id}/saved_plans')
 
     flash('Successfully logged in')
-    return redirect(f'/user-{user.user_id}/show_plans')
+    return redirect('/user_profile')
 
 
 @app.route('/logout')
@@ -100,19 +96,16 @@ def logout():
     user_id = session.get('user_id')
 
     del user_id
+
     flash('Successfully logged out')
     return redirect('/')
 
 
-@app.route('/user-<int:user_id>/show_plans', methods=['GET'])
-def user_options(user_id):
+@app.route('/search_plans')
+def plan_form():
     """User information with form to generate all qualifying user plans"""
 
-    check_user = session.get('user_id')
-
-    if check_user != user_id:
-        flash('Please login')
-        return redirect('/login')
+    user_id = session.get('user_id')
 
     user = User.query.get(user_id)
 
@@ -124,14 +117,16 @@ def user_options(user_id):
     return render_template('search_plans.html', user_id=user_id, user_dict=user_dict)
 
 
-@app.route('/user-<int:user_id>/show_plans', methods=['POST'])
-def all_plans(user_id):
+@app.route('/show_plans', methods=['GET'])
+def show_plans():
     """Generate all plans after selecting plan type"""
+    
+    user_id = session.get('user_id')
 
     user = User.query.get(user_id)
 
     # Get request from form in search_plans.html --future feature
-    plan_type = request.form.get('planOption')
+    plan_type = request.args.get('planOption')
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
@@ -143,44 +138,33 @@ def all_plans(user_id):
     return jsonify(plans)
 
 
-@app.route('/user-<int:user_id>/saved_plans', methods=['GET'])
-def show_saved_plans(user_id):
-    """Display all user's saved plans"""
-
-    check_user = session.get('user_id')
-
-    if check_user != user_id:
-        flash('Please login')
-        return redirect('/login')
-
-    plans = user_saved_plans(user_id)
-
-    submit = request.args.get('submit')
-
-    if submit:
-        providers = show_providers(user_id)
-
-        return jsonify(providers)
-
-    return render_template('saved_plans.html', user_id=user_id, plans=plans)
-
-
-# @app.route('/user-<int:user_id>/saved_plans', methods=['GET'])
-def show_providers(user_id):
+@app.route('/get_providers')
+def get_providers():
     """Form submittal to search providers"""
 
-    user = User.query.filter(User.user_id == user_id).first()
+    user_id = session.get('user_id')
+
+    return render_template('search_providers.html', user_id=user_id)
+
+
+@app.route('/show_providers', methods=['GET'])
+def show_providers():
+    """Generate all provider information after submitting form"""
+    
+    user_id = session.get('user_id')
 
     zip_code = request.args.get('zipCode')
     radius = request.args.get('radius')
     plan_id = request.args.get('planId')
-
-    print(zip_code, "zip code", radius, "radius", plan_id, "plan_id \n\n\n")
+    # add search term
     
-    if radius:
-        providers = find_providers(zip_code, radius, plan_id, user_id)
+    # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
+    # providers = find_providers(zip_code, radius, plan_id, user_id)
+        
+    providers = temp_provider_call()
 
-    return providers
+    # return jsonify(providers) #--uncomment when running api call
+    return jsonify(providers)
 
 
 @app.route('/save_plans', methods=['POST'])
@@ -210,6 +194,17 @@ def remove_userplan():
         return 'Plan Removed'
 
     return 'Unexpected Error'
+
+
+@app.route('/user_profile')
+def user_profile():
+    """Display all user's saved plans"""
+
+    user_id = session.get('user_id')
+
+    plans = user_saved_plans(user_id)
+
+    return render_template('user_profile.html', user_id=user_id, plans=plans)
 
 
 if __name__ == '__main__':

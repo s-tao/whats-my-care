@@ -20,26 +20,30 @@
       <li class="nav-item">
         <a class="nav-link active" href="/">Home</a>
       </li>
-      <li class="nav-item">
 
-      {% if user_id is defined%}
-        <a class="nav-link" href="/user-{{ user_id }}/show_plans">Search Plans</a>
+      {% if user_id is defined %}
+      <li class="nav-item">
+        <a class="nav-link" href="/search_plans">Search Plans</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/user-{{ user_id }}/saved_plans">Saved Plans</a>
+        <a class="nav-link" href="/get_providers">Search Providers</a>
       </li>
-      {% endif %}
-
       <li class="nav-item">
-        <a class="nav-link" href="/register">Register</a>
+        <a class="nav-link" href="/user_profile">Profile</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/logout">Log Out</a>
       </li>
+    </ul>
+
+      {% else %}
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a class="nav-link" href="/register">Register</a>
       </li>
     </ul>
+    {% endif %}
+
+
     {% block content %}
     {% endblock %}
 

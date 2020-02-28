@@ -16,7 +16,7 @@ $('#provider-form').on('submit', (evt) => {
   };
   
   // add return value -json after api call is fixed
-  $.get(url, formInput);
+  $.get('/show_providers', formInput);
   
 });
 

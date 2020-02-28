@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Search Providers
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <h2>Find Providers</h2>
+  <p>
+    Fill in the form below to find providers within your location that accepts 
+    your saved plans. 
+  </p>
+</div>
+
+<div class="container">
+  <form action="/show_providers" method="GET" id="provider-form">
+    <div class="sub-container">
+      <label>Zip Code</label>
+        <input type="zipcode" name="zipcode">
+    </div>
+
+    <div class="sub-container">
+      <label>* Radius</label>
+      <select name="radius" required class="form-control">
+        <option value=""> --Set your radius-- </option>
+        <option value="5">5 miles</option>
+        <option value="10">10 miles</option>
+        <option value="15">15 miles</option>
+        <option value="20">20 miles</option>
+        <option value="25">25 miles</option>
+        <option value="30">30 miles</option>
+        <option value="35">35 miles</option>
+      </select>
+    </div>
+
+    <div class="sub-container">
+      <label>* Plan Id</label>
+        <input type="plan-id" name="plan_id" required class="form-control">
+    </div>
+
+    <input type="submit" value="Find Provider" id="find-provider-btn">
+  </form>
+</div>
+
+
+{% endblock %}

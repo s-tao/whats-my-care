@@ -131,6 +131,7 @@ def user_saved_plans(user_id):
 
     return plans
 
+
 def temp_data_call():
     """Temporarily return plans for testing"""
     medical_plans = all_plans()

@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="container">
-  <h1>Welcome!</h1>
+  <h1>Find Plans</h1>
   <div class="sub-container">
     <table>
       <thead>
@@ -23,16 +23,14 @@
           <td>{{ user_dict[info] }}</td>
         </tr>
        {% endfor %}
-        <!-- <tr>
-          <td>Plan Type</td>
-          <pre id="plan-type"></pre>
-        </tr> -->
+
+       
       </tbody>
     </table>
   </div>
 
   <div class="sub-container plan-form">
-    <form action="/user-{{ user_id }}/show_plans" id="type-form" method="POST">
+    <form action="/show_plans" id="type-form" method="GET">
       <label>Plan Type</label>
       <select name="plan-option" required="required">
         <option value=""> --Please select an option-- </option>
