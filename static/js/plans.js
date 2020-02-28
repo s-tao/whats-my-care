@@ -116,15 +116,23 @@ function individualMedPlan(medicalPlans) {
 // event listener to show tables and get data from server when user submits
 $('#type-form').on('submit', individualMedPlan, (evt) => {
   evt.preventDefault();
-  const zipCode = $('input[type="zipcode"]').val();
-  const planId = $('input[type="plan-id"]').val();
+
+  if ($('input[name="smoker"]:checked').length > 0) {
+    var smoker = $('input[name="smoker"]:checked').val();
+  };
+  
+  if ($('input[name="child"]:checked').length > 0) {
+    var child = $('input[name="child"]:checked').val();
+  };
+
   // create key for form return value
   const formInput = {
     'planOption': $('select[name="plan-option"]').val(),
     'age': $('select[name="age"]').val(),
-    'smoker': $('input[name="smoker"]').val(),
-    // 'child': $('input[name="child"]').val()
+    'smoker': smoker,
+    'child': child
   };
+
   console.log(formInput);
   // send return value from front-end to server
   $.get('/show_plans', formInput, individualMedPlan); 
