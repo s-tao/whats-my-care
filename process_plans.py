@@ -27,16 +27,32 @@ def find_fips_code(zip_code):
 
 
 
-def show_medical_plans(user):
+def show_medical_plans(user, age=None, smoker=None, child=None):
     """Show all medical plans based on user's location"""
 
+    # print(user, "user", age, "age", smoker, "smoker", child, "child \n\n")
     url = 'https://api.vericred.com/plans/search'
 
-    payload = {'zip_code': user.zip_code,
-               'fips_code': user.fips_code, 
-               'market': user.market}
+    if age and smoker and child:
+        payload = {'zip_code': user.zip_code,
+                'fips_code': user.fips_code, 
+                'market': user.market,
+                'applicants': [
+                    {
+                        'age': age,
+                        'child': child,
+                        'smoker': smoker
+                    }
+                    ],
+                'sort': 'premium:asc'}
+    else:
+        payload = {'zip_code': user.zip_code,
+                   'fips_code': user.fips_code, 
+                   'market': user.market,
+                   'sort': 'level:asc'}
 
-    req = requests.post(url, params=payload, headers=HEADERS)
+
+    req = requests.post(url, json=payload, headers=HEADERS)
     all_plans = req.json()
 
     all_extracted_plans = []
@@ -89,7 +105,11 @@ def parse_med_plans(plan):
     # overall deductible costs
     extracted_plan['med_deduct'] = plan.get('individual_medical_deductible')
     extracted_plan['med_moop'] = plan.get('individual_medical_moop')
-
+    extracted_plan['premium'] = plan.get('premium')
+    
+    if extracted_plan['premium'] == 0:
+        extracted_plan['premium'] = 'N/A'
+        
     return extracted_plan
 
 
@@ -114,6 +134,10 @@ def parse_single_med_plan(plan):
     # overall deductible costs
     extracted_plan['med_deduct'] = plan['plan'].get('individual_medical_deductible')
     extracted_plan['med_moop'] = plan['plan'].get('individual_medical_moop')
+    extracted_plan['premium'] = plan['plan'].get('premium')
+
+    if extracted_plan['premium'] == 0:
+        extracted_plan['premium'] = 'N/A'
 
     return extracted_plan
 

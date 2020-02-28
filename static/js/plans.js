@@ -61,7 +61,10 @@ function tableDisplay(planDetails) {
         <th scope="row" class="indiv-med-moop-hdr">Individual Max Out-of-Pocket</th> \
         <td class="plan-detail-moop">${planDetails.med_moop}</td> \
       </tr> \
-
+      <tr> \
+        <th scope="row" class="premium-hdr">Premium</th> \
+        <td class="plan-detail-premium">${planDetails.premium}</td> \
+      </tr> \
       <tr> \
         <td colspan="2" align="center"> \
         <div class="form-check"> \

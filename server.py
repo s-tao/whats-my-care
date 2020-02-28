@@ -126,16 +126,15 @@ def show_plans():
     age = request.args.get('age')
     smoker = request.args.get('smoker')
     child = request.args.get('child')
-    
-    print(age, smoker, child, "age smoker child \n\n")
+
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
-    # medical_plans = show_medical_plans(user)
+    medical_plans = show_medical_plans(user, age, smoker, child)
         
-    plans = temp_data_call()
+    # plans = temp_data_call()
 
-    # return jsonify(medical_plans) #--uncomment when running api call
-    return jsonify(plans)
+    return jsonify(medical_plans) #--uncomment when running api call
+    # return jsonify(plans)
 
 
 @app.route('/get_providers')
