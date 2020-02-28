@@ -9,28 +9,19 @@
 {% block content %}
 <div class="container">
   <h1>Find Plans</h1>
+  <!-- make auto-fill in line with each other -->
   <div class="sub-container">
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">Your User Info</th>
-        </tr>
-      </thead>
-      <tbody>        
-       {% for info in user_dict %}
-        <tr>
-          <td>{{ info.capitalize() }}</td>
-          <td>{{ user_dict[info] }}</td>
-        </tr>
-       {% endfor %}
-
-       
-      </tbody>
-    </table>
+    <label>Market Type:</label>
+    <p class="auto-fill">{{ user.market }}</p>
   </div>
-
-  <div class="sub-container plan-form">
-    <form action="/show_plans" id="type-form" method="GET">
+  <div class="sub-container">
+    <label>Zip Code:</label>
+    <p class="auto-fill">{{ user.zip_code }}</p>
+  </div>
+</div>
+<div class="container">
+  <form action="/show_plans" id="type-form" method="GET">
+    <div class="sub-container">
       <label>Plan Type</label>
       <select name="plan-option" required="required">
         <option value=""> --Please select an option-- </option>
@@ -38,11 +29,38 @@
         <option value="dental">Dental</option>
         <option value="vision">Vision</option>
       </select>
-      <input type="submit" value="Select" id="submit-btn">
-    </form>
-  </div>
+    </div>
+    <br>
+    <div class="sub-container">
+      <label>Applicant Information</label>
+      <p>(Optional) Fill this out to get an estimated premium</p>
+    </div>
+    <div class="sub-container">
+      <label>Age</label>
+      <select name="age">
+        <option value=""> -- Please select your age-- </option>
+        {% for num in range(1, 66) %}
+        <option value="num">{{ num }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label>Smoker</label>
+        <input type="radio" id="smoker" name="smoker" value="true">
+        <label for="smoker">Yes</label>
+        <input type="radio" id="non-smoker" name="smoker" value="false">
+        <label for="non-smoker">No</label>
+    </div>
+    <div>
+      <label>Child</label>
+        <input type="radio" id="child" name="child" value="true">
+        <label for="child">Yes</label>
+        <input type="radio" id="non-child" name="child" value="false">
+        <label for="non-child">No</label>
+    </div>
+    <input type="submit" value="Select" id="submit-btn">
+  </form>
 </div>
-
 
     <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->    
 

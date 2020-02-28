@@ -7,72 +7,91 @@
 
 {% block content %}
 <div class="container">
-  <h2>Your Saved Plans</h2>
+  <h2>Your Information</h2>
+  <div class="sub-container">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">Your User Info</th>
+        </tr>
+      </thead>
+      <tbody>        
+      {% for info in user_dict %}
+        <tr>
+          <td>{{ info.capitalize() }}</td>
+          <td>{{ user_dict[info] }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<div class="container" id="saved-plans">
-  {% for plan in plans %}
-  <div class="sub-container"> 
-    <table class="table table-condensed table-hover table-sm" style="border-collapse:collapse;"
-           id="table-{{ plan.vericred_id }}"> 
-      <thead> 
-        <tr> 
-          <th scope="col" id="display-name" style="text-align:center">{{ plan.name }}</th> 
-        </tr> 
-      </thead> 
-      <tbody> 
-        <tr> 
-          <th scope="row">Plan ID</th> 
-          <td>{{ plan.vericred_id }}</td>
-        </tr> 
-        <tr>
-          <th scope="row">Carrier</th>
-          <td>{{ plan.carrier.name }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Plan Type</th>
-          <td>{{ plan.plan_org }}</td>
-        </tr>
-        <tr data-toggle="collapse" data-target="#pc_id-{{ plan.pc_id }}" 
-                                   class="accordion-toggle"
-                                   aria-expanded="false" 
-                                   aria-controls="pc_id-{{ plan.pc_id }}">
-        <td>
-          <button class="btn btn-link">
-            View More Information
-          </button>
-        </td>
+<div class="container">
+  <h2>Your Saved Plans</h2>
+  <div class="container" id="saved-plans">
+    {% for plan in plans %}
+    <div class="sub-container"> 
+      <table class="table table-condensed table-hover table-sm" style="border-collapse:collapse;"
+            id="table-{{ plan.vericred_id }}"> 
+        <thead> 
+          <tr> 
+            <th scope="col" id="display-name" style="text-align:center">{{ plan.name }}</th> 
+          </tr> 
+        </thead> 
+        <tbody> 
+          <tr> 
+            <th scope="row">Plan ID</th> 
+            <td>{{ plan.vericred_id }}</td>
+          </tr> 
+          <tr>
+            <th scope="row">Carrier</th>
+            <td>{{ plan.carrier.name }}</td>
           </tr>
           <tr>
-            <td colspan="2" class="hiddenRow">
-              <div class="accordian-body collapse" id="pc_id-{{ plan.pc_id }}">
-                <table>
-                  <tbody>
-                    <tr>
-                      <th scope="row">Primary Care Physician</th>
-                      <td>{{ plan.p_cov.pcp }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Specialist</th>
-                      <td>{{ plan.p_cov.specialist }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Emergency Room</th>
-                      <td>{{ plan.p_cov.emerg_rm }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </td>
+            <th scope="row">Plan Type</th>
+            <td>{{ plan.plan_org }}</td>
           </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sub-container">
-      <button type="remove-plan" class="remove-plan"
-              id="{{ plan.vericred_id }}">Remove Plan</button>
-    </div>
-  {% endfor %}
+          <tr data-toggle="collapse" data-target="#pc_id-{{ plan.pc_id }}" 
+                                    class="accordion-toggle"
+                                    aria-expanded="false" 
+                                    aria-controls="pc_id-{{ plan.pc_id }}">
+          <td>
+            <button class="btn btn-link">
+              View More Information
+            </button>
+          </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="hiddenRow">
+                <div class="accordian-body collapse" id="pc_id-{{ plan.pc_id }}">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Primary Care Physician</th>
+                        <td>{{ plan.p_cov.pcp }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Specialist</th>
+                        <td>{{ plan.p_cov.specialist }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Emergency Room</th>
+                        <td>{{ plan.p_cov.emerg_rm }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sub-container">
+        <button type="remove-plan" class="remove-plan"
+                id="{{ plan.vericred_id }}">Remove Plan</button>
+      </div>
+    {% endfor %}
+  </div>
 </div>
-
 {% endblock %}

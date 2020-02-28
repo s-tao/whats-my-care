@@ -109,12 +109,7 @@ def plan_form():
 
     user = User.query.get(user_id)
 
-    user_dict = {'email': user.email,
-                 'market': user.market,
-                 'zip code': user.zip_code}
-    
-
-    return render_template('search_plans.html', user_id=user_id, user_dict=user_dict)
+    return render_template('search_plans.html', user_id=user_id, user=user)
 
 
 @app.route('/show_plans', methods=['GET'])
@@ -128,6 +123,11 @@ def show_plans():
     # Get request from form in search_plans.html --future feature
     plan_type = request.args.get('planOption')
 
+    age = request.args.get('age')
+    smoker = request.args.get('smoker')
+    child = request.args.get('child')
+    
+    print(age, smoker, child, "age smoker child \n\n")
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
     # medical_plans = show_medical_plans(user)
@@ -201,10 +201,18 @@ def user_profile():
     """Display all user's saved plans"""
 
     user_id = session.get('user_id')
+    
+    user = User.query.get(user_id)
 
+    user_dict = {'email': user.email,
+                 'market': user.market,
+                 'zip code': user.zip_code}
+    
     plans = user_saved_plans(user_id)
 
-    return render_template('user_profile.html', user_id=user_id, plans=plans)
+    return render_template('user_profile.html', user_id=user_id, 
+                                                user_dict=user_dict,
+                                                plans=plans)
 
 
 if __name__ == '__main__':
