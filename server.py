@@ -95,7 +95,7 @@ def logout():
     
     user_id = session.get('user_id')
 
-    del user_id
+    del session['user_id']
 
     flash('Successfully logged out')
     return redirect('/')
@@ -142,7 +142,10 @@ def get_providers():
 
     user_id = session.get('user_id')
 
-    return render_template('search_providers.html', user_id=user_id)
+    user_plans = UserPlan.query.filter(UserPlan.user_id == user_id).all()
+
+    return render_template('search_providers.html', user_id=user_id,
+                                                    plans=user_plans)
 
 
 @app.route('/show_providers', methods=['GET'])
@@ -151,10 +154,11 @@ def show_providers():
     
     user_id = session.get('user_id')
 
+    plan_id = request.args.get('planId')
     zip_code = request.args.get('zipCode')
     radius = request.args.get('radius')
-    plan_id = request.args.get('planId')
-    
+    provider_type = request.args.get('providerType')
+    search_term = request.args.get('searchTerm')
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
     # providers = find_providers(zip_code, radius, plan_id, user_id)
         

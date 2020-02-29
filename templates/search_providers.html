@@ -18,12 +18,27 @@
 <div class="container">
   <form action="/show_providers" method="GET" id="provider-form">
     <div class="sub-container">
+      <label>* Plan Id</label>
+        <select name="plan-id">
+          <option value=""> --Please select a plan-- </option>
+          {% for plan in plans %}
+            <option value="{{ plan.plan.vericred_id }}">{{ plan.plan.vericred_id }}</option>
+          {% endfor %}
+        </select>
+      <p>
+        Manually input plan id if you would like to find providers outside of 
+        your saved plans.
+      </p>
+      <input type="new-plan-id" name="new-plan-id">
+    </div>
+
+    <div class="sub-container">
       <label>Zip Code</label>
-        <input type="zipcode" name="zipcode">
       <p>
         Input location of your choice, otherwise it will default to your 
         registered zip code.
       </p>
+      <input type="zipcode" name="zipcode">
     </div>
 
     <div class="sub-container">
@@ -41,10 +56,23 @@
     </div>
 
     <div class="sub-container">
-      <label>* Plan Id</label>
-        <input type="plan-id" name="plan_id" required class="form-control">
+      <label>Choose Type of Provider</label>
+        <select name="provider-type">
+          <option value=""> --Please select provider type-- </option>
+          <option value="individual">Individual</option>
+          <option value="organization">Organization</option>
+        </select>
     </div>
 
+    <div class="sub-container">
+      <label>Additional Search</label>
+      <p>
+        To find a specific provider or specialty, input their name or general 
+        practice. (ie: Jane Doe ankle, if you want to find a podiatrist named 
+        Jane Doe)
+      </p>
+      <input type="search-term" name="search-term">
+    </div>
     <input type="submit" value="Find Provider" id="find-provider-btn">
   </form>
 </div>
