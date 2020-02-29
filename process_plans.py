@@ -32,22 +32,21 @@ def show_medical_plans(user, age=None, smoker=None, child=None):
 
     url = 'https://api.vericred.com/plans/search'
 
-    if age and smoker and child:
-        payload = {'zip_code': user.zip_code,
-                   'fips_code': user.fips_code, 
-                   'market': user.market,
-                   'applicants': [
-                       {'age': age,
-                        'child': child,
-                        'smoker': smoker
-                        }
-                      ],
-                   'sort': 'premium:asc'}
-    else:
-        payload = {'zip_code': user.zip_code,
-                   'fips_code': user.fips_code, 
-                   'market': user.market,
-                   'sort': 'level:asc'}
+    payload = {'zip_code': user.zip_code,
+                'fips_code': user.fips_code, 
+                'market': user.market,
+                'applicants': [
+                    {'age': age,
+                    'child': child,
+                    'smoker': smoker
+                    }
+                  ],
+                'sort': 'premium:asc'}
+
+    if not (age and smoker and child):
+        del payload['applicants']
+        del payload['sort']
+        payload['sort'] = 'level:asc'
 
 
     req = requests.post(url, json=payload, headers=HEADERS)
