@@ -45,7 +45,6 @@ def show_medical_plans(user, age=None, smoker=None, child=None):
 
     if not (age and smoker and child):
         del payload['applicants']
-        del payload['sort']
         payload['sort'] = 'level:asc'
 
 
