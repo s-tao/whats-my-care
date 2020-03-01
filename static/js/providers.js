@@ -3,21 +3,24 @@
 
 function providerInfo(provider) {
   const providerDesc = (`\
-    <p>${provider.presentation_name}</p> \
-    <p><b>Organization:</b> ${provider.organization_name}</p> \
-    <p><b>Specialty:</b> ${provider.specialty}</p> \
-    <p><b>Address:</b> ${provider.street_line_1, provider.street_line_2,
-                         provider.city, provider.state, provider.zip_code}</p> \
-    <p><b>Phone:</b> ${provider.phone}</p> \
-    `);
+    <div class="provider">
+      <p>${provider.presentation_name}</p> \
+      <p><b>Organization:</b> ${provider.organization_name}</p> \
+      <p><b>Specialty:</b> ${provider.specialty}</p> \
+      <p><b>Address:</b> ${provider.street_line_1} ${provider.street_line_2}
+                        ${provider.city} ${provider.state} ${provider.zip_code}</p> \
+      <p><b>Phone:</b> ${provider.phone}</p> \
+    </div> \
+      `);
 
   return providerDesc;
 };
 
+// function to display provider information
 function showProviders(providers) {
 
   const allProvidersInfo = [];
-  const allProviders = $('.all-providers');
+  const allProviders = $('#display-providers-div');
 
   for (const provider of providers) {
     
