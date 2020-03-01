@@ -1,8 +1,32 @@
 "use strict";
 
+
+function providerInfo(provider) {
+  const providerDesc = (`\
+    <p>${provider.presentation_name}</p> \
+    <p><b>Organization:</b> ${provider.organization_name}</p> \
+    <p><b>Specialty:</b> ${provider.specialty}</p> \
+    <p><b>Address:</b> ${provider.street_line_1, provider.street_line_2,
+                         provider.city, provider.state, provider.zip_code}</p> \
+    <p><b>Phone:</b> ${provider.phone}</p> \
+    `);
+
+  return providerDesc;
+};
+
 function showProviders(providers) {
+
+  const allProvidersInfo = [];
   const allProviders = $('.all-providers');
-  allProviders.html(providers);
+
+  for (const provider of providers) {
+    
+    const providerDesc = providerInfo(provider);
+
+    allProvidersInfo.push(providerDesc);
+  };
+
+  allProviders.html(allProvidersInfo);
 };
 
 // click event to send user input for provider form to server

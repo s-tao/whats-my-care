@@ -128,7 +128,7 @@ const applicantForm = () => {
 
   // create key for form return value
   const formInput = {
-    'planOption': $('select[name="plan-option"]').val(),
+    // 'planOption': $('select[name="plan-option"]').val(),
     'age': $('select[name="age"]').val(),
     'smoker': smoker,
     'child': child
@@ -139,10 +139,11 @@ const applicantForm = () => {
 
 
 // event listener to show tables and get data from server when user submits
-$('#type-form').on('submit', individualMedPlan, (evt) => {
+$('#plan-form').on('submit', individualMedPlan, (evt) => {
   evt.preventDefault();
 
   const formInput = applicantForm();
+  // const formInput = $('#plan-form').serialize();
 
   // send return value from front-end to server
   $.get('/show_plans', formInput, individualMedPlan); 

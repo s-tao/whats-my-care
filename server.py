@@ -164,6 +164,7 @@ def show_providers():
     # providers = find_providers(user_id, plan_id, zip_code, radius, provider_type, search_term)
     providers = temp_provider_call()
     print(providers)
+    
     return jsonify(providers)
 
 
