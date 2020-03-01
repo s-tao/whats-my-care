@@ -10,42 +10,46 @@ HEADERS = {'Content-Type': 'application/json',
            'Vericred-Api-Key': os.environ['YOUR_API_KEY']}
           
 
-def find_providers(zip_code, radius, plan_id, user_id, search_term=None, 
-                                                       provider_type=None):
+def find_providers(user_id, plan_id, zip_code, radius, provider_type=None, 
+                                                       search_term=None):
     """Use user input to show all qualifying providers"""
 
     if not zip_code:
         user = User.query.filter(User.user_id == user_id).first()
         zip_code = user.zip_code
 
+    print(plan_id, "plan_id")
+    print(zip_code, "zipcode")
+    print(radius, "radius")
+    print(provider_type, "provider_type") 
+    print(search_term, "search term \n\n\n")  
+
     url = 'https://api.vericred.com/providers/search'
 
     # convert to plan_id list for rest api
     payload = {
                'plan_ids': [plan_id],
-               'radius': int(radius),
+               'radius': radius,
                'zip_code': zip_code,
                'sort': 'distance',
                'search_term': search_term,
-               'provider_type': provider_type
+               'type': provider_type
               }
 
-    if not search_term:
+    if (not search_term) and (not provider_type):
         del payload['search_term']
-
-    if not provider_type:
-        del payload['provider_type']
+        del payload['type']
     
-    if not (search_term and provider_type):
+    elif not search_term:
         del payload['search_term']
-        del payload['provider_type']
 
-
+    elif not provider_type:
+        del payload['type']
+    
     req = requests.post(url, json=payload, headers=HEADERS)
-
     all_providers = req.json()
     
-    return all_providers
+    return all_providers.get('providers')
 
 
 def temp_provider_call():
@@ -53,4 +57,4 @@ def temp_provider_call():
 
     providers = all_providers()
 
-    return providers['providers']    
+    return providers.get('providers')

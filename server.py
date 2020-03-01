@@ -128,11 +128,10 @@ def show_plans():
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
-    # medical_plans = show_medical_plans(user, age, smoker, child)
+    # plans = show_medical_plans(user, age, smoker, child)
         
     plans = temp_data_call()
 
-    # return jsonify(medical_plans) #--uncomment when running api call
     return jsonify(plans)
 
 
@@ -160,12 +159,12 @@ def show_providers():
     provider_type = request.args.get('providerType')
     search_term = request.args.get('searchTerm')
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
-    # providers = find_providers(zip_code, radius, plan_id, user_id)
-        
+    # print(plan_id, "plan_id", zip_code, "zipcode", radius, "radius", provider_type,
+    #                 "provider_type", search_term, "search term \n\n\n")    
+    # providers = find_providers(user_id, plan_id, zip_code, radius, provider_type, search_term)
     providers = temp_provider_call()
-
-    return jsonify(providers) #--uncomment when running api call
-    # return jsonify(providers)
+    print(providers)
+    return jsonify(providers)
 
 
 @app.route('/save_plans', methods=['POST'])

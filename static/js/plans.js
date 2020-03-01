@@ -144,7 +144,6 @@ $('#type-form').on('submit', individualMedPlan, (evt) => {
 
   const formInput = applicantForm();
 
-  console.log(formInput);
   // send return value from front-end to server
   $.get('/show_plans', formInput, individualMedPlan); 
 
@@ -177,7 +176,7 @@ previousButton.on('click', individualMedPlan, (evt) => {
   begin -= 5;
   end -= 5;
 
-  const formInput = applicantForm()
+  const formInput = applicantForm();
 
   $.get('/show_plans', formInput, individualMedPlan); 
   

@@ -19,18 +19,18 @@
   <form action="/show_providers" method="GET" id="provider-form">
     <div class="sub-container">
       <label>* Plan Id</label>
-        <select name="plan-id">
+        <p>
+          Select from your saved plans or manually input plan id if you would like to find providers outside of 
+          your saved plans.
+        </p>
+        <input list="plan-id" id="plan-id-options" name="plan-id-options"/>
+        <datalist id="plan-id">
           <option value=""> --Please select a plan-- </option>
           {% for plan in plans %}
             <option value="{{ plan.plan.vericred_id }}">{{ plan.plan.vericred_id }}</option>
           {% endfor %}
-        </select>
-      <p>
-        Manually input plan id if you would like to find providers outside of 
-        your saved plans.
-      </p>
-      <input type="new-plan-id" name="new-plan-id">
-    </div>
+        </datalist>
+      </div>
 
     <div class="sub-container">
       <label>Zip Code</label>
@@ -77,5 +77,9 @@
   </form>
 </div>
 
+<div class="container" id="display-providers-div">
+  <div class="all-providers"></div>
+  
+</div>
 
 {% endblock %}

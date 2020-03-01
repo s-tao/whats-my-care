@@ -43,20 +43,22 @@ def show_medical_plans(user, age=None, smoker=None, child=None):
                   ],
                 'sort': 'premium:asc'}
 
-    if not (age and smoker and child):
+    if (not age or not smoker or not child):
         del payload['applicants']
         payload['sort'] = 'level:asc'
-
 
     req = requests.post(url, json=payload, headers=HEADERS)
     all_plans = req.json()
 
     all_extracted_plans = []
 
-    for plan in all_plans['plans']:
+    plans_exist = all_plans.get('plans')
 
-        extracted_plan_data = parse_med_plans(plan)
-        all_extracted_plans.append(extracted_plan_data)
+    if plans_exist:
+        for plan in all_plans['plans']:
+
+            extracted_plan_data = parse_med_plans(plan)
+            all_extracted_plans.append(extracted_plan_data)
 
     return all_extracted_plans
 
