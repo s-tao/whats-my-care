@@ -121,10 +121,12 @@ def show_plans():
     user = User.query.get(user_id)
 
     # Get request from form in search_plans.html --future feature
-    plan_type = request.args.get('planOption')
-    age = request.args.get('age')
-    smoker = request.args.get('smoker')
-    child = request.args.get('child')
+    # plan_type = request.args.get('planOption')
+    # age = request.args.get('age')
+    # smoker = request.args.get('smoker')
+    # child = request.args.get('child')
+
+
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
@@ -163,8 +165,8 @@ def show_providers():
     #                 "provider_type", search_term, "search term \n\n\n")    
     # providers = find_providers(user_id, plan_id, zip_code, radius, provider_type, search_term)
     providers = temp_provider_call()
-    print(providers)
-    
+    # print(providers)
+
     return jsonify(providers)
 
 

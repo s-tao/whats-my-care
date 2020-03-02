@@ -5,11 +5,12 @@
 {% endblock %}
 
 {% block script %}
+<link rel="stylesheet" href="/static/css/maps.css"/>
 <script src="/static/js/maps.js"></script>
 <script
-    async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmpbfdJDia6GATlzcxC_8oo9Ju2L5hzWI&callback=CALLBACK">
-  </script>
+  async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmpbfdJDia6GATlzcxC_8oo9Ju2L5hzWI">
+</script>
 {% endblock %}
 
 
@@ -23,6 +24,7 @@
   </p>
 </div>
 
+<!-- form to generate qualifying providers for user -->
 <div class="container">
   <form action="/show_providers" method="GET" id="provider-form">
     <div class="sub-container">
@@ -85,6 +87,11 @@
   </form>
 </div>
 
-<div class="container" id="display-providers-div"></div>
+<div class="container">
+  <!-- display google maps here -->
+  <div id="map"></div>
+  <!-- container to show provider information -->
+  <div class="sub-container" id="display-providers-div"></div>  
+</div>
 
 {% endblock %}

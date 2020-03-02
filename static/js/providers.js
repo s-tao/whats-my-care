@@ -30,6 +30,8 @@ const showProviders = (providers) => {
   };
 
   allProviders.html(allProvidersInfo);
+  // call google maps api
+  initMap();
 };
 
 // click event to send user input for provider form to server
@@ -52,7 +54,7 @@ $('#provider-form').on('submit', showProviders, (evt) => {
   };
   
   $.get('/show_providers', formInput, showProviders);
-  
+  $('#map').show()
 });
 
 

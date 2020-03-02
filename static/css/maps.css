@@ -1,0 +1,18 @@
+/* html,body{
+  height:100%;
+  /* overflow:hidden;  */
+  /* margin:0;
+  padding:0;
+} */ 
+
+#map {
+  position: relative;
+  /* overflow: auto; */
+  float: right;
+  height: 500px;
+  width: 500px;
+  padding-right: 15px;
+  padding-top: 15px;
+  display: none;
+}
+
