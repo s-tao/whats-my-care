@@ -1,5 +1,31 @@
 "use strict";
 
+// initialize google maps 
+function initMap() {
+  const generalMap = new google.maps.Map(
+    document.querySelector('#map'), {
+      center: {
+        lat: 37.773972, 
+        lng: -122.431297
+      },
+      zoom: 10,
+      zoomControl: true,
+    }
+  );
+
+};
+
+// create provider object for google maps
+function providerObjectMap(provider) {
+
+  const providerObject = new Object();
+    providerObject.name = provider.presentation_name;
+    providerObject.coords = {'lat': provider.latitude,
+                             'lng': provider.longitude}; 
+  
+  return providerObject
+}
+
 
 const providerInfo = (provider) => {
   const providerDesc = (`\
@@ -16,19 +42,32 @@ const providerInfo = (provider) => {
   return providerDesc;
 };
 
-// function to display provider information
+// function to process provider information
 const showProviders = (providers) => {
 
+  // display text information
   const allProvidersInfo = [];
+  
+  // object information for google maps
+  // const allProviderObjects = [];
+  const allProviderObjects = new Set();
+
   const allProviders = $('#display-providers-div');
 
   for (const provider of providers) {
     
     const providerDesc = providerInfo(provider);
-
     allProvidersInfo.push(providerDesc);
+
+    const providerObject = providerObjectMap(provider);
+    allProviderObjects.add(providerObject);
+    // if (!( providerObject) in allProviderObjects) {
+    //   allProviderObjects.push(providerObject);
+    // };
+
   };
 
+  console.log(allProviderObjects);
   allProviders.html(allProvidersInfo);
   // call google maps api
   initMap();
@@ -60,4 +99,5 @@ $('#provider-form').on('submit', showProviders, (evt) => {
 
 
   
+
 

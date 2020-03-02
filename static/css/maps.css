@@ -11,7 +11,7 @@
   float: right;
   height: 500px;
   width: 500px;
-  padding-right: 15px;
+  padding-right: 0;
   padding-top: 15px;
   display: none;
 }
