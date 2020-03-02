@@ -11,7 +11,7 @@ const previousButton = $('#click-previous-plans');
 
 
 // standard table showing all plan's information including deductibles
-function tableDisplay(planDetails) {
+const tableDisplay = (planDetails) => {
 
   const tablePlan = (`\
   <div class="indiv-plan"> \
@@ -88,7 +88,7 @@ return tablePlan;
 
 
 // function to display specific plan information
-function individualMedPlan(medicalPlans) {
+const individualMedPlan = (medicalPlans) => {
 
   const allTablePlans = [] 
 

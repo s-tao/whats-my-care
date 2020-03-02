@@ -1,7 +1,7 @@
 "use strict";
 
 
-function providerInfo(provider) {
+const providerInfo = (provider) => {
   const providerDesc = (`\
     <div class="provider">
       <p>${provider.presentation_name}</p> \
@@ -17,7 +17,7 @@ function providerInfo(provider) {
 };
 
 // function to display provider information
-function showProviders(providers) {
+const showProviders = (providers) => {
 
   const allProvidersInfo = [];
   const allProviders = $('#display-providers-div');
