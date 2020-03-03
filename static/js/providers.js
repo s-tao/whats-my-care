@@ -14,6 +14,11 @@ function initMap(providers) {
 
   const markers = [];
     for (const providerLocation of providers) {
+
+      if (!(providerLocation.street_line_2)) {
+        providerLocation.street_line_2 = ''
+      };
+
       markers.push(new google.maps.Marker({
         position: {
           lat: providerLocation.latitude,
@@ -61,6 +66,15 @@ function initMap(providers) {
 
 
 const providerInfo = (provider) => {
+
+  if (!(provider.street_line_2)) {
+    provider.street_line_2 = ''
+  };
+
+  if (!(provider.organization_name)) {
+    provider.organization_name = 'N/A'
+  };
+
   const providerDesc = (`\
     <div class="provider">
       <p>${provider.presentation_name}</p> \
