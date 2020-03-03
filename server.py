@@ -163,8 +163,8 @@ def show_providers():
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
     # print(plan_id, "plan_id", zip_code, "zipcode", radius, "radius", provider_type,
     #                 "provider_type", search_term, "search term \n\n\n")    
-    # providers = find_providers(user_id, plan_id, zip_code, radius, provider_type, search_term)
-    providers = temp_provider_call()
+    providers = find_providers(user_id, plan_id, zip_code, radius, provider_type, search_term)
+    # providers = temp_provider_call()
     # print(providers)
 
     return jsonify(providers)

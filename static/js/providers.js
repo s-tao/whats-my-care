@@ -12,61 +12,76 @@ function initMap(providers) {
       zoomControl: true,
       controlSize: 20,
     });
-
+  
+  const latLngs = [];
   const markers = [];
-    for (const providerLocation of providers) {
+  for (const providerLocation of providers) {
 
-      if (!(providerLocation.street_line_2)) {
-        providerLocation.street_line_2 = ''
-      };
+    if (!(providerLocation.street_line_2)) {
+      providerLocation.street_line_2 = ''
+    };
 
-      markers.push(new google.maps.Marker({
-        position: {
-          lat: providerLocation.latitude,
-          lng: providerLocation.longitude
-        },
-        adr: {
-          street1: providerLocation.street_line_1,
-          street2: providerLocation.street_line_2,
-          city: providerLocation.city,
-          state: providerLocation.state,
-          zip_code: providerLocation.zip_code
-        },
-        specialty: providerLocation.specialty,
-        title: providerLocation.presentation_name,
-        map: generalMap,
-        icon: {
-          url: '/static/img/healthcare_marker.svg',
-          scaledSize: {
-            width: 30,
-            height: 30
-          }
+    markers.push(new google.maps.Marker({
+      position: {
+        lat: providerLocation.latitude,
+        lng: providerLocation.longitude
+      },
+      adr: {
+        street1: providerLocation.street_line_1,
+        street2: providerLocation.street_line_2,
+        city: providerLocation.city,
+        state: providerLocation.state,
+        zip_code: providerLocation.zip_code
+      },
+      specialty: providerLocation.specialty,
+      title: providerLocation.presentation_name,
+      map: generalMap,
+      icon: {
+        url: '/static/img/healthcare_marker.svg',
+        scaledSize: {
+          width: 30,
+          height: 30
         }
-      }));
-    }
+      }
+    }));
 
-    for (const marker of markers) {
-      const markerInfo = (` \
-      <label>${marker.title}</label> \
-      <p> Located at: <br>
-        <em>${marker.adr.street1} ${marker.adr.street2} ${marker.adr.city} 
-        ${marker.adr.state} ${marker.adr.zip_code}</em>
-      </p>
-      `);
+    latLngs.push({
+      lat: providerLocation.latitude,
+      lng: providerLocation.longitude
+    });
+  }
 
-      const infoWindow = new google.maps.InfoWindow({
-        content: markerInfo,
-        maxWidth: 200,
-      });
+  // set boundary for viewport relative to markers 
+  const bounds = new google.maps.LatLngBounds();
+  for (const latLng of latLngs) {
+    bounds.extend(latLng);
+  };
 
-      marker.addListener('mouseover', () => {
-        infoWindow.open(generalMap, marker);
-      });
+  generalMap.setCenter(bounds.getCenter());
+  generalMap.fitBounds(bounds);
 
-      marker.addListener('mouseout', () => {
-        infoWindow.close();
-      });
-    }
+  for (const marker of markers) {
+    const markerInfo = (` \
+    <label>${marker.title}</label> \
+    <p> Located at: <br>
+      <em>${marker.adr.street1} ${marker.adr.street2} ${marker.adr.city} 
+      ${marker.adr.state} ${marker.adr.zip_code}</em>
+    </p>
+    `);
+
+    const infoWindow = new google.maps.InfoWindow({
+      content: markerInfo,
+      maxWidth: 200,
+    });
+
+    marker.addListener('mouseover', () => {
+      infoWindow.open(generalMap, marker);
+    });
+
+    marker.addListener('mouseout', () => {
+      infoWindow.close();
+    });
+  }
 };
 
 
