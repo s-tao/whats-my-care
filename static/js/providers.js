@@ -1,7 +1,7 @@
 "use strict";
 
 // initialize google maps 
-function initMap() {
+function initMap(providers) {
   const generalMap = new google.maps.Map(
     document.querySelector('#map'), {
       center: {
@@ -10,21 +10,54 @@ function initMap() {
       },
       zoom: 10,
       zoomControl: true,
+    });
+
+  const markers = [];
+    for (const providerLocation of providers) {
+      markers.push(new google.maps.Marker({
+        position: {
+          lat: providerLocation.latitude,
+          lng: providerLocation.longitude
+        },
+        adr: {
+          street1: providerLocation.street_line_1,
+          street2: providerLocation.street_line_2,
+          city: providerLocation.city,
+          state: providerLocation.state,
+          zip_code: providerLocation.zip_code
+        },
+        specialty: providerLocation.specialty,
+        title: providerLocation.presentation_name,
+        map: generalMap,
+        icon: {
+          url: '/static/img/healthcare_marker.svg',
+          scaledSize: {
+            width: 30,
+            height: 30
+          }
+        }
+      }));
     }
-  );
 
+    for (const marker of markers) {
+      const markerInfo = (` \
+      <label>${marker.title}</label> \
+      <p> Located at: <br>
+        <em>${marker.adr.street1} ${marker.adr.street2} ${marker.adr.city} 
+        ${marker.adr.state} ${marker.adr.zip_code}</em>
+      </p>
+      `);
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: markerInfo,
+        maxWidth: 200,
+      });
+
+      marker.addListener('click', () => {
+        infoWindow.open(generalMap, marker);
+      });
+    }
 };
-
-// create provider object for google maps
-function providerObjectMap(provider) {
-
-  const providerObject = new Object();
-    providerObject.name = provider.presentation_name;
-    providerObject.coords = {'lat': provider.latitude,
-                             'lng': provider.longitude}; 
-  
-  return providerObject
-}
 
 
 const providerInfo = (provider) => {
@@ -48,10 +81,6 @@ const showProviders = (providers) => {
   // display text information
   const allProvidersInfo = [];
   
-  // object information for google maps
-  // const allProviderObjects = [];
-  const allProviderObjects = new Set();
-
   const allProviders = $('#display-providers-div');
 
   for (const provider of providers) {
@@ -59,18 +88,11 @@ const showProviders = (providers) => {
     const providerDesc = providerInfo(provider);
     allProvidersInfo.push(providerDesc);
 
-    const providerObject = providerObjectMap(provider);
-    allProviderObjects.add(providerObject);
-    // if (!( providerObject) in allProviderObjects) {
-    //   allProviderObjects.push(providerObject);
-    // };
-
   };
 
-  console.log(allProviderObjects);
   allProviders.html(allProvidersInfo);
   // call google maps api
-  initMap();
+  initMap(providers);
 };
 
 // click event to send user input for provider form to server
