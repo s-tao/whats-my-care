@@ -10,6 +10,7 @@ function initMap(providers) {
       },
       zoom: 10,
       zoomControl: true,
+      controlSize: 20,
     });
 
   const markers = [];
@@ -58,8 +59,12 @@ function initMap(providers) {
         maxWidth: 200,
       });
 
-      marker.addListener('click', () => {
+      marker.addListener('mouseover', () => {
         infoWindow.open(generalMap, marker);
+      });
+
+      marker.addListener('mouseout', () => {
+        infoWindow.close();
       });
     }
 };
