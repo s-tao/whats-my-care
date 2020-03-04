@@ -112,7 +112,7 @@ def plan_form():
     return render_template('search_plans.html', user_id=user_id, user=user)
 
 
-@app.route('/show_plans', methods=['GET'])
+@app.route('/show_plans.json', methods=['GET'])
 def show_plans():
     """Generate all plans after selecting plan type"""
     
@@ -149,7 +149,7 @@ def get_providers():
                                                     plans=user_plans)
 
 
-@app.route('/show_providers', methods=['GET'])
+@app.route('/show_providers.json', methods=['GET'])
 def show_providers():
     """Generate all provider information after submitting form"""
     
@@ -163,8 +163,8 @@ def show_providers():
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
     # print(plan_id, "plan_id", zip_code, "zipcode", radius, "radius", provider_type,
     #                 "provider_type", search_term, "search term \n\n\n")    
-    providers = find_providers(user_id, plan_id, zip_code, radius, provider_type, search_term)
-    # providers = temp_provider_call()
+    # providers = find_providers(user_id, plan_id, zip_code, radius, provider_type, search_term)
+    providers = temp_provider_call()
     # print(providers)
 
     return jsonify(providers)

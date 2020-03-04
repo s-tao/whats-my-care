@@ -8,7 +8,6 @@ function initMap(providers) {
         lat: 37.773972, 
         lng: -122.431297
       },
-      zoom: 10,
       zoomControl: true,
       controlSize: 20,
     });
@@ -96,15 +95,17 @@ const providerInfo = (provider) => {
   };
 
   const providerDesc = (`\
-    <div class="provider">
-      <p>${provider.presentation_name}</p> \
-      <p><b>Organization:</b> ${provider.organization_name}</p> \
-      <p><b>Specialty:</b> ${provider.specialty}</p> \
-      <p><b>Address:</b> ${provider.street_line_1} ${provider.street_line_2}
-                        ${provider.city} ${provider.state} ${provider.zip_code}</p> \
-      <p><b>Phone:</b> ${provider.phone}</p> \
-    </div> \
-      `);
+    <li class="accordion-item" data-accordion-item id="abc"> \
+      <a href="#" class="accordion-title">${provider.presentation_name}</a> \
+      <div class="accordion-content" data-tab-content> \
+        <p><b>Organization:</b> ${provider.organization_name}</p> \
+        <p><b>Specialty:</b> ${provider.specialty}</p> \
+        <p><b>Address:</b> ${provider.street_line_1} ${provider.street_line_2} \
+                            ${provider.city} ${provider.state} ${provider.zip_code}</p> \
+        <p><b>Phone:</b> ${provider.phone}</p> \
+      </div> \
+    </li> \
+  `)
 
   return providerDesc;
 };
@@ -115,7 +116,7 @@ const showProviders = (providers) => {
   // display text information
   const allProvidersInfo = [];
   
-  const allProviders = $('#display-providers-div');
+  const allProviders = $('#display-providers');
 
   for (const provider of providers) {
     
@@ -148,12 +149,26 @@ $('#provider-form').on('submit', showProviders, (evt) => {
     'searchTerm': searchTerm
   };
   
-  $.get('/show_providers', formInput, showProviders);
+  $.get('/show_providers.json', formInput, showProviders);
   $('#map').show()
 });
 
 
 
+// const toggleProvider = $('.accordion-title');
+
+// toggleProvider.on('click', (evt) => {
+//   // evt.preventDefault();
+//   console.log(evt.target);
+//   console.log(providerId);
   
+//   const providerId = $(this).attr('a');
+//   $('#'+ providerId).foundation('toggle', $target);
+//   // $('#' + providerId ).toggle( ".accordion-content" );
+// });
+
+
+
+$('.accordion-item').foundation('toggle', '.accordion-content');
 
 

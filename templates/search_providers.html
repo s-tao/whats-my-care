@@ -25,7 +25,7 @@
 
 <!-- form to generate qualifying providers for user -->
 <div class="container">
-  <form action="/show_providers" method="GET" id="provider-form">
+  <form action="/show_providers.json" method="GET" id="provider-form">
     <div class="sub-container">
       <label>* Plan Id</label>
         <p>
@@ -86,11 +86,19 @@
   </form>
 </div>
 
-<div class="container">
+<div class="grid-x grid-margin-x">
+   <!-- container to show provider information -->
+    <div class="row cell small-6 offset-2"> 
+      <div class="column"> 
+        <ul class="accordion" data-accordion data-allow-all-closed="true" 
+            id="display-providers"> 
+        </ul>
+      </div>
+    </div>
   <!-- display google maps here -->
-  <div id="map"></div>
-  <!-- container to show provider information -->
-  <div class="sub-container" id="display-providers-div"></div>  
+  <div class="sub-container cell auto" id="map"></div>
+
+
 </div>
 
 <script src="/static/js/providers.js"></script>

@@ -148,7 +148,7 @@ $('#plan-form').on('submit', individualMedPlan, (evt) => {
   // const formInput = $('#plan-form').serialize();
 
   // send return value from front-end to server
-  $.get('/show_plans', formInput, individualMedPlan); 
+  $.get('/show_plans.json', formInput, individualMedPlan); 
 
   // display shows once function runs to generate tables
   $('#display-plans-div').show();
@@ -166,7 +166,7 @@ moreButton.on('click', individualMedPlan, (evt) => {
 
   const formInput = applicantForm();
 
-  $.get('/show_plans', formInput, individualMedPlan); 
+  $.get('/show_plans.json', formInput, individualMedPlan); 
   previousButton.show();
 
 });
@@ -181,7 +181,7 @@ previousButton.on('click', individualMedPlan, (evt) => {
 
   const formInput = applicantForm();
 
-  $.get('/show_plans', formInput, individualMedPlan); 
+  $.get('/show_plans.json', formInput, individualMedPlan); 
   
 });
 

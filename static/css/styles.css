@@ -10,11 +10,11 @@
   display: none;
 }
 
-.nav { 
+.menu { 
   background-color: #e9de4a;
 }
 
-.nav, a{
+.menu, a{
   color: #ffffff
 }
 
