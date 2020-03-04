@@ -95,9 +95,9 @@ const providerInfo = (provider) => {
   };
 
   const providerDesc = (`\
-    <li class="accordion-item" data-accordion-item id="abc"> \
-      <a href="#" class="accordion-title">${provider.presentation_name}</a> \
-      <div class="accordion-content" data-tab-content> \
+    <li class="accordion-item" data-accordion-item> \
+      <a href="#${provider.id}" class="accordion-title">${provider.presentation_name}</a> \
+      <div class="accordion-content" data-tab-content id="${provider.id} > \
         <p><b>Organization:</b> ${provider.organization_name}</p> \
         <p><b>Specialty:</b> ${provider.specialty}</p> \
         <p><b>Address:</b> ${provider.street_line_1} ${provider.street_line_2} \
@@ -154,21 +154,19 @@ $('#provider-form').on('submit', showProviders, (evt) => {
 });
 
 
+// const toggleProvider = $('abv');
 
-// const toggleProvider = $('.accordion-title');
-
-// toggleProvider.on('click', (evt) => {
-//   // evt.preventDefault();
-//   console.log(evt.target);
-//   console.log(providerId);
+// toggleProvider.click(function() {
   
-//   const providerId = $(this).attr('a');
-//   $('#'+ providerId).foundation('toggle', $target);
+//   const providerId = $(this).attr('div id');
+//   console.log(providerId);
+
+//   // $('.accordion-item').foundation('toggle', '.accordion-content');
 //   // $('#' + providerId ).toggle( ".accordion-content" );
+//   $('#display-providers').foundation('toggle', $(providerId));
+
 // });
 
-
-
-$('.accordion-item').foundation('toggle', '.accordion-content');
+// $('#display-providers').foundation('toggle', $('#abv'));
 
 
