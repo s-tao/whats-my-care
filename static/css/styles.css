@@ -10,6 +10,10 @@
   display: none;
 }
 
+#floating-panel {
+  display: none;
+}
+
 .menu { 
   background-color: #e9de4a;
 }
@@ -25,4 +29,3 @@ select{
   border: none;
   width: auto;
 }
-

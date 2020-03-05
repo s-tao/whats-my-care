@@ -1,6 +1,7 @@
 "use strict";
 
 // initialize google maps 
+
 function initMap(providers) {
   const generalMap = new google.maps.Map(
     document.querySelector('#map'), {
@@ -44,6 +45,7 @@ function initMap(providers) {
       }
     }));
 
+    // Sets the map on all markers in the array.
     latLngs.push({
       lat: providerLocation.latitude,
       lng: providerLocation.longitude
@@ -81,6 +83,28 @@ function initMap(providers) {
       infoWindow.close();
     });
   }
+  
+  $('#floating-panel').show();
+
+  function setMapOnAll(generalMap) {
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(generalMap);
+    }
+  }
+
+  // Removes the markers from the map, but keeps them in the array.
+  function clearMarkers() {
+    setMapOnAll(null);
+  }
+
+  // // Shows any markers currently in the array.
+  function showMarkers() {
+    setMapOnAll(generalMap);
+  }
+
+  $('#btn-hide-markers').on('click', clearMarkers);
+  $('#btn-show-markers').on('click', showMarkers);
+
 };
 
 
@@ -166,22 +190,8 @@ $('#provider-form').on('submit', showProviders, (evt) => {
   
   $.get('/show_providers.json', formInput, showProviders);
   $('#map').show()
+
   
 });
-
-
-// const toggleProvider = $('.accordion-title');
-
-// toggleProvider.click(function() {
-  
-//   // const providerId = $(this).attr('a');
-//   // console.log(providerId);
-
-// //   // $('.accordion-item').foundation('toggle', '.accordion-content');
-//   // $('#' + providerId ).toggle( ".accordion-content" );
-//   $('#display-providers').foundation('toggle', $('.accordion-content'));
-
-// });
-
 
 

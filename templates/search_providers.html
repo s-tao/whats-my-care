@@ -6,10 +6,6 @@
 
 {% block script %}
 <link rel="stylesheet" href="/static/css/maps.css"/>
-<script
-  async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmpbfdJDia6GATlzcxC_8oo9Ju2L5hzWI">
-</script>
 {% endblock %}
 
 
@@ -96,12 +92,20 @@
       </div>
     </div>
   <!-- display google maps here -->
-  <div class="sub-container cell auto" id="map"></div>
-
+  <div class="container">
+    <div id="floating-panel">
+      <button id="btn-hide-markers" name="hide-markers">Hide Markers</button>
+      <button id="btn-show-markers" name="show-all-markers">Show All Markers</button>
+    </div>
+    <div class="sub-container cell auto" id="map"></div>
+  </div>
 
 </div>
 
 <script src="/static/js/providers.js"></script>
-
+<script
+  async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmpbfdJDia6GATlzcxC_8oo9Ju2L5hzWI&">
+</script>
 
 {% endblock %}
