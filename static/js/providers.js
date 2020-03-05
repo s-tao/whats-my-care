@@ -15,6 +15,7 @@ function initMap(providers) {
   
   const latLngs = [];
   const markers = [];
+
   for (const providerLocation of providers) {
 
     if (!(providerLocation.street_line_2)) {
@@ -31,9 +32,9 @@ function initMap(providers) {
         street2: providerLocation.street_line_2,
         city: providerLocation.city,
         state: providerLocation.state,
-        zip_code: providerLocation.zip_code
+        zipCode: providerLocation.zip_code
       },
-      specialty: providerLocation.specialty,
+      provider_id: providerLocation.id,
       title: providerLocation.presentation_name,
       map: generalMap,
       icon: {
@@ -41,9 +42,10 @@ function initMap(providers) {
         scaledSize: {
           width: 30,
           height: 30
+          }
         }
-      }
-    }));
+      })
+    );
 
     // Sets the map on all markers in the array.
     latLngs.push({
@@ -61,12 +63,21 @@ function initMap(providers) {
   generalMap.setCenter(bounds.getCenter());
   generalMap.fitBounds(bounds);
 
+  // creating infoWindow content for each marker
   for (const marker of markers) {
-    const markerInfo = (` \
-    <label>${marker.title}</label> \
-    <p> Located at: <br>
-      <em>${marker.adr.street1} ${marker.adr.street2} ${marker.adr.city} 
-      ${marker.adr.state} ${marker.adr.zip_code}</em>
+    const markerInfo = (` 
+    <label>
+      ${marker.title}
+    </label> 
+    <p>Located at: 
+    <br>
+      <em>
+        ${marker.adr.street1} 
+        ${marker.adr.street2} 
+        ${marker.adr.city} 
+        ${marker.adr.state} 
+        ${marker.adr.zip_code}
+      </em>
     </p>
     `);
 
@@ -82,30 +93,59 @@ function initMap(providers) {
     marker.addListener('mouseout', () => {
       infoWindow.close();
     });
-  }
   
-  $('#floating-panel').show();
-
-  function setMapOnAll(generalMap) {
-    for (let i = 0; i < markers.length; i++) {
-      markers[i].setMap(generalMap);
-    }
+  
+  
+  
+  
   }
 
-  // Removes the markers from the map, but keeps them in the array.
-  function clearMarkers() {
-    setMapOnAll(null);
+  // $('#floating-panel').show();
+
+
+
+  $('.accordion-item').click(function() {
+    // const selectMarkers = [];
+
+    const accordionId = $(this).attr('id');
+    const accordionActive = $(this).hasClass('is-active');
+    if (accordionActive === true) {
+      // console.log(infoWindow.content);
+
+
+      // selectMarkers.push(accordionId)
+    };
+      
+    });
+
+  
   }
 
-  // // Shows any markers currently in the array.
-  function showMarkers() {
-    setMapOnAll(generalMap);
-  }
 
-  $('#btn-hide-markers').on('click', clearMarkers);
-  $('#btn-show-markers').on('click', showMarkers);
 
-};
+
+
+
+
+//   // Removes the markers from the map, but keeps them in the array.
+//   function clearMarkers() {
+//     for (let i = 0; i < markers.length; i++) {
+//       markers[i].setMap(null);
+//     }
+//   }
+
+//   // // Shows any markers currently in the array.
+//   function showMarkers() {
+//     for (let i = 0; i < markers.length; i++) {
+//       markers[i].setMap(generalMap);
+      
+//     }
+//   }
+
+//   $('#btn-hide-markers').on('click', clearMarkers);
+//   $('#btn-show-markers').on('click', showMarkers);
+
+// });
 
 
 const providerInfo = (provider) => {
@@ -164,7 +204,7 @@ const showProviders = (providers) => {
 
   // reload foundation script once provider information is displayed
   Foundation.reInit(allProviders);
-
+ 
   // call google maps api
   initMap(providers);
 };
