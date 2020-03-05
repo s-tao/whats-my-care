@@ -179,7 +179,7 @@ def seed_plans():
     plan_ids = request.form.keys()
     add_plan(plan_ids, user_id)
 
-    return redirect(f'/user-{user_id}/saved_plans')
+    return redirect(f'/user_profile')
 
 
 @app.route('/remove_plan', methods=['POST'])
