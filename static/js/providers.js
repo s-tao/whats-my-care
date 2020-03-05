@@ -94,38 +94,53 @@ const providerInfo = (provider) => {
     provider.organization_name = 'N/A'
   };
 
-  const providerDesc = (`\
-    <li class="accordion-item" data-accordion-item> \
-      <a href="#${provider.id}" class="accordion-title">${provider.presentation_name}</a> \
-      <div class="accordion-content" data-tab-content id="${provider.id} > \
-        <p><b>Organization:</b> ${provider.organization_name}</p> \
-        <p><b>Specialty:</b> ${provider.specialty}</p> \
-        <p><b>Address:</b> ${provider.street_line_1} ${provider.street_line_2} \
-                            ${provider.city} ${provider.state} ${provider.zip_code}</p> \
-        <p><b>Phone:</b> ${provider.phone}</p> \
-      </div> \
-    </li> \
-  `)
+
+  
+  const providerDesc = (`
+    <li class="accordion-item" data-accordion-item id="${provider.id}">
+      <a href="#" class="accordion-title">
+        ${provider.presentation_name}
+      </a>
+      <div class="accordion-content" data-tab-content>
+        <p>
+          <b>Organization:</b> 
+          ${provider.organization_name}
+        </p>
+        <p>
+          <b>Specialty:</b> 
+          ${provider.specialty}
+        </p>
+        <p>
+          <b>Address:</b>
+          ${provider.street_line_1}
+          ${provider.street_line_2}
+          ${provider.city}
+          ${provider.state}
+          ${provider.zip_code}
+        </p>
+        <p>
+          <b>Phone:</b> 
+          ${provider.phone}
+        </p>
+      </div>
+    </li>
+  `);
 
   return providerDesc;
 };
 
 // function to process provider information
 const showProviders = (providers) => {
-
-  // display text information
-  const allProvidersInfo = [];
-  
   const allProviders = $('#display-providers');
 
   for (const provider of providers) {
-    
     const providerDesc = providerInfo(provider);
-    allProvidersInfo.push(providerDesc);
-
+    allProviders.append(providerDesc);
   };
 
-  allProviders.html(allProvidersInfo);
+  // reload foundation script once provider information is displayed
+  Foundation.reInit(allProviders);
+
   // call google maps api
   initMap(providers);
 };
@@ -151,22 +166,22 @@ $('#provider-form').on('submit', showProviders, (evt) => {
   
   $.get('/show_providers.json', formInput, showProviders);
   $('#map').show()
+  
 });
 
 
-// const toggleProvider = $('abv');
+// const toggleProvider = $('.accordion-title');
 
 // toggleProvider.click(function() {
   
-//   const providerId = $(this).attr('div id');
-//   console.log(providerId);
+//   // const providerId = $(this).attr('a');
+//   // console.log(providerId);
 
-//   // $('.accordion-item').foundation('toggle', '.accordion-content');
+// //   // $('.accordion-item').foundation('toggle', '.accordion-content');
 //   // $('#' + providerId ).toggle( ".accordion-content" );
-//   $('#display-providers').foundation('toggle', $(providerId));
+//   $('#display-providers').foundation('toggle', $('.accordion-content'));
 
 // });
 
-// $('#display-providers').foundation('toggle', $('#abv'));
 
 
