@@ -96,24 +96,17 @@ function initMap(providers) {
       infoWindow.close();
     });
 
-    // marker.addListener('click', () => {
-    //   infoWindow.open(generalMap, marker);
-    // });
-
-
   }
 
-  // $('#floating-panel').show();
-
+  // current active markers from accordion
   const selectMarkers = [];
-  // const accordion = $('.accordion-item');
+
   $('.accordion-item').click(function() {
     const accordionId = $(this).attr('id');
     const accordionActive = $(this).hasClass('is-active');
     if (accordionActive == true) {
       for (const marker of markers) {
         if (accordionId == marker.provider_id) {
-          // clearMarkers();
           selectMarkers.push(marker);
           marker.setMap(generalMap);
           // infoWindow.open(generalMap, marker);
@@ -128,32 +121,24 @@ function initMap(providers) {
     };
   });
 
+  // show buttons for google map functions
   $('#floating-panel').show();
-  $('#btn-hide-markers').on('click', clearMarkers);
-  $('#btn-show-markers').on('click', showMarkers);
-
-
-    // Removes the markers from the map, but keeps them in the array.
-    function clearMarkers() {
-      for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-      }
-    }
   
-    // Shows any markers currently in the array.
-    function showMarkers() {
-      for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(generalMap);
-        
-      }
-    }
+  // Removes the markers from the map, but keeps them in the array.
+  $('#btn-hide-markers').on('click', () => {
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    };
+  });
+  
+  // Shows all markers
+  $('#btn-show-markers').on('click', () => {
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(generalMap);
+    };
+  });
   
 }
-
-
-
-
-// });
 
 
 const providerInfo = (provider) => {
@@ -167,7 +152,6 @@ const providerInfo = (provider) => {
   };
 
 
-  
   const providerDesc = (`
     <li class="accordion-item" data-accordion-item id="${provider.id}">
       <a href="#" class="accordion-title">
@@ -239,7 +223,6 @@ $('#provider-form').on('submit', showProviders, (evt) => {
   $.get('/show_providers.json', formInput, showProviders);
   $('#map').show()
 
-  
 });
 
 
