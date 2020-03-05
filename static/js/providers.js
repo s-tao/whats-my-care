@@ -105,22 +105,27 @@ function initMap(providers) {
 
   // $('#floating-panel').show();
 
-
+  const selectMarkers = [];
   // const accordion = $('.accordion-item');
   $('.accordion-item').click(function() {
-    // const selectMarkers = [];
     const accordionId = $(this).attr('id');
     const accordionActive = $(this).hasClass('is-active');
     if (accordionActive == true) {
       for (const marker of markers) {
         if (accordionId == marker.provider_id) {
           // clearMarkers();
+          selectMarkers.push(marker);
           marker.setMap(generalMap);
           // infoWindow.open(generalMap, marker);
-
         }
       };
-    } 
+    } else {
+      for (const marker of selectMarkers) { 
+        if (accordionId == marker.provider_id) {
+          marker.setMap(null);
+        };
+      };
+    };
   });
 
   $('#floating-panel').show();
