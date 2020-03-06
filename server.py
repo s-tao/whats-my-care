@@ -24,9 +24,21 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage"""
 
-    check_user = session.get('user_id')
-    if check_user:
-        return render_template('homepage.html', user_id=check_user)
+    user_id = session.get('user_id')
+    
+    if user_id: 
+        user = User.query.get(user_id)
+
+        user_dict = {'email': user.email,
+                    'market': user.market,
+                    'zip code': user.zip_code}
+        
+        plans = user_saved_plans(user_id)
+
+        return render_template('user_profile.html', user_id=user_id, 
+                                                    user_dict=user_dict,
+                                                    plans=plans)
+
 
     return render_template('homepage.html')
 
@@ -86,7 +98,7 @@ def login_process():
 
 
     flash('Successfully logged in')
-    return redirect('/user_profile')
+    return redirect('/')
 
 
 @app.route('/logout')
@@ -199,23 +211,23 @@ def remove_userplan():
     return 'Unexpected Error'
 
 
-@app.route('/user_profile')
-def user_profile():
-    """Display all user's saved plans"""
+# @app.route('/user_profile')
+# def user_profile():
+#     """Display all user's saved plans"""
 
-    user_id = session.get('user_id')
+#     user_id = session.get('user_id')
     
-    user = User.query.get(user_id)
+#     user = User.query.get(user_id)
 
-    user_dict = {'email': user.email,
-                 'market': user.market,
-                 'zip code': user.zip_code}
+#     user_dict = {'email': user.email,
+#                  'market': user.market,
+#                  'zip code': user.zip_code}
     
-    plans = user_saved_plans(user_id)
+#     plans = user_saved_plans(user_id)
 
-    return render_template('user_profile.html', user_id=user_id, 
-                                                user_dict=user_dict,
-                                                plans=plans)
+#     return render_template('user_profile.html', user_id=user_id, 
+#                                                 user_dict=user_dict,
+#                                                 plans=plans)
 
 
 if __name__ == '__main__':

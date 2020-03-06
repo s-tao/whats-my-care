@@ -1,7 +1,6 @@
 "use strict";
 
 // initialize google maps 
-
 function initMap(providers) {
   const generalMap = new google.maps.Map(
     document.querySelector('#map'), {
@@ -102,6 +101,7 @@ function initMap(providers) {
   const selectMarkers = [];
 
   $('.accordion-item').click(function() {
+
     const accordionId = $(this).attr('id');
     const accordionActive = $(this).hasClass('is-active');
     if (accordionActive == true) {
