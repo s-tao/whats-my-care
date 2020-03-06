@@ -80,6 +80,7 @@ class TestFlaskRoutes(unittest.TestCase):
 
         # Show Flask errors when running tests
         app.config['TESTING'] = True
+        # app.config['SECRET_KEY'] = 'TEMP'
 
         # Connect to test database
         connect_to_db(app, "postgresql:///testdb")
@@ -88,6 +89,9 @@ class TestFlaskRoutes(unittest.TestCase):
         db.create_all()
         example_data()
 
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess['user_id'] = 1
 
     def tearDown(self):
         """Execute after every test ends"""
@@ -113,11 +117,25 @@ class TestFlaskRoutes(unittest.TestCase):
         plan_1 = Plan.query.filter(Plan.name == 'Platinum MI01 HMO').first()
         self.assertEqual(plan_1.name, 'Platinum MI01 HMO')
 
+    def test_find_plan_coverage(self):
+        """Find plan coverage in test database"""
+        
+        plan_cov_1 = PlanCoverage.query.filter(
+                        PlanCoverage.pcp == 
+                        'In-Network: $15 / Out-of-Network: Not Covered').first()
+        self.assertEqual(plan_cov_1.pcp, 
+                         'In-Network: $15 / Out-of-Network: Not Covered')                        
+
+    def test_find_user_plan(self):
+        """Find user plan in test database"""
+        
+        user_plan_1 = UserPlan.query.filter(UserPlan.user_id == 1).first()
+        self.assertEqual(user_plan_1.user_id, 1)
+
 
     def test_index(self):
         """Test homepage"""
-
-        # Create a test client
+        
         client = app.test_client()
 
         result = client.get('/')
@@ -136,6 +154,41 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertIn(b'<h2>Your Information</h2>', result.data)                                   
 
 
+    def test_logout(self):
+        """Test log out page"""
+
+        result = self.client.get('/logout', follow_redirects=True)
+        
+        self.assertEqual(result.status_code, 200)                                   
+        self.assertIn(b"<h1>What's My Care</h1>", result.data)
+
+
+    def test_search_plans_route(self):
+        """Test search plans route is the correct page"""
+        
+        result = self.client.get('/search_plans')
+        self.assertIn(b'<h1>Find Plans</h1>', result.data)
+
+
+    def test_search_plans_form(self):
+        """Test when user inputs information to search for plans"""
+
+        pass
+
+
+    # def test_search_plans_form(self):
+    #     """Test when user inputs information to search for plans"""
+
+    #     pass
+
+
+    def test_remove_plan(self):
+        """Test when user removes a plan"""
+
+
+
+
+
 # class FlaskTests(TestCase):
 #     def setUp(self):
 #         """Prepare for testing"""
@@ -152,13 +205,6 @@ class TestFlaskRoutes(unittest.TestCase):
 #         # Create tables and add sample data
 #         db.create_all()
 #         example_data()
-
-#     def tearDown(self):
-#         """Run when test ends"""
-
-#         db.session.close()
-#         db.drop_all()
-
 
 
 if __name__ == '__main__':
