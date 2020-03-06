@@ -42,6 +42,7 @@ def index():
 
     return render_template('homepage.html')
 
+
 @app.route('/register', methods=['GET']) 
 def register_form():
     """Show form for user to signup"""
@@ -134,11 +135,9 @@ def show_plans():
 
     # Get request from form in search_plans.html --future feature
     # plan_type = request.args.get('planOption')
-    # age = request.args.get('age')
-    # smoker = request.args.get('smoker')
-    # child = request.args.get('child')
-
-
+    age = request.args.get('age')
+    smoker = request.args.get('smoker')
+    child = request.args.get('child')
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
@@ -191,7 +190,7 @@ def seed_plans():
     plan_ids = request.form.keys()
     add_plan(plan_ids, user_id)
 
-    return redirect(f'/user_profile')
+    return redirect(f'/')
 
 
 @app.route('/remove_plan', methods=['POST'])

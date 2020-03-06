@@ -117,10 +117,10 @@ class PlanType(db.Model):
                            order_by=plan_type_id))
 
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri='postgresql:///healthcare'):
 
     # Configure to use PostgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///healthcare'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
