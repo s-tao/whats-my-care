@@ -1,4 +1,5 @@
 from model import User, Carrier, Plan, PlanCoverage, UserPlan, connect_to_db, db
+from process_plans import user_saved_plans
 from server import app
 import unittest
 
@@ -99,6 +100,7 @@ class TestFlaskRoutes(unittest.TestCase):
         db.session.close()
         db.drop_all()
 
+    # test querying data from database
     def test_find_user(self):
         """Find user in test database"""
 
@@ -132,9 +134,18 @@ class TestFlaskRoutes(unittest.TestCase):
         user_plan_1 = UserPlan.query.filter(UserPlan.user_id == 1).first()
         self.assertEqual(user_plan_1.user_id, 1)
 
+    # test function call to query all user plans
+    def test_user_saved_plans(self):
+        """Test return all user's saved plans"""
 
+        user_plans = user_saved_plans(1)
+        plans = Plan.query.all()
+        self.assertEqual(user_plans, plans)
+
+
+    # test flask routes 
     def test_index(self):
-        """Test homepage"""
+        """Test homepage when user is not logged in"""
         
         client = app.test_client()
 
@@ -144,12 +155,12 @@ class TestFlaskRoutes(unittest.TestCase):
 
 
     def test_login(self):
-        """Test login page"""
+        """Test login page, should redirect to homepage"""
 
         result = self.client.post('/login',
-                                   data={'email': 'sarah@gmail.com',
-                                         'password': 'test'},
-                                   follow_redirects=True)
+                                  data={'email': 'sarah@gmail.com',
+                                        'password': 'test'},
+                                  follow_redirects=True)
         self.assertEqual(result.status_code, 200)                                   
         self.assertIn(b'<h2>Your Information</h2>', result.data)                                   
 
@@ -163,48 +174,31 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertIn(b"<h1>What's My Care</h1>", result.data)
 
 
-    def test_search_plans_route(self):
+    def test_search_plans(self):
         """Test search plans route is the correct page"""
         
         result = self.client.get('/search_plans')
         self.assertIn(b'<h1>Find Plans</h1>', result.data)
 
+    # def test_search_plans_json(self):
+    #     """Test search plans json route"""
 
-    def test_search_plans_form(self):
-        """Test when user inputs information to search for plans"""
+    #     result = self.client.get('/show_plans.json', data={'age': '25',
+    #                                                        'smoker': 'false',
+    #                                                        'child': 'false'})
 
-        pass
+
+    def test_search_providers(self):
+        """Test search providers route is the correct page"""
+
+        result = self.client.get('/get_providers')
+        self.assertIn(b'<h2>Find Providers</h2>', result.data)
 
 
-    # def test_search_plans_form(self):
-    #     """Test when user inputs information to search for plans"""
-
+    # def test_search_providers_json(self):
     #     pass
 
 
-    def test_remove_plan(self):
-        """Test when user removes a plan"""
-
-
-
-
-
-# class FlaskTests(TestCase):
-#     def setUp(self):
-#         """Prepare for testing"""
-
-#         # Get Flask test client
-#         self.client = app.test_client()
-
-#         # Show Flask errors when running tests
-#         app.config['TESTING'] = True
-
-#         # Connect to test db
-#         connect_to_db(app, "postgresql:///testdb")
-
-#         # Create tables and add sample data
-#         db.create_all()
-#         example_data()
 
 
 if __name__ == '__main__':
