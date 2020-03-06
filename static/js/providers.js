@@ -118,6 +118,7 @@ function initMap(providers) {
     } else {
       for (const marker of selectMarkers) { 
         if (accordionId == marker.providerId) {
+          markerToInfoWindow[marker.providerId].close();
           marker.setMap(null);
         };
       };

@@ -27,24 +27,47 @@ def example_data():
     carrier_1 = Carrier(name='Kaiser Permanente')
     carrier_2 = Carrier(name='Sutter Health Plus')
 
+    pc_1 = PlanCoverage(
+                pcp='In-Network: $0 after deductible / Out-of-Network: Not Covered',
+                specialist='In-Network: $0 after deductible / Out-of-Network: Not Covered',
+                emerg_rm='In-Network: $0 after deductible / Out-of-Network: $0 after deductible | limit: waived if admitted',
+                gen_drug='In-Network: $0 after deductible / Out-of-Network: Not Covered',
+                urg_care='In-Network: $0 after deductible / Out-of-Network: Not Covered',
+                med_deduct='In-Network: $6,900 / Out-of-Network: Not Covered',
+                med_moop='In-Network: $6,900 / Out-of-Network: Not Covered')
+
+    pc_2 = PlanCoverage(
+                pcp='In-Network: $15 / Out-of-Network: Not Covered',
+                specialist='In-Network: $30 / Out-of-Network: Not Covered',
+                emerg_rm='In-Network: $150 / Out-of-Network: $150 | limit: waived if admitted',
+                gen_drug='In-Network: $5 per script / Out-of-Network: Not Covered',
+                urg_care='In-Network: $15 / Out-of-Network: $15',
+                med_deduct='In-Network: $0 / Out-of-Network: Not Covered',
+                med_moop='In-Network: $4,500 / Out-of-Network: Not Covered')
+
+    db.session.add_all([sarah, jade, carrier_1, carrier_2, pc_1, pc_2])
+    db.session.commit()
 
     plan_1 = Plan(plan_org='HMO',
                   name='Bronze 60 HDHP HMO',
                   vericred_id='40513CA0390019',
-                  carrier_id=carrier_1)
+                  carrier_id=carrier_1.carrier_id,
+                  pc_id=pc_1.pc_id)
 
     plan_2 = Plan(plan_org='HMO',
                   name='Platinum MI01 HMO',
                   vericred_id='64210CA0620001',
-                  carrier_id=carrier_2)  
-                    
+                  carrier_id=carrier_2.carrier_id,
+                  pc_id=pc_2.pc_id)  
 
-    userplan_1 = UserPlan(user_id=sarah, plan_id=plan_1)
-    userplan_2 = UserPlan(user_id=sarah, plan_id=plan_2)
-    userplan_3 = UserPlan(user_id=jade, plan_id=plan_2)
+    db.session.add_all([plan_1, plan_2])
+    db.session.commit()
 
-    db.session.add_all([sarah, jade, carrier_1, carrier_2, plan_1, plan_2,
-                        userplan_1, userplan_2, userplan_3])
+    userplan_1 = UserPlan(user_id=sarah.user_id, plan_id=plan_1.plan_id)
+    userplan_2 = UserPlan(user_id=sarah.user_id, plan_id=plan_2.plan_id)
+    userplan_3 = UserPlan(user_id=jade.user_id, plan_id=plan_2.plan_id)
+
+    db.session.add_all([userplan_1, userplan_2, userplan_3])
     db.session.commit()
 
 
@@ -75,14 +98,14 @@ class TestFlaskRoutes(unittest.TestCase):
     def test_find_user(self):
         """Find user in test database"""
 
-        sarah = User.query.filter(User.gmail == 'sarah@gmail.com').first()
-        self.assertEqual(sarah.gmail, 'sarah@gmail.com')
+        sarah = User.query.filter(User.email == 'sarah@gmail.com').first()
+        self.assertEqual(sarah.email, 'sarah@gmail.com')
 
     def test_find_carrier(self):
         """Find carrier in test database"""
 
         carrier_1 = Carrier.query.filter(Carrier.name == 'Kaiser Permanente').first()
-        self.assertEqual(carrier_1.name == 'Kaiser Permanente')
+        self.assertEqual(carrier_1.name, 'Kaiser Permanente')
 
     def test_find_plan(self):
         """Find plan in test database"""
@@ -95,7 +118,7 @@ class TestFlaskRoutes(unittest.TestCase):
         """Test homepage"""
 
         # Create a test client
-        client = server.app.test_client()
+        client = app.test_client()
 
         result = client.get('/')
 
