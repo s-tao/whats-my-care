@@ -33,7 +33,7 @@ function initMap(providers) {
         state: providerLocation.state,
         zipCode: providerLocation.zip_code
       },
-      provider_id: providerLocation.id,
+      providerId: providerLocation.id,
       title: providerLocation.presentation_name,
       map: generalMap,
       icon: {
@@ -64,6 +64,8 @@ function initMap(providers) {
   generalMap.setCenter(bounds.getCenter());
   generalMap.fitBounds(bounds);
 
+  // object to match marker to infoWindow
+  const markerToInfoWindow = {};
   // creating infoWindow content for each marker
   for (const marker of markers) {
     const markerInfo = (` 
@@ -87,6 +89,8 @@ function initMap(providers) {
       maxWidth: 200,
     });
 
+    markerToInfoWindow[marker.providerId] = infoWindow;
+
     marker.addListener('mouseover', () => {
       infoWindow.open(generalMap, marker);
     });
@@ -94,7 +98,6 @@ function initMap(providers) {
     marker.addListener('mouseout', () => {
       infoWindow.close();
     });
-
   }
 
   // current active markers from accordion
@@ -106,15 +109,15 @@ function initMap(providers) {
     const accordionActive = $(this).hasClass('is-active');
     if (accordionActive == true) {
       for (const marker of markers) {
-        if (accordionId == marker.provider_id) {
+        if (accordionId == marker.providerId) {
           selectMarkers.push(marker);
           marker.setMap(generalMap);
-          // infoWindow.open(generalMap, marker);
+          markerToInfoWindow[marker.providerId].open(generalMap, marker);
         }
       };
     } else {
       for (const marker of selectMarkers) { 
-        if (accordionId == marker.provider_id) {
+        if (accordionId == marker.providerId) {
           marker.setMap(null);
         };
       };
