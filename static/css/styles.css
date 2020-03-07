@@ -16,11 +16,23 @@
 
 .menu { 
   background-color: #e9de4a;
+  color: #ffffff;
 }
 
-.menu, a{
+
+.button.hollow {
+  border-color: #e9de4a;
+  color: #87898f;
+}
+
+h1, h2, h3, p {
+  color: #55575e;
+}
+
+a{
   color: #ffffff
 }
+
 
 select{
   background-color: white;
@@ -28,4 +40,9 @@ select{
   text-align: center;
   border: none;
   width: auto;
+}
+
+.center {
+  padding: 100px;
+  border: solid;
 }
