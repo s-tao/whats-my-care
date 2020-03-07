@@ -18,4 +18,4 @@ six==1.14.0
 SQLAlchemy==1.2.8
 urllib3==1.25.8
 vericred-client==0.0.11
-Werkzeug==0.14.1
+Werkzeug==0.15.3
