@@ -150,8 +150,19 @@ class TestFlaskRoutes(unittest.TestCase):
         client = app.test_client()
 
         result = client.get('/')
-
         self.assertIn(b"<h1>What's My Care</h1>", result.data)
+
+    # def test_register(self):
+    #     """Test register page"""
+
+    #     client = app.test_client()
+
+    #     result = client.get('/register', data={'email': 'jim@gmail.com',
+    #                                            'password': 'test',
+    #                                            'market': 'individual',
+    #                                            'zip_code': '94960'})
+
+    #     self.assertIn(b'<h1>Register here</h1>')
 
 
     def test_login(self):

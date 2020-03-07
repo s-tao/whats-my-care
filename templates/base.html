@@ -30,32 +30,37 @@
   {% endblock %}
 </head>
   <body>
-    <ul class="menu align-right">
-      <li class="nav-item">
-        <a class="nav-link active" href="/">Home</a>
-      </li>
+    <div data-sticky-container>
+      <div class="menu align-center" data-sticky data-options="marginTop:0;" style="width:100%">
+        <ul class="menu align-center">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
 
-      {% if user_id is defined %}
-      <li class="nav-item">
-        <a class="nav-link" href="/search_plans">Search Plans</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/get_providers">Search Providers</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="/user_profile">Profile</a>
-      </li> -->
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Log Out</a>
-      </li>
-    </ul>
+          {% if user_id is defined %}
+          <li class="nav-item">
+            <a class="nav-link" href="/search_plans">Search Plans</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/get_providers">Search Providers</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="/user_profile">Profile</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
+          </li>
+        </ul>
 
-      {% else %}
-      <li class="nav-item">
-        <a class="nav-link" href="/register">Register</a>
-      </li>
-    </ul>
-    {% endif %}
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  
 
     {% block content %}
     {% endblock %}

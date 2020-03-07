@@ -26,7 +26,7 @@ def add_carrier(plan_data):
     """Add carrier to database when user saves plans"""
 
     check_carrier = Carrier.query.filter(Carrier.name == 
-                                            plan_data['carrier_name']).first()
+                                         plan_data['carrier_name']).first()
     print(check_carrier)
     if not check_carrier:
         new_carrier = Carrier(name=plan_data['carrier_name'])
