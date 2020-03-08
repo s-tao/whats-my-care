@@ -34,7 +34,6 @@ def index():
                     'zip code': user.zip_code}
         
         plans = user_saved_plans(user_id)
-
         return render_template('user_profile.html', user_id=user_id, 
                                                     user_dict=user_dict,
                                                     plans=plans)

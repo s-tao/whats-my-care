@@ -88,10 +88,16 @@
         </div>
       {% endfor %}
     </div>
+    {% if plans|length %}
+    {% else %}
+    <p>
+      Looks like you don't have any saved plans at the moment. 
+    </p>
+    {% endif %}
   </div>
   <div class="cell medium-auto medium-cell-block-container">
     <div class="grid-x grid-padding-x">
-      <div class="cell medium-8">   
+      <div class="cell medium-12">   
         <table>
           <thead>
             <tr>
@@ -107,6 +113,16 @@
           {% endfor %}
           </tbody>
         </table>
+        <p>
+          Still deciding on a medical plan? Search for more plans to compare 
+          benefits. 
+        </p>
+        <a href="/search_plans" class="hollow button">Find Plans</a>
+        <br><br>
+        <p>
+          Search for providers that accepts the plan of your choice.
+        </p>
+        <a href="/get_providers" class="hollow button">Find Providers</a>
       </div>
     </div>
   </div>
