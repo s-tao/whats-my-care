@@ -196,11 +196,11 @@ removePlan.click(function() {
 
   $.post('/remove_plan', formInput, (res) => {
 
-    const removeTable = $(`#table-${planId}`);
+    const removeTab = $(`.tab-${planId}`);
     
-    removeTable.fadeOut(1000, function() {
-    removeTable.remove();
-    $(`#${planId}`).hide();
+    removeTab.fadeOut(1000, function() {
+    removeTab.remove();
+    // $(`#${planId}`).hide();
 
     });
 

@@ -6,92 +6,109 @@
 
 
 {% block content %}
-<div class="container">
-  <h2>Your Information</h2>
-  <div class="sub-container">
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">Your User Info</th>
-        </tr>
-      </thead>
-      <tbody>        
-      {% for info in user_dict %}
-        <tr>
-          <td>{{ info.capitalize() }}</td>
-          <td>{{ user_dict[info] }}</td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+<div class="grid-y medium-grid-frame">
+  <div class="grid-x grid-padding-x">
+    <div class="cell medium-8">  
+      <h2>Saved Plans</h2>
+    </div>
+    <div class="cell medium-4">  
+      <h2>User Information</h2>
+    </div>
   </div>
-</div>
-
-<div class="container">
-  <h2>Your Saved Plans</h2>
-  <div class="container" id="saved-plans">
-    {% for plan in plans %}
-    <div class="sub-container"> 
-      <table class="table table-condensed table-hover table-sm" style="border-collapse:collapse;"
-            id="table-{{ plan.vericred_id }}"> 
-        <thead> 
-          <tr> 
-            <th scope="col" id="display-name" style="text-align:center">{{ plan.name }}</th> 
-          </tr> 
-        </thead> 
-        <tbody> 
-          <tr> 
-            <th scope="row">Plan ID</th> 
-            <td>{{ plan.vericred_id }}</td>
-          </tr> 
-          <tr>
-            <th scope="row">Carrier</th>
-            <td>{{ plan.carrier.name }}</td>
-          </tr>
-          <tr>
-            <th scope="row">Plan Type</th>
-            <td>{{ plan.plan_org }}</td>
-          </tr>
-          <tr data-toggle="collapse" data-target="#pc_id-{{ plan.pc_id }}" 
-                                    class="accordion-toggle"
-                                    aria-expanded="false" 
-                                    aria-controls="pc_id-{{ plan.pc_id }}">
-          <td>
-            <button class="btn btn-link">
-              View More Information
-            </button>
-          </td>
-            </tr>
+  <div class="cell medium-auto medium-cell-block-container">
+    <div class="grid-x grid-padding-x">
+      <!-- <div class="cell medium-2">     -->
+        <!-- <ul class="vertical tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs"> -->
+        <div class="cell medium-8 medium-cell-block-y">    
+          <ul class="tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs">
+        {% for plan in plans %}
+          <li class="tabs-title tab-{{ plan.vericred_id }}">
+            <a href="#panel-plan-{{ loop.index  }}">
+              Plan {{ loop.index }}
+            </a>
+          </li>
+        {% endfor %}
+        </ul>
+    <!-- </div> -->
+    <!-- <div class="cell medium-6 medium-cell-block-y">   -->
+      <div class="tabs-content" data-tabs-content="saved-plans-tabs">
+      {% for plan in plans %}
+        <div class="tabs-panel tab-{{ plan.vericred_id }}" id="panel-plan-{{ loop.index }}">
+          <table class="unstriped hover" id="table-{{ plan.vericred_id }}"> 
+            <thead> 
+              <tr> 
+                <th scope="col" id="display-name" style="text-align:center">{{ plan.name }}</th> 
+              </tr> 
+            </thead> 
+            <tbody> 
+              <tr> 
+                <th scope="row">Plan ID</th> 
+                <td>{{ plan.vericred_id }}</td>
+              </tr> 
+              <tr>
+                <th scope="row">Carrier</th>
+                <td>{{ plan.carrier.name }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Plan Type</th>
+                <td>{{ plan.plan_org }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Primary Care Physician</th>
+                <td>{{ plan.p_cov.pcp }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Specialist</th>
+                <td>{{ plan.p_cov.specialist }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Emergency Room</th>
+                <td>{{ plan.p_cov.emerg_rm }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Generic Drug</th>
+                <td>{{ plan.p_cov.gen_drug }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Urgent Care</th>
+                <td>{{ plan.p_cov.urg_care }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Individual Deductible</th>
+                <td>{{ plan.p_cov.med_deduct }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Individual Max Out-of-Pocket</th>
+                <td>{{ plan.p_cov.med_moop }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="remove-plan" class="hollow button remove-plan"
+                id="{{ plan.vericred_id }}">Remove Plan</button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="cell medium-auto medium-cell-block-container">
+    <div class="grid-x grid-padding-x">
+      <div class="cell medium-8">   
+        <table>
+          <thead>
             <tr>
-              <td colspan="2" class="hiddenRow">
-                <div class="accordian-body collapse" id="pc_id-{{ plan.pc_id }}">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th scope="row">Primary Care Physician</th>
-                        <td>{{ plan.p_cov.pcp }}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Specialist</th>
-                        <td>{{ plan.p_cov.specialist }}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Emergency Room</th>
-                        <td>{{ plan.p_cov.emerg_rm }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </td>
+              <th colspan="2">Your User Info</th>
             </tr>
+          </thead>
+          <tbody>        
+          {% for info in user_dict %}
+            <tr>
+              <td>{{ info.capitalize() }}</td>
+              <td>{{ user_dict[info] }}</td>
+            </tr>
+          {% endfor %}
           </tbody>
         </table>
       </div>
-      <div class="sub-container">
-        <button type="remove-plan" class="remove-plan"
-                id="{{ plan.vericred_id }}">Remove Plan</button>
-      </div>
-    {% endfor %}
+    </div>
   </div>
 </div>
 
