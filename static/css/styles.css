@@ -1,5 +1,5 @@
 
- html, body {
+html, body {
   /* margin: 0; */
   height: 100%;
   overflow: hidden; 
@@ -22,36 +22,27 @@
   display: none;
 }
 
-h1, h2, h3, p {
-  color: #55575e;
-}
-
-a{
-  color: #ffffff
-}
-
-select{
-  background-color: white;
-  padding: 8px 25px;
-  text-align: center;
-  border: none;
-  width: auto;
+h1, h2, h3, p, a {
+  color: #70737e;
 }
 
 .menu { 
-  background-color: #e9de4a;
+  background-color: #f0ee70;
+}
+
+.menu a:hover {
   color: #ffffff;
 }
 
 .inner-border {
-  border: 1px solid #e9de4a;
+  border: 1px solid #f0ee70;
   background-color: #ffffff;
-  opacity: 80%;
+  opacity: 90%;
   padding: 15px;
 }
 
 .button.hollow {
-  border-color: #e9de4a;
+  border-color: #f0ee70;
   color: #55575e;
 }
 

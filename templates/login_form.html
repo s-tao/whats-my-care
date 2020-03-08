@@ -10,28 +10,25 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h1>Login</h1>
-  <form action="/login" id="get-login" method="POST">
-
-    <div class="form-account">
-      <label>Email:
-        <input type="email" name="email" required class="form-control">
-      </label>
+<div class="grid-container-padded background-img">
+  <div class="grid-x grid-margin-x align-center-middle">
+    <div class="cell small-4 inner-border">
+      <h1>Login</h1>
+      <form action="/login" id="get-login" method="POST">
+        <label>
+          Email
+          <input type="email" name="email" required="required">
+        </label>
+        
+        <label>
+          Password
+          <input type="password" name="password" required="required">
+        </label>
+        
+        <button type="submit" class="hollow button">Login</button>
+      </form>
     </div>
-
-    <div class="form-account">
-      <label>Password:
-        <input type="password" name="password" required class="form-control">
-      </label>
-    </div>
-  
-    <div class="form-account">
-      <input type="submit" value="Log In">
-    </div>
-
-  </form>
-  <!-- <span class="login-process"></span> -->
+  </div>
 </div>
 
 {% with messages = get_flashed_messages() %}

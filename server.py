@@ -67,7 +67,10 @@ def register_process():
 
     # seed user information into database
     add_user(email, password, market, zip_code)
-  
+
+    user = User.query.filter(User.email == email).first()
+    session['user_id'] = user.user_id
+
     return redirect(f'/')
 
 
