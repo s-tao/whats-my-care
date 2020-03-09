@@ -8,81 +8,111 @@
 
 {% block content %}
 
-<div class="container">
-  <h1>Find Plans</h1>
-  <!-- make auto-fill in line with each other -->
-  <div class="sub-container">
-    <label>Market Type:</label>
-    <p class="auto-fill">{{ user.market }}</p>
+<div class="grid-y medium-grid-frame">
+  <div class="grid-x grid-padding-x">
+    <div class="cell medium-12">
+      <h2>Find Plans</h2>
+      <p>
+        Input your <em>age, child, and smoker</em> information to 
+        get an estimated premium.
+      </p>
+    </div>
   </div>
-  <div class="sub-container">
-    <label>Zip Code:</label>
-    <p class="auto-fill">{{ user.zip_code }}</p>
-  </div>
-</div>
-<div class="container">
-  <form action="/show_plans.json" id="plan-form" method="GET">
-    <div class="sub-container">
-      <label>Plan Type</label>
-      <select name="plan-option" required="required">
-        <option value=""> --Please select an option-- </option>
-        <option value="medical">Medical</option>
-        <option value="dental">Dental</option>
-        <option value="vision">Vision</option>
-      </select>
-    </div>
-    <br>
-    <div class="sub-container">
-      <label>Applicant Information</label>
-      <p>(Optional) Fill additional information to get an estimated premium</p>
-    </div>
-    <div class="sub-container">
-      <label>Age</label>
-      <select name="age">
-        <option value=""> --Please select your age-- </option>
-        {% for num in range(1, 66) %}
-          <option value="{{ num }}">{{ num }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <div>
-      <label>Smoker</label>
-        <input type="radio" id="smoker" name="smoker" value="true">
-        <label for="smoker">Yes</label>
-        <input type="radio" id="non-smoker" name="smoker" value="false">
-        <label for="non-smoker">No</label>
-    </div>
-    <div>
-      <label>Child</label>
-        <input type="radio" id="child" name="child" value="true">
-        <label for="child">Yes</label>
-        <input type="radio" id="non-child" name="child" value="false">
-        <label for="non-child">No</label>
-    </div>
-    <input type="submit" value="Select" id="submit-btn">
-  </form>
-</div>
-
-    <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->    
-
-<div class="container" id="display-plans-div">
-  <form action="/save_plans" id="save-plans-form" method="POST">
-    <fieldset>
-      <div class="all-plans"> 
+    <form action="/show_plans.json" id="plan-form" method="GET">
+    <div class="cell medium-auto medium-cell-block-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell medium-4 medium-cell-block"> 
+          <label>
+            Plan Type
+            <select name="plan-option" required="required">
+              <option value=""> --Please select an option-- </option>
+              <option value="medical">Medical</option>
+              <option value="dental">Dental</option>
+              <option value="vision">Vision</option>
+            </select>
+          </label>
+        </div>
+        <div class="cell medium-4 medium-cell-block">              
+          <label>
+            Age
+            <select name="age">
+              <option value=""> --Please select your age-- </option>
+              {% for num in range(1, 66) %}
+                <option value="{{ num }}">{{ num }}</option>
+              {% endfor %}
+            </select>
+          </label>
+        </div>
+        <div class="cell medium-2 medium-cell-block">              
+          <label>
+            Smoker
+          </label>
+          <input type="radio" id="smoker" name="smoker" value="true">
+          <label for="smoker">
+            Yes
+          </label>
+          <input type="radio" id="non-smoker" name="smoker" value="false">
+          <label for="non-smoker">
+            No
+          </label>
+        </div>
+        <div class="cell medium-2 medium-cell-block">              
+          <label>
+            Child
+          </label>
+          <input type="radio" id="child" name="child" value="true">
+          <label for="child">
+            Yes
+          </label>
+          <input type="radio" id="non-child" name="child" value="false">
+          <label for="non-child">
+            No
+          </label>
+        </div>
       </div>
-      <input type="submit" value="Save Plans">
-    </fieldset>
-  </form> 
+    </div>
+    <div class="cell medium-auto medium-cell-block-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell medium-12 medium-cell-block">
+          <button type="submit" id="submit-btn" class="hollow button">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="cell medium-auto medium-cell-block-container">
+    <div class="grid-x grid-padding-x align-center">
+      <div class="cell medium-8 medium-cell-block-y" id="display-plans-div">    
+        <form action="/save_plans" id="save-plans-form" method="POST">
+          <fieldset>
+            <div class="all-plans"></div>
+            <button type="submit" class="hollow button">Save Plans</button>
+          </fieldset>
+        </form> 
+      </div>
+    </div>
+  </div>
+
+  <div class="cell medium-auto medium-cell-block-container">
+    <div class="grid-x grid-padding-x align-justify text-center">
+      <div class="cell medium-3">
+        <button id="click-previous-plans" class="hollow button" name="previous-plans">
+          View Previous
+        </button>
+      </div>
+      <div class="cell medium-3">
+        <button id="click-more-plans" class="hollow button" name="more-plans">
+          View More
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="container">
-  <button id="click-more-plans" name="more-plans">View More</button>
-</div>
 
-<div class="container">
-  <button id="click-previous-plans" name="previous-plans">View Previous</button>
-</div>
-
+ 
 <script src="/static/js/plans.js"></script>
 
 {% endblock %}

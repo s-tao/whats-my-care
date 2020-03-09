@@ -19,8 +19,8 @@
     <div class="grid-x grid-padding-x">
       <!-- <div class="cell medium-2">     -->
         <!-- <ul class="vertical tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs"> -->
-        <div class="cell medium-8 medium-cell-block-y">    
-          <ul class="tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs">
+      <div class="cell medium-8 medium-cell-block-y">    
+        <ul class="tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs">
         {% for plan in plans %}
           <li class="tabs-title tab-{{ plan.vericred_id }}">
             <a href="#panel-plan-{{ loop.index  }}">
@@ -31,73 +31,76 @@
         </ul>
     <!-- </div> -->
     <!-- <div class="cell medium-6 medium-cell-block-y">   -->
-      <div class="tabs-content" data-tabs-content="saved-plans-tabs">
-      {% for plan in plans %}
-        <div class="tabs-panel tab-{{ plan.vericred_id }}" id="panel-plan-{{ loop.index }}">
-          <table class="unstriped hover" id="table-{{ plan.vericred_id }}"> 
-            <thead> 
-              <tr> 
-                <th scope="col" id="display-name" style="text-align:center">{{ plan.name }}</th> 
-              </tr> 
-            </thead> 
-            <tbody> 
-              <tr> 
-                <th scope="row">Plan ID</th> 
-                <td>{{ plan.vericred_id }}</td>
-              </tr> 
-              <tr>
-                <th scope="row">Carrier</th>
-                <td>{{ plan.carrier.name }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Plan Type</th>
-                <td>{{ plan.plan_org }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Primary Care Physician</th>
-                <td>{{ plan.p_cov.pcp }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Specialist</th>
-                <td>{{ plan.p_cov.specialist }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Emergency Room</th>
-                <td>{{ plan.p_cov.emerg_rm }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Generic Drug</th>
-                <td>{{ plan.p_cov.gen_drug }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Urgent Care</th>
-                <td>{{ plan.p_cov.urg_care }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Individual Deductible</th>
-                <td>{{ plan.p_cov.med_deduct }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Individual Max Out-of-Pocket</th>
-                <td>{{ plan.p_cov.med_moop }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="remove-plan" class="hollow button remove-plan"
-                id="{{ plan.vericred_id }}">Remove Plan</button>
-        </div>
-      {% endfor %}
-    </div>
-    {% if plans|length %}
-    {% else %}
-    <p>
-      Looks like you don't have any saved plans at the moment. 
-    </p>
-    {% endif %}
-  </div>
-  <div class="cell medium-auto medium-cell-block-container">
-    <div class="grid-x grid-padding-x">
-      <div class="cell medium-12">   
+        <div class="tabs-content" data-tabs-content="saved-plans-tabs">
+
+        {% for plan in plans %}
+          <div class="tabs-panel tab-{{ plan.vericred_id }}" id="panel-plan-{{ loop.index }}">
+            <table class="unstriped hover" id="table-{{ plan.vericred_id }}"> 
+              <thead> 
+                <tr> 
+                  <th scope="col" id="display-name" style="text-align:center">{{ plan.name }}</th> 
+                </tr> 
+              </thead> 
+              <tbody> 
+                <tr> 
+                  <th scope="row">Plan ID</th> 
+                  <td>{{ plan.vericred_id }}</td>
+                </tr> 
+                <tr>
+                  <th scope="row">Carrier</th>
+                  <td>{{ plan.carrier.name }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Plan Type</th>
+                  <td>{{ plan.plan_org }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Primary Care Physician</th>
+                  <td>{{ plan.p_cov.pcp }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Specialist</th>
+                  <td>{{ plan.p_cov.specialist }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Emergency Room</th>
+                  <td>{{ plan.p_cov.emerg_rm }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Generic Drug</th>
+                  <td>{{ plan.p_cov.gen_drug }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Urgent Care</th>
+                  <td>{{ plan.p_cov.urg_care }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Individual Deductible</th>
+                  <td>{{ plan.p_cov.med_deduct }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Individual Max Out-of-Pocket</th>
+                  <td>{{ plan.p_cov.med_moop }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <button type="remove-plan" class="hollow button remove-plan"
+                  id="{{ plan.vericred_id }}">Remove Plan</button>
+          </div>
+        {% endfor %}
+
+      </div>
+
+      {% if plans|length %}
+        <br><br>
+      {% else %}
+        <p>
+          Looks like you don't have any saved plans at the moment. 
+        </p>
+      {% endif %}
+
+      </div>
+      <div class="cell medium-4">   
         <table>
           <thead>
             <tr>
@@ -131,3 +134,35 @@
 <script src="/static/js/plans.js"></script>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+  
+ 
+  <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->    
+
+<div class="container" id="display-plans-div">
+<form action="/save_plans" id="save-plans-form" method="POST">
+  <fieldset>
+    <div class="all-plans"> 
+    </div>
+    <input type="submit" value="Save Plans">
+  </fieldset>
+</form> 
+</div>
+
+<div class="container">
+<button id="click-more-plans" name="more-plans">View More</button>
+</div>
+
+<div class="container">
+<button id="click-previous-plans" name="previous-plans">View Previous</button>
+</div>

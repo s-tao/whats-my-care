@@ -144,9 +144,8 @@ def show_plans():
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
     # plans = show_medical_plans(user, age, smoker, child)
-        
+    # print(plans)
     plans = temp_data_call()
-
     return jsonify(plans)
 
 

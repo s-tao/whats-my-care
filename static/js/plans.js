@@ -179,7 +179,8 @@ previousButton.on('click', individualMedPlan, (evt) => {
   const formInput = applicantForm();
 
   $.get('/show_plans.json', formInput, individualMedPlan); 
-  
+  moreButton.show();
+
 });
 
 
