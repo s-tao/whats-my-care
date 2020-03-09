@@ -15,7 +15,7 @@ const tableDisplay = (planDetails) => {
 
   const tablePlan = (`
   <div class="cell medium-6 medium-cell-block indiv-plan">
-    <table> 
+    <table class="unstriped hover"> 
       <thead> 
         <tr> 
           <th scope="col" id="display-name">${planDetails.display_name}</th> 
@@ -73,7 +73,7 @@ const tableDisplay = (planDetails) => {
                                             value="plan_id"" 
                                             name="${planDetails.id}"> 
             <label class="form-check-label" for="${planDetails.id}"> 
-              Default checkbox 
+              Save Plan
             </label> 
           </div> 
           </td> 

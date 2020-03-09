@@ -23,8 +23,24 @@ html, body {
 }
 
 h1, h2, h3, p, a {
-  color: #70737e;
+  color: #70737e !important;
 }
+
+a:hover {
+  color: #e2d13a !important;
+}
+
+i {
+  padding-right: 10px;
+}
+
+.user-info {
+  width: 78%;
+  border: 1px solid #a0a0a0;
+  padding: 10px 15px;
+  margin: 0 0 10px 0;
+}
+
 
 .menu { 
   background-color: #f0ee70;
@@ -46,6 +62,16 @@ h1, h2, h3, p, a {
   color: #55575e;
 }
 
+.button.hollow:hover {
+  border-color: #d1c3df !important;
+  color: #d3d3d3 !important;
+}
+
+.tabs-title > a:focus, .tabs-title > a[aria-selected="true"] {
+  color: #ffffff !important;
+  background: #d1c3df;
+}
+
 .grid-container-padded {
   height: 100%;
 }
@@ -64,9 +90,11 @@ h1, h2, h3, p, a {
 }
 
 .indiv-plan {
-  display: inline-flex;
+  display: inline-block !important;
   margin-right: 15px;
-  float: left;
+  overflow: hidden;
+
+
 }
 
 /* .all-plans {
@@ -74,8 +102,31 @@ h1, h2, h3, p, a {
   /* overflow-y: scroll; 
 } */
 
-/* #display-plans-div {
+#display-plans-div {
   overflow-y: auto;
-  overflow-x: auto;
-  /* width: 100%; 
-} */
+  /* overflow-x: auto; */
+
+}
+
+th {
+  background: #faf8e2;
+  color: #363641;
+  white-space: nowrap;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  font-size: 90%;
+  border: 5px solid #ffffff;
+}
+
+thead th{
+  text-align: center !important;
+  /* background: #d1c3df; */
+}
+
+/* table save plans checkbox */
+.form-check {
+  text-align: center;
+}

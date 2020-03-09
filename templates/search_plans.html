@@ -10,7 +10,7 @@
 
 <div class="grid-y medium-grid-frame">
   <div class="grid-x grid-padding-x">
-    <div class="cell medium-12">
+    <div class="cell medium-12 medium-cell-block"> 
       <h2>Find Plans</h2>
       <p>
         Input your <em>age, child, and smoker</em> information to 
@@ -18,85 +18,83 @@
       </p>
     </div>
   </div>
-  <div class="cell medium-2 medium-cell-block-container">
-    <div class="grid-x grid-padding-x">
-      <div class="cell medium-12 medium-cell-block"> 
 
-        <form action="/show_plans.json" id="plan-form" method="GET">
-          <div class="cell medium-auto medium-cell-block-container">
-            <div class="grid-x grid-padding-x">
-              <div class="cell medium-4 medium-cell-block"> 
-                <label>
-                  Plan Type
-                  <select name="plan-option" required="required">
-                    <option value=""> --Please select an option-- </option>
-                    <option value="medical">Medical</option>
-                    <option value="dental">Dental</option>
-                    <option value="vision">Vision</option>
-                  </select>
-                </label>
-              </div>
-              <div class="cell medium-4 medium-cell-block">              
-                <label>
-                  Age
-                  <select name="age">
-                    <option value=""> --Please select your age-- </option>
-                    {% for num in range(1, 66) %}
-                      <option value="{{ num }}">{{ num }}</option>
-                    {% endfor %}
-                  </select>
-                </label>
-              </div>
-              <div class="cell medium-2 medium-cell-block">              
-                <label>
-                  Smoker
-                </label>
-                <input type="radio" id="smoker" name="smoker" value="true">
-                <label for="smoker">
-                  Yes
-                </label>
-                <input type="radio" id="non-smoker" name="smoker" value="false">
-                <label for="non-smoker">
-                  No
-                </label>
-              </div>
-              <div class="cell medium-2 medium-cell-block">              
-                <label>
-                  Child
-                </label>
-                <input type="radio" id="child" name="child" value="true">
-                <label for="child">
-                  Yes
-                </label>
-                <input type="radio" id="non-child" name="child" value="false">
-                <label for="non-child">
-                  No
-                </label>
-              </div>
+  <div class="grid-x grid-padding-x">
+    <div class="cell medium-12 medium-cell-block"> 
+      <form action="/show_plans.json" id="plan-form" method="GET">
+        
+          <div class="grid-x grid-padding-x">
+            <div class="cell medium-3 medium-cell-block"> 
+              <label>
+                Plan Type
+                <select name="plan-option" required="required">
+                  <option value=""> --Please select an option-- </option>
+                  <option value="medical">Medical</option>
+                  <option value="dental">Dental</option>
+                  <option value="vision">Vision</option>
+                </select>
+              </label>
             </div>
-          </div>
-          <div class="cell medium-auto medium-cell-block-container">
-            <div class="grid-x grid-padding-x">
-              <div class="cell medium-12 medium-cell-block">
-                <button type="submit" id="submit-btn" class="hollow button">
-                  Search
-                </button>
-              </div>
+            <div class="cell medium-3 medium-cell-block">              
+              <label>
+                Age
+                <select name="age">
+                  <option value=""> --Please select your age-- </option>
+                  {% for num in range(1, 66) %}
+                    <option value="{{ num }}">{{ num }}</option>
+                  {% endfor %}
+                </select>
+              </label>
             </div>
+            <div class="cell medium-2">              
+              <label>
+                Smoker
+              </label>
+              <input type="radio" id="smoker" name="smoker" value="true">
+              <label for="smoker">
+                Yes
+              </label>
+              <input type="radio" id="non-smoker" name="smoker" value="false">
+              <label for="non-smoker">
+                No
+              </label>
+            </div>
+            <div class="cell medium-2">              
+              <label>
+                Child
+              </label>
+              <input type="radio" id="child" name="child" value="true">
+              <label for="child">
+                Yes
+              </label>
+              <input type="radio" id="non-child" name="child" value="false">
+              <label for="non-child">
+                No
+              </label>
+            </div>     
           </div>
-        </form>
-      </div>
+
+        <div class="grid-x grid-padding-x">
+          <div class="cell medium-12 medium-cell-block">
+            <button type="submit" id="submit-btn" class="hollow button">
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+
     </div>
   </div>
 
-  <div class="cell medium-6 medium-cell-block-container">
+  <div class="cell medium-5 medium-cell-block-container">
+    <!-- <div class="grid-x grid-padding-x align-center" id="display-plans-div"> -->
+
     <div class="grid-x grid-padding-x align-center">
-      <div class="cell medium-8 medium-cell-block-y" id="display-plans-div">    
+      <div class="cell medium-8" id="display-plans-div">    
         <form action="/save_plans" id="save-plans-form" method="POST">
-          <fieldset>
-            <div class="all-plans"></div>
-            <button type="submit" class="hollow button">Save Plans</button>
+          <fieldset class="all-plans">
           </fieldset>
+          <button type="submit" class="hollow button">Save Plans</button>
         </form> 
       </div>
     </div>

@@ -30,9 +30,14 @@ def index():
         user = User.query.get(user_id)
 
         user_dict = {'email': user.email,
-                    'market': user.market,
-                    'zip code': user.zip_code}
-        
+                     'market': user.market,
+                     'zip_code': user.zip_code
+                     }
+
+        if user.market == 'small_group':
+            user_dict['market'] = 'small group'
+
+
         plans = user_saved_plans(user_id)
         return render_template('user_profile.html', user_id=user_id, 
                                                     user_dict=user_dict,

@@ -15,6 +15,7 @@
       <h2>User Information</h2>
     </div>
   </div>
+
   <div class="cell medium-auto medium-cell-block-container">
     <div class="grid-x grid-padding-x">
       <!-- <div class="cell medium-2">     -->
@@ -38,48 +39,48 @@
             <table class="unstriped hover" id="table-{{ plan.vericred_id }}"> 
               <thead> 
                 <tr> 
-                  <th scope="col" id="display-name" style="text-align:center">{{ plan.name }}</th> 
+                  <th colspan="2" id="display-name">{{ plan.name }}</th> 
                 </tr> 
               </thead> 
               <tbody> 
                 <tr> 
-                  <th scope="row">Plan ID</th> 
+                  <th>Plan ID</th> 
                   <td>{{ plan.vericred_id }}</td>
                 </tr> 
                 <tr>
-                  <th scope="row">Carrier</th>
+                  <th>Carrier</th>
                   <td>{{ plan.carrier.name }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Plan Type</th>
+                  <th>Plan Type</th>
                   <td>{{ plan.plan_org }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Primary Care Physician</th>
+                  <th>Primary Care Physician</th>
                   <td>{{ plan.p_cov.pcp }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Specialist</th>
+                  <th>Specialist</th>
                   <td>{{ plan.p_cov.specialist }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Emergency Room</th>
+                  <th>Emergency Room</th>
                   <td>{{ plan.p_cov.emerg_rm }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Generic Drug</th>
+                  <th>Generic Drug</th>
                   <td>{{ plan.p_cov.gen_drug }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Urgent Care</th>
+                  <th>Urgent Care</th>
                   <td>{{ plan.p_cov.urg_care }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Individual Deductible</th>
+                  <th>Individual Deductible</th>
                   <td>{{ plan.p_cov.med_deduct }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Individual Max Out-of-Pocket</th>
+                  <th>Individual Max Out-of-Pocket</th>
                   <td>{{ plan.p_cov.med_moop }}</td>
                 </tr>
               </tbody>
@@ -100,22 +101,23 @@
       {% endif %}
 
       </div>
-      <div class="cell medium-4">   
-        <table>
-          <thead>
-            <tr>
-              <th colspan="2">Your User Info</th>
-            </tr>
-          </thead>
-          <tbody>        
-          {% for info in user_dict %}
-            <tr>
-              <td>{{ info.capitalize() }}</td>
-              <td>{{ user_dict[info] }}</td>
-            </tr>
-          {% endfor %}
-          </tbody>
-        </table>
+
+      <div class="cell medium-4">  
+        <div class="user-info"> 
+          <p>
+            <i class="fas fa-envelope"></i>
+            {{ user_dict.email}}
+          </p>
+          <p>
+            <i class="fas fa-id-card-alt"></i>
+            {{ user_dict.market.capitalize() }} market
+          </p>
+          <p>
+            <i class="fas fa-home"></i>
+            {{ user_dict.zip_code}}
+          </p>
+        </div>
+  
         <p>
           Still deciding on a medical plan? Search for more plans to compare 
           benefits. 
@@ -127,6 +129,7 @@
         </p>
         <a href="/get_providers" class="hollow button">Find Providers</a>
       </div>
+
     </div>
   </div>
 </div>
@@ -147,22 +150,4 @@
 
   
  
-  <!-- incorporate <span> in ajax to change plan type (ie: med, dental) -->    
 
-<div class="container" id="display-plans-div">
-<form action="/save_plans" id="save-plans-form" method="POST">
-  <fieldset>
-    <div class="all-plans"> 
-    </div>
-    <input type="submit" value="Save Plans">
-  </fieldset>
-</form> 
-</div>
-
-<div class="container">
-<button id="click-more-plans" name="more-plans">View More</button>
-</div>
-
-<div class="container">
-<button id="click-previous-plans" name="previous-plans">View Previous</button>
-</div>
