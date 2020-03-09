@@ -14,8 +14,8 @@ const previousButton = $('#click-previous-plans');
 const tableDisplay = (planDetails) => {
 
   const tablePlan = (`
-  <div class="indiv-plan"> 
-    <table class="table table-hover table-sm"> 
+  <div class="cell medium-6 medium-cell-block indiv-plan">
+    <table> 
       <thead> 
         <tr> 
           <th scope="col" id="display-name">${planDetails.display_name}</th> 
@@ -80,7 +80,7 @@ const tableDisplay = (planDetails) => {
         </tr> 
       </tbody> 
     </table> 
-  </div> 
+  </div>
 `);
 
 return tablePlan;

@@ -62,3 +62,20 @@ h1, h2, h3, p, a {
   height: 100%;
   vertical-align: middle;
 }
+
+.indiv-plan {
+  display: inline-flex;
+  margin-right: 15px;
+  float: left;
+}
+
+/* .all-plans {
+  overflow-x: scroll;
+  /* overflow-y: scroll; 
+} */
+
+/* #display-plans-div {
+  overflow-y: auto;
+  overflow-x: auto;
+  /* width: 100%; 
+} */
