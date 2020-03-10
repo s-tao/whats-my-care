@@ -2,20 +2,27 @@
 html, body {
   /* margin: 0; */
   height: 100%;
-  /* overflow: hidden;  */
+  overflow: hidden; 
   /* overflow-x: hidden; */
 } 
 
-#click-more-plans {
+#click-more-plans, #click-previous-plans {
   display: none;
+  cursor: pointer;
+  font-size: 3em;
+  margin: 15px 0 0 0;
+  color: #e7e569;
 }
 
-#click-previous-plans {
-  display: none;
+#click-more-plans:hover, #click-previous-plans:hover {
+  color: #dcaeaf;
+
 }
+
 
 #display-plans-div {
   display: none;
+
 }
 
 #floating-panel {
@@ -90,10 +97,10 @@ i {
   position: fixed;
 }
 
-.align-center-middle {
+/* .align-center-middle {
   height: 100%;
   vertical-align: middle;
-}
+} */
 
 .indiv-plan {
   flex: 0 0 auto;
@@ -148,9 +155,10 @@ thead th{
 
 .grid-y {
   overflow: auto !important;
+  padding-bottom: 50px !important;
 }
-/* datalist {
-  width: 100%;
-  height: 2.4375rem;
- 
-} */
+
+#save-plans-btn {
+  position: absolute;
+  margin: 5px 0 0 0;
+}

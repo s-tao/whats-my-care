@@ -85,37 +85,27 @@
 
     </div>
   </div>
-
-  <div class="cell medium-auto medium-cell-block-container">
-    <!-- <div class="grid-x grid-padding-x align-center" id="display-plans-div"> -->
-
-    <div class="grid-x grid-padding-x align-center">
-      <div class="cell medium-10 medium-cell-block-y" id="display-plans-div">  
+  <div class="grid-x grid-padding-x align-center">
+    <div class="cell medium-8 medium-cell-block-y" id="display-plans-div">  
+      
+      <form action="/save_plans" id="save-plans-form" method="POST">
+        <fieldset>
+          <div class="all-plans"></div>
+        </fieldset>
         
-        <form action="/save_plans" id="save-plans-form" method="POST">
-          <fieldset>
-            <div class="all-plans"></div>
-          </fieldset>
-          <button type="submit" id="save-plans-btn" class="hollow button">
-            Save Plans
-          </button>
-        </form> 
-      </div>
+        <button type="submit" id="save-plans-btn" class="hollow button">
+          Save Plans
+        </button>
+      </form> 
     </div>
   </div>
 
-  <div class="cell medium-2 medium-cell-block-container">
-    <div class="grid-x grid-padding-x align-justify text-center">
-      <div class="cell medium-3">
-        <button id="click-previous-plans" class="hollow button" name="previous-plans">
-          View Previous
-        </button>
-      </div>
-      <div class="cell medium-3">
-        <button id="click-more-plans" class="hollow button" name="more-plans">
-          View More
-        </button>
-      </div>
+  <div class="grid-x grid-padding-x align-center-middle text-center">
+    <div class="cell medium-3">
+      <i class="fas fa-angle-left" id="click-previous-plans"></i>
+    </div>
+    <div class="cell medium-3">
+      <i class="fas fa-angle-right" id="click-more-plans"></i>
     </div>
   </div>
 </div>
