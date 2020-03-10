@@ -41,8 +41,9 @@ def find_providers(user_id, plan_id, zip_code, radius, provider_type=None,
         del payload['type']
     
     req = requests.post(url, json=payload, headers=HEADERS)
+
     all_providers = req.json()
-    
+
     return all_providers.get('providers')
 
 

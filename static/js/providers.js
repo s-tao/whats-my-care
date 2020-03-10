@@ -147,6 +147,23 @@ function initMap(providers) {
 }
 
 
+const convertPhoneNum = (provider) => {
+  
+    //Filter only numbers from the input
+    let cleaned = ('' + provider.phone).replace(/\D/g, '');
+    
+    //Check if the input is correct
+    let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    
+    if (match) {
+      //Remove the matched extension code
+      return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+    }
+    
+    return 'N/A'
+  }
+
+
 const providerInfo = (provider) => {
 
   if (!(provider.street_line_2)) {
@@ -157,6 +174,7 @@ const providerInfo = (provider) => {
     provider.organization_name = 'N/A'
   };
 
+  const phone = convertPhoneNum(provider)
 
   const providerDesc = (`
     <li class="accordion-item" data-accordion-item id="${provider.id}">
@@ -182,7 +200,7 @@ const providerInfo = (provider) => {
         </p>
         <p>
           <b>Phone:</b> 
-          ${provider.phone}
+          ${phone}
         </p>
       </div>
     </li>
