@@ -37,6 +37,7 @@ a:hover {
 
 i {
   padding-right: 10px;
+  color: #f0cccc;
 }
 
 .user-info {
@@ -120,10 +121,34 @@ th, td {
 
 thead th{
   text-align: center !important;
-  /* background: #dcaeaf; */
 }
 
 /* table save plans checkbox */
 .form-check {
   text-align: center;
 }
+
+#plan-id-options {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 2.4375rem;
+  margin: 0 0 1rem;
+  padding: .5rem;
+  border: 1px solid #cacaca;
+  border-radius: 0;
+  background-color: #fefefe;
+  box-shadow: inset 0 1px 2px #0a0a0a1a;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #0a0a0a;
+}
+
+
+/* datalist {
+  width: 100%;
+  height: 2.4375rem;
+ 
+} */
