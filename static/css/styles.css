@@ -22,9 +22,14 @@ html, body {
   display: none;
 }
 
-h1, h2, h3, p, a {
-  color: #70737e !important;
+h1, h2, h3 {
+  color: #a9646a;
 }
+
+p, a {
+  color: #3b1919 !important;
+}
+
 
 a:hover {
   color: #e2d13a !important;
@@ -43,33 +48,33 @@ i {
 
 
 .menu { 
-  background-color: #f0ee70;
+  background-color: #e7e569;
 }
 
 .menu a:hover {
-  color: #ffffff;
+  color: #dcaeaf !important;
 }
 
 .inner-border {
-  border: 1px solid #f0ee70;
+  border: 1px solid #e7e569;
   background-color: #ffffff;
   opacity: 90%;
   padding: 15px;
 }
 
 .button.hollow {
-  border-color: #f0ee70;
+  border-color: #e7e569;
   color: #55575e;
 }
 
 .button.hollow:hover {
-  border-color: #d1c3df !important;
+  border-color: #dcaeaf !important;
   color: #d3d3d3 !important;
 }
 
 .tabs-title > a:focus, .tabs-title > a[aria-selected="true"] {
   color: #ffffff !important;
-  background: #d1c3df;
+  background: #f0cccc;
 }
 
 .grid-container-padded {
@@ -90,23 +95,15 @@ i {
 }
 
 .indiv-plan {
-  display: inline-block !important;
-  margin-right: 15px;
-  overflow: hidden;
-
-
+  flex: 0 0 auto;
+  margin: 15px;
 }
-
-/* .all-plans {
-  overflow-x: scroll;
-  /* overflow-y: scroll; 
-} */
-
-#display-plans-div {
-  overflow-y: auto;
+.all-plans {
+  display: flex;
+  flex-wrap: nowrap;
   /* overflow-x: auto; */
-
 }
+
 
 th {
   background: #faf8e2;
@@ -123,7 +120,7 @@ th, td {
 
 thead th{
   text-align: center !important;
-  /* background: #d1c3df; */
+  /* background: #dcaeaf; */
 }
 
 /* table save plans checkbox */

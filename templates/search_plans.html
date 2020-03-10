@@ -86,21 +86,25 @@
     </div>
   </div>
 
-  <div class="cell medium-5 medium-cell-block-container">
+  <div class="cell medium-auto medium-cell-block-container">
     <!-- <div class="grid-x grid-padding-x align-center" id="display-plans-div"> -->
 
     <div class="grid-x grid-padding-x align-center">
-      <div class="cell medium-8" id="display-plans-div">    
+      <div class="cell medium-10 medium-cell-block-y" id="display-plans-div">  
+        
         <form action="/save_plans" id="save-plans-form" method="POST">
-          <fieldset class="all-plans">
+          <fieldset>
+            <div class="all-plans"></div>
           </fieldset>
-          <button type="submit" class="hollow button">Save Plans</button>
+          <button type="submit" id="save-plans-btn" class="hollow button">
+            Save Plans
+          </button>
         </form> 
       </div>
     </div>
   </div>
 
-  <div class="cell medium-4 medium-cell-block-container">
+  <div class="cell medium-2 medium-cell-block-container">
     <div class="grid-x grid-padding-x align-justify text-center">
       <div class="cell medium-3">
         <button id="click-previous-plans" class="hollow button" name="previous-plans">
