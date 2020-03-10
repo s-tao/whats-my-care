@@ -20,7 +20,7 @@
     <div class="grid-x grid-padding-x">
       <!-- <div class="cell medium-2">     -->
         <!-- <ul class="vertical tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs"> -->
-      <div class="cell medium-8 medium-cell-block-y">    
+      <div class="cell medium-8">    
         <ul class="tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs">
         {% for plan in plans %}
           <li class="tabs-title tab-{{ plan.vericred_id }}">
@@ -87,15 +87,15 @@
             </table>
             <button type="remove-plan" class="hollow button remove-plan"
                   id="{{ plan.vericred_id }}">Remove Plan</button>
+            
           </div>
         {% endfor %}
 
       </div>
-
+      <br>
       {% if plans|length %}
-        <br><br>
       {% else %}
-        <p>
+        <p class="no-saved-plans">
           Looks like you don't have any saved plans at the moment. 
         </p>
       {% endif %}
@@ -133,6 +133,7 @@
     </div>
   </div>
 </div>
+
 
 <script src="/static/js/plans.js"></script>
 
