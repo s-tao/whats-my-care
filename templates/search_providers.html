@@ -22,10 +22,9 @@
     </div>
   </div>
 
-  <!-- form to generate qualifying providers for user -->
-  
   <div class="grid-x grid-padding-x">
     <div class="cell medium-12 medium-cell-block"> 
+      <!-- form to generate qualifying providers for user -->
       <form action="/show_providers.json" method="GET" id="provider-form">
         <div class="grid-x grid-padding-x">
           <div class="cell medium-3 medium-cell-block"> 
@@ -112,8 +111,8 @@
     </div>
   </div>
 
-  <div class="cell medium-10 medium-cell-block-container">
-    <div class="grid-x grid-padding-x align-spaced">
+  <div class="cell medium-8 medium-cell-block-container">
+    <div class="grid-x grid-padding-x">
       <div class="cell medium-6 medium-cell-block-y">  
         <ul class="accordion" 
             data-accordion data-allow-all-closed="true"
@@ -121,17 +120,21 @@
             id="display-providers">        
         </ul>
       </div>
-    <!-- </div> -->
-  <!-- </div> -->
 
-    <div class="cell medium-6" id="floating-panel">  
-      <div id="map"></div>
-      <button id="btn-hide-markers" name="hide-markers">
-        Hide Markers
-      </button>
-      <button id="btn-show-markers" name="show-all-markers">
-        Show All Markers
-      </button>
+      <div class="cell medium-6" id="floating-panel">  
+        <div id="map"></div>
+        <div class="grid-x grid-padding-x align-spaced">
+          <div class="cell medium-6">  
+            <button id="btn-hide-markers" class="hollow button" name="hide-markers">
+              Hide Markers
+            </button>
+            
+            <button id="btn-show-markers" class="hollow button" name="show-all-markers">
+              Show All Markers
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
