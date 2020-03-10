@@ -19,7 +19,6 @@ html, body {
 
 }
 
-
 #display-plans-div {
   display: none;
 
@@ -27,7 +26,14 @@ html, body {
 
 #floating-panel {
   display: none;
+  height: 450px;
+  width: 600px;
 }
+/* 
+#map {
+  height: 100%;
+  width: 100%;
+} */
 
 h1, h2, h3 {
   color: #a9646a;
@@ -97,10 +103,11 @@ i {
   position: fixed;
 }
 
-/* .align-center-middle {
+/* login, register, front page */
+.align-center-middle {
   height: 100%;
   vertical-align: middle;
-} */
+}
 
 .indiv-plan {
   flex: 0 0 auto;

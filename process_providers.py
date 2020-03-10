@@ -18,12 +18,6 @@ def find_providers(user_id, plan_id, zip_code, radius, provider_type=None,
         user = User.query.filter(User.user_id == user_id).first()
         zip_code = user.zip_code
 
-    print(plan_id, "plan_id")
-    print(zip_code, "zipcode")
-    print(radius, "radius")
-    print(provider_type, "provider_type") 
-    print(search_term, "search term \n\n\n")  
-
     url = 'https://api.vericred.com/providers/search'
 
     # convert to plan_id list for rest api

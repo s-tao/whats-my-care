@@ -39,8 +39,8 @@ function initMap(providers) {
       icon: {
         url: '/static/img/healthcare_marker.svg',
         scaledSize: {
-          width: 30,
-          height: 30
+          width: 35,
+          height: 35
           }
         }
       })
@@ -118,6 +118,8 @@ function initMap(providers) {
     } else {
       for (const marker of selectMarkers) { 
         if (accordionId == marker.providerId) {
+          const markerIdx = selectMarkers.indexOf(marker);
+          selectMarkers.splice(markerIdx, 1);
           markerToInfoWindow[marker.providerId].close();
           marker.setMap(null);
         };

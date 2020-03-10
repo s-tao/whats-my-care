@@ -177,12 +177,11 @@ def show_providers():
     radius = request.args.get('radius')
     provider_type = request.args.get('providerType')
     search_term = request.args.get('searchTerm')
+
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
-    # print(plan_id, "plan_id", zip_code, "zipcode", radius, "radius", provider_type,
-    #                 "provider_type", search_term, "search term \n\n\n")    
     # providers = find_providers(user_id, plan_id, zip_code, radius, provider_type, search_term)
     providers = temp_provider_call()
-    # print(providers)
+    # print(providers) 
 
     return jsonify(providers)
 
@@ -214,25 +213,6 @@ def remove_userplan():
         return 'Plan Removed'
 
     return 'Unexpected Error'
-
-
-# @app.route('/user_profile')
-# def user_profile():
-#     """Display all user's saved plans"""
-
-#     user_id = session.get('user_id')
-    
-#     user = User.query.get(user_id)
-
-#     user_dict = {'email': user.email,
-#                  'market': user.market,
-#                  'zip code': user.zip_code}
-    
-#     plans = user_saved_plans(user_id)
-
-#     return render_template('user_profile.html', user_id=user_id, 
-#                                                 user_dict=user_dict,
-#                                                 plans=plans)
 
 
 if __name__ == '__main__':

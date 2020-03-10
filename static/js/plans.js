@@ -149,7 +149,7 @@ $('#plan-form').on('submit', individualMedPlan, (evt) => {
   $.get('/show_plans.json', formInput, individualMedPlan); 
 
   // display shows once function runs to generate tables
-  $('#display-plans-div').show();
+  $('#display-plans-div').fadeIn();
   moreButton.show();
 });
 
@@ -157,6 +157,7 @@ $('#plan-form').on('submit', individualMedPlan, (evt) => {
 // click event to generate button allowing users to see more plans
 moreButton.on('click', individualMedPlan, (evt) => {
   // $('#display-plans-div').hide();
+  $('#display-plans-div').fadeOut(100);
 
   // counter show next 5 tables every click
   begin += 5;
@@ -167,12 +168,16 @@ moreButton.on('click', individualMedPlan, (evt) => {
   $.get('/show_plans.json', formInput, individualMedPlan); 
   previousButton.show();
 
+  $('#display-plans-div').fadeIn(150);
+
 });
 
 
 // click event to generate button allowing users to see previous plans
 previousButton.on('click', individualMedPlan, (evt) => {
   // counter show previous 5 tables every click
+  $('#display-plans-div').fadeOut(150);
+
   begin -= 5;
   end -= 5;
 
@@ -180,6 +185,8 @@ previousButton.on('click', individualMedPlan, (evt) => {
 
   $.get('/show_plans.json', formInput, individualMedPlan); 
   moreButton.show();
+
+  $('#display-plans-div').fadeIn(100);
 
 });
 
