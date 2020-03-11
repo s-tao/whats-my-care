@@ -1,66 +1,8 @@
 
 html, body {
-  /* margin: 0; */
   height: 100%;
-  overflow: hidden; 
-  /* overflow-x: hidden; */
+  /* overflow: hidden;  */
 } 
-
-#click-more-plans, #click-previous-plans {
-  display: none;
-  cursor: pointer;
-  font-size: 3em;
-  margin: 15px 0 0 0;
-  color: #e7e569;
-}
-
-#click-more-plans:hover, #click-previous-plans:hover {
-  color: #dcaeaf;
-
-}
-
-#display-plans-div {
-  display: none;
-
-}
-
-#floating-panel {
-  display: none;
-  /* height: 450px;
-  width: 600px; */
-}
-
-#map {
-  height: 90% !important;
-  width: 100% !important;
-  margin: 0 0 10px 0;
-} 
-
-h1, h2, h3 {
-  color: #a9646a;
-}
-
-p, a {
-  color: #3b1919 !important;
-}
-
-
-a:hover {
-  color: #e2d13a !important;
-}
-
-i {
-  padding-right: 10px;
-  color: #f0cccc;
-}
-
-.user-info {
-  width: 78%;
-  border: 1px solid #a0a0a0;
-  padding: 10px 15px;
-  margin: 0 0 10px 0;
-}
-
 
 .menu { 
   background-color: #e7e569;
@@ -77,15 +19,79 @@ i {
   padding: 15px;
 }
 
+/* plans */
+#display-plans-div {
+  display: none;
+}
+
+/* providers */
+#floating-panel {
+  display: none;
+}
+
+#map {
+  height: 90% !important;
+  width: 100% !important;
+  margin: 0 0 10px 0;
+} 
+
+h1, h2, h3 {
+  color: #a9646a;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+}
+
+p, a, label {
+  color: #3b1919 !important;
+  font-family: "Roboto", sans-serif;
+}
+
+a:hover {
+  color: #e2d13a !important;
+}
+
+i {
+  color: #f0cccc;
+}
+
+/* user */
+.user-info {
+  width: 78%;
+  border: 1px solid #a0a0a0;
+  padding: 10px 15px;
+  margin: 0 0 10px 0;
+}
+
+
+/* buttons */
 .button.hollow {
   border-color: #e7e569;
   color: #55575e;
+  font-family: "Roboto", sans-serif;
 }
 
 .button.hollow:hover {
   border-color: #dcaeaf !important;
   color: #d3d3d3 !important;
+  
 }
+
+#click-more-plans, #click-previous-plans {
+  display: none;
+  cursor: pointer;
+  font-size: 3em;
+  margin: 15px 0 0 0;
+  color: #a9646a;
+}
+
+#click-more-plans:hover, #click-previous-plans:hover {
+  color: #dcaeaf;
+}
+
+#save-plans-btn {
+  position: absolute;
+}
+
 
 .tabs-title > a:focus, .tabs-title > a[aria-selected="true"] {
   color: #ffffff !important;
@@ -112,7 +118,7 @@ i {
 
 .indiv-plan {
   flex: 0 0 auto;
-  margin: 15px;
+  margin: 15px 15px 0 15px;
 }
 .all-plans {
   display: flex;
@@ -120,7 +126,10 @@ i {
   /* overflow-x: auto; */
 }
 
-
+table {
+  margin-bottom: 0;
+}
+/* tables */
 th {
   background: #faf8e2;
   color: #363641;
@@ -143,6 +152,7 @@ thead th{
   text-align: center;
 }
 
+
 #plan-id-options {
   display: block;
   box-sizing: border-box;
@@ -161,12 +171,8 @@ thead th{
   color: #0a0a0a;
 }
 
-.grid-y {
+/* overall body wrap */
+/* .grid-y {
   overflow: auto !important;
   padding-bottom: 50px !important;
-}
-
-#save-plans-btn {
-  position: absolute;
-  margin: 5px 0 0 0;
-}
+} */
