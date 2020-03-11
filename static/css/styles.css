@@ -1,7 +1,7 @@
 
 html, body {
   height: 100%;
-  /* overflow: hidden;  */
+  /* overflow: auto; */
 } 
 
 /* login, register, front page */
@@ -17,7 +17,7 @@ html, body {
 
 /* front page container */
 .inner-border {
-  border: 1px solid #e7e569;
+  /* border: 1px solid #e7e569; */
   background-color: #ffffff;
   opacity: 90%;
   padding: 15px;
@@ -50,36 +50,47 @@ html, body {
   margin: 0 0 10px 0;
 } 
 
-h1, h2, h3 {
-  color: #184888;
-  font-family: "Lato", sans-serif;
+h1 {
+  color: #f5972d;
+  font-weight: bold;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+h2, h3 {
+  color: #185688;
+  font-family: "Roboto Condensed", sans-serif;
   font-weight: bold;
 }
 
 label {
-  color: #549daf;
-  font-family: "Roboto", sans-serif;
+  color: #368fa5;
+  font-family: "Lato", sans-serif;
 }
 
-p, a, #smoker, #non-smoker, #child, #non-child, .check-text {
+p, #smoker, #non-smoker, #child, #non-child, .check-text {
   color: #5d6364 !important;
+  font-family: "Lato", sans-serif;
+}
+
+a {
+  color: #5d6364;
   font-family: "Roboto", sans-serif;
 }
 
 a:hover, a:hover {
-  color: #549daf !important;
+  color: #f5972d !important;
 }
 
 i {
-  color: #9ebbc2c4;
+  color: #f5972d;
 }
 
 /* user */
 .user-info {
   width: 85%;
   /* border: 1px solid #cacaca; */
-  padding: 10px;
-  margin: 0 0 10px 0;
+  padding: 10px 10px 0 10px;
+  margin: 0;
 }
 
 hr {
@@ -89,7 +100,7 @@ hr {
 
 /* buttons */
 .button.hollow {
-  border-color: #e7e569;
+  border-color: #f5c160;
   text-transform: uppercase;
   font-size: 12px;
   color: #55575e;
@@ -98,7 +109,7 @@ hr {
 }
 
 .button.hollow:hover {
-  border-color: #549daf !important;
+  border-color: #439cb3 !important;
   color: #d3d3d3 !important;
   
 }
@@ -108,22 +119,21 @@ hr {
   cursor: pointer;
   font-size: 3em;
   margin: 15px 0 0 0;
-  color: #9ebbc2c4;
+  color: #a0c9d3c4;
 }
 
 #click-more-plans:hover, #click-previous-plans:hover {
-  color: #e7e569;
+  color: #f5c160;
 }
 
 #save-plans-btn {
   position: absolute;
 }
 
-
 .tabs-title > a:focus, .tabs-title > a[aria-selected="true"],
 .is-active>.accordion-title {
-  color: #828288 !important;
-  background: #f1f0a7;
+  color: #f0f0f0 !important;
+  background: #eb9c36;
 } 
 
 
@@ -150,7 +160,7 @@ hr {
   margin-bottom: 15px;
 }
 
-td:hover {
+th:hover, td:hover {
   background: #d7e6e960;
 }
 

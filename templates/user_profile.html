@@ -8,15 +8,16 @@
 {% block content %}
 <!-- <div class="grid-y medium-grid-frame"> -->
   <div class="grid-x grid-padding-x">
-    <div class="cell medium-8">  
+    <div class="cell medium-8" style="padding-left: 6%;">  
       <h3>Saved Plans</h3>
     </div>
-    <div class="cell medium-4">  
+    <div class="cell medium-3" style="padding-left: 6%;">  
       <h3>User Information</h3>
     </div>
   </div>
 
-    <div class="grid-x grid-padding-x">
+  <div class="cell medium-auto medium-cell-block-container">
+    <div class="grid-x grid-padding-x align-center" style="min-height: 100%;">
       {% if plans|length %}
 
       <div class="cell medium-2">    
@@ -34,6 +35,7 @@
     </div>
 
     <div class="cell medium-6">  
+      <!-- <div class="cell medium-6">   -->
         <div class="tabs-content" data-tabs-content="saved-plans-tabs">
 
         {% for plan in plans %}
@@ -106,7 +108,7 @@
   
 
 
-      <div class="cell medium-4">    
+      <div class="cell medium-3">    
         <div class="user-info"> 
           <p>
             <i class="fas fa-envelope" style="padding-right: 10px;"></i>
@@ -120,9 +122,9 @@
             <i class="fas fa-home" style="padding-right: 10px;"></i>
             {{ user_dict.zip_code}}
           </p>
-          <hr>
         </div>
-  
+        <hr style="width: 90%;">
+
         <p>
           Still deciding on a medical plan? Search for more plans to compare 
           benefits. 
@@ -135,7 +137,8 @@
         <a href="/get_providers" class="hollow button">Find Providers</a>
       </div>
     </div>
-
+  </div>
+<!-- </div> -->
 
 
 <script src="/static/js/plans.js"></script>

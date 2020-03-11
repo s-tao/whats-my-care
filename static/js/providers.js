@@ -10,6 +10,7 @@ function initMap(providers) {
       },
       zoomControl: true,
       controlSize: 20,
+      // styles: MAPSTYLES,
     });
   
   const latLngs = [];
