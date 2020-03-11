@@ -11,109 +11,106 @@
 
 {% block content %}
 
-<div class="grid-y medium-grid-frame">
+<!-- <div class="grid-y medium-grid-frame"> -->
+<div class="grid-x grid-padding-x">
+  <div class="cell medium-12 medium-cell-block"> 
+    <h2>Find Providers</h2>
+    <p>
+      Fill in the form below to find providers within your location that accepts 
+      your saved plans. 
+    </p>
+  </div>
+</div>
+
+<!-- form to generate qualifying providers for user -->
+<form action="/show_providers.json" method="GET" id="provider-form">
   <div class="grid-x grid-padding-x">
-    <div class="cell medium-12 medium-cell-block"> 
-      <h2>Find Providers</h2>
-      <p>
-        Fill in the form below to find providers within your location that accepts 
-        your saved plans. 
-      </p>
+    <div class="cell medium-3 medium-cell-block"> 
+      <label>
+        Plan Id
+      <!-- <p>
+        Select from your saved plans or manually input plan id if you would like to find providers outside of 
+        your saved plans.
+      </p> -->
+      <input list="plan-id" 
+            id="plan-id-options" 
+            name="plan-id-options"
+            placeholder="ex: 40513CA0390019"/>
+      <datalist id="plan-id">
+        <option value=""> --Please select a plan-- </option>
+        {% for plan in plans %}
+          <option value="{{ plan.plan.vericred_id }}">{{ plan.plan.vericred_id }}</option>
+        {% endfor %}
+      </datalist>
+      </label>
+    </div>
+
+    <div class="cell medium-3 medium-cell-block"> 
+      <label>
+        Zip Code
+      <!-- <p>
+        Input location of your choice, otherwise it will default to your 
+        registered zip code.
+      </p> -->
+      <input type="text" name="zipcode">
+      </label>
+    </div>
+
+    <div class="cell medium-3 medium-cell-block"> 
+      <label>
+        * Radius
+      <select name="radius" required class="form-control">
+        <option value=""> --Set your radius-- </option>
+        <option value="5">5 miles</option>
+        <option value="10">10 miles</option>
+        <option value="15">15 miles</option>
+        <option value="20">20 miles</option>
+        <option value="25">25 miles</option>
+        <option value="30">30 miles</option>
+        <option value="35">35 miles</option>
+      </select>
+      </label>
+    </div>
+
+    <div class="cell medium-3 medium-cell-block"> 
+      <label>
+        Choose Type of Provider
+        <select name="provider-type">
+          <option value=""> --Please select provider type-- </option>
+          <option value="individual">Individual</option>
+          <option value="organization">Organization</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div class="grid-x grid-padding-x">
+    <div class="cell medium-8 medium-cell-block"> 
+      <label>
+        Additional Search
+        <p>
+          To find a specific provider or specialty, input their name or general 
+          practice. 
+        </p>
+        <input type="text" name="search-term" 
+              placeholder="ex: Jane Doe ankle, for a podiatrist named Jane Doe">
+      </label>
     </div>
   </div>
 
   <div class="grid-x grid-padding-x">
     <div class="cell medium-12 medium-cell-block"> 
-      <!-- form to generate qualifying providers for user -->
-      <form action="/show_providers.json" method="GET" id="provider-form">
-        <div class="grid-x grid-padding-x">
-          <div class="cell medium-3 medium-cell-block"> 
-            <label>
-              Plan Id
-            <!-- <p>
-              Select from your saved plans or manually input plan id if you would like to find providers outside of 
-              your saved plans.
-            </p> -->
-            <input list="plan-id" 
-                  id="plan-id-options" 
-                  name="plan-id-options"
-                  placeholder="Select or manually input your Plan Id"/>
-            <datalist id="plan-id">
-              <option value=""> --Please select a plan-- </option>
-              {% for plan in plans %}
-                <option value="{{ plan.plan.vericred_id }}">{{ plan.plan.vericred_id }}</option>
-              {% endfor %}
-            </datalist>
-            </label>
-          </div>
-
-          <div class="cell medium-3 medium-cell-block"> 
-            <label>
-              Zip Code
-            <!-- <p>
-              Input location of your choice, otherwise it will default to your 
-              registered zip code.
-            </p> -->
-            <input type="text" name="zipcode">
-            </label>
-          </div>
-
-          <div class="cell medium-3 medium-cell-block"> 
-            <label>
-              * Radius
-            <select name="radius" required class="form-control">
-              <option value=""> --Set your radius-- </option>
-              <option value="5">5 miles</option>
-              <option value="10">10 miles</option>
-              <option value="15">15 miles</option>
-              <option value="20">20 miles</option>
-              <option value="25">25 miles</option>
-              <option value="30">30 miles</option>
-              <option value="35">35 miles</option>
-            </select>
-            </label>
-          </div>
-
-          <div class="cell medium-3 medium-cell-block"> 
-            <label>
-              Choose Type of Provider
-              <select name="provider-type">
-                <option value=""> --Please select provider type-- </option>
-                <option value="individual">Individual</option>
-                <option value="organization">Organization</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
-        <div class="grid-x grid-padding-x">
-          <div class="cell medium-8 medium-cell-block"> 
-            <label>
-              Additional Search
-              <p>
-                To find a specific provider or specialty, input their name or general 
-                practice. 
-              </p>
-              <input type="text" name="search-term" 
-                    placeholder="ex: Jane Doe ankle, for a podiatrist named Jane Doe">
-            </label>
-          </div>
-        </div>
-
-        <div class="grid-x grid-padding-x">
-          <div class="cell medium-12 medium-cell-block"> 
-            <button type="submit" class="hollow button">
-              Search
-            </button>
-          </div>
-        </div>
-      </form>
+      <button type="submit" class="hollow button">
+        Search
+      </button>
     </div>
   </div>
+</form>
 
-  <div class="cell medium-8 medium-cell-block-container">
+<div class="grid-y medium-grid-frame" id="provider-container">
+  <div class="cell medium-auto medium-cell-block-container">
     <div class="grid-x grid-padding-x">
-      <div class="cell medium-6 medium-cell-block-y">  
+      <div class="cell medium-5 medium-cell-block-y">  
         <ul class="accordion" 
             data-accordion data-allow-all-closed="true"
             data-multi-expand="true" 
@@ -121,9 +118,9 @@
         </ul>
       </div>
 
-      <div class="cell medium-6" id="floating-panel">  
+      <div class="cell medium-7">  
         <div id="map"></div>
-        <div class="grid-x grid-padding-x align-spaced">
+        <div class="grid-x grid-padding-x align-justify">
           <div class="cell medium-6">  
             <button id="btn-hide-markers" class="hollow button" name="hide-markers">
               Hide Markers

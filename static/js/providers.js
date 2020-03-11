@@ -45,8 +45,6 @@ function initMap(providers) {
         }
       })
     );
-
-    
     
     // Sets the map on all markers in the array.
     latLngs.push({
@@ -79,7 +77,7 @@ function initMap(providers) {
         ${marker.adr.street2} 
         ${marker.adr.city} 
         ${marker.adr.state} 
-        ${marker.adr.zip_code}
+        ${marker.adr.zipCode}
       </em>
     </p>
     `);
@@ -126,9 +124,6 @@ function initMap(providers) {
       };
     };
   });
-
-  // show buttons for google map functions
-  $('#floating-panel').show();
   
   // Removes the markers from the map, but keeps them in the array.
   $('#btn-hide-markers').on('click', () => {
@@ -225,6 +220,8 @@ const showProviders = (providers) => {
   initMap(providers);
 };
 
+$('#provider-container').hide();
+
 // click event to send user input for provider form to server
 $('#provider-form').on('submit', showProviders, (evt) => {
   evt.preventDefault();
@@ -245,7 +242,9 @@ $('#provider-form').on('submit', showProviders, (evt) => {
   };
   
   $.get('/show_providers.json', formInput, showProviders);
-  $('#map').show()
+
+  $('#provider-container').show();
+  $('#map').show();
 
 });
 

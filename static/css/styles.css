@@ -25,15 +25,16 @@ html, body {
 }
 
 /* providers */
-#floating-panel {
-  display: none;
+#provider-container {
+  height: 75% !important;
 }
 
 #map {
-  height: 90% !important;
+  height: 87% !important;
   width: 100% !important;
   margin: 0 0 10px 0;
 } 
+
 
 h1, h2, h3 {
   color: #a9646a;
@@ -171,8 +172,8 @@ thead th{
   color: #0a0a0a;
 }
 
-/* overall body wrap */
-/* .grid-y {
-  overflow: auto !important;
-  padding-bottom: 50px !important;
+
+/* .container {
+  overflow: auto;
+  display: block;
 } */
