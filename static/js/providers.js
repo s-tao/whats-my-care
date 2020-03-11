@@ -10,9 +10,9 @@ function initMap(providers) {
       },
       zoomControl: true,
       controlSize: 20,
-      // styles: MAPSTYLES,
+      styles: mapStyles
     });
-  
+
   const latLngs = [];
   const markers = [];
 
