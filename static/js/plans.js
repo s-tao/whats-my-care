@@ -15,7 +15,7 @@ const tableDisplay = (planDetails) => {
 
   const tablePlan = (`
   <div class="indiv-plan">
-    <table class="unstriped hover"> 
+    <table class="unstriped hover plan-table"> 
       <thead> 
         <tr> 
           <th colspan="2" id="display-name">${planDetails.display_name}</th> 
@@ -70,9 +70,9 @@ const tableDisplay = (planDetails) => {
           <td colspan="2"> 
           <div class="form-check"> 
             <input class="form-check-input" type="checkbox" 
-                                            value="plan_id"" 
+                                            value="plan_id" 
                                             name="${planDetails.id}"> 
-            <label class="form-check-label" for="${planDetails.id}"> 
+            <label class="form-check-label check-text" for="${planDetails.id}"> 
               Save Plan
             </label> 
           </div> 

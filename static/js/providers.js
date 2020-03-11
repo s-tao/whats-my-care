@@ -244,7 +244,6 @@ $('#provider-form').on('submit', showProviders, (evt) => {
   $.get('/show_providers.json', formInput, showProviders);
 
   $('#provider-container').show();
-  $('#map').show();
 
 });
 

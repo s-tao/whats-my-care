@@ -9,19 +9,20 @@
 <!-- <div class="grid-y medium-grid-frame"> -->
   <div class="grid-x grid-padding-x">
     <div class="cell medium-8">  
-      <h2>Saved Plans</h2>
+      <h3>Saved Plans</h3>
     </div>
     <div class="cell medium-4">  
-      <h2>User Information</h2>
+      <h3>User Information</h3>
     </div>
   </div>
 
-  <!-- <div class="cell medium-auto medium-cell-block-container"> -->
     <div class="grid-x grid-padding-x">
-      <!-- <div class="cell medium-2">     -->
-        <!-- <ul class="vertical tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs"> -->
-      <div class="cell medium-8">    
-        <ul class="tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs">
+      {% if plans|length %}
+
+      <div class="cell medium-2">    
+        <ul class="vertical tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs">
+      <!-- <div class="cell medium-8">     -->
+        <!-- <ul class="tabs" data-active-collapse="true" data-tabs id="saved-plans-tabs"> -->
         {% for plan in plans %}
           <li class="tabs-title tab-{{ plan.vericred_id }}">
             <a href="#panel-plan-{{ loop.index  }}">
@@ -30,8 +31,9 @@
           </li>
         {% endfor %}
         </ul>
-    <!-- </div> -->
-    <!-- <div class="cell medium-6 medium-cell-block-y">   -->
+    </div>
+
+    <div class="cell medium-6">  
         <div class="tabs-content" data-tabs-content="saved-plans-tabs">
 
         {% for plan in plans %}
@@ -91,18 +93,20 @@
         {% endfor %}
 
       </div>
-      <br>
-      {% if plans|length %}
-      {% else %}
-        <p class="no-saved-plans">
-          Looks like you don't have any saved plans at the moment. 
-        </p>
-      {% endif %}
+    </div>
 
-      </div>
+    {% else %}
+    <div class="cell medium-8">    
+      <!-- <hr> -->
+      <p class="no-saved-plans">
+        Looks like you don't have any saved plans at the moment. 
+      </p>
+    </div> 
+    {% endif %}
+  
+
 
       <div class="cell medium-4">    
-
         <div class="user-info"> 
           <p>
             <i class="fas fa-envelope" style="padding-right: 10px;"></i>
@@ -116,6 +120,7 @@
             <i class="fas fa-home" style="padding-right: 10px;"></i>
             {{ user_dict.zip_code}}
           </p>
+          <hr>
         </div>
   
         <p>
@@ -129,10 +134,8 @@
         </p>
         <a href="/get_providers" class="hollow button">Find Providers</a>
       </div>
-
     </div>
-  <!-- </div> -->
-<!-- </div> -->
+
 
 
 <script src="/static/js/plans.js"></script>
