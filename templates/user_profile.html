@@ -8,10 +8,10 @@
 {% block content %}
 <!-- <div class="grid-y medium-grid-frame"> -->
   <div class="grid-x grid-padding-x">
-    <div class="cell medium-8" style="padding-left: 6%;">  
+    <div class="cell medium-8">  
       <h3>Saved Plans</h3>
     </div>
-    <div class="cell medium-3" style="padding-left: 6%;">  
+    <div class="cell medium-4">  
       <h3>User Information</h3>
     </div>
   </div>
@@ -89,8 +89,11 @@
                 </tr>
               </tbody>
             </table>
-            <button type="remove-plan" class="hollow button remove-plan"
-                  id="{{ plan.vericred_id }}">Remove Plan</button>
+            <p><button class="hollow button remove-plan" id="{{ plan.vericred_id }}"
+                       data-open="remove-plan">Remove Plan</button></p>
+
+            <!-- <button type="remove-plan" class="hollow button remove-plan"
+                  id="{{ plan.vericred_id }}">Remove Plan</button> -->
           </div>
         {% endfor %}
 
@@ -108,7 +111,7 @@
   
 
 
-      <div class="cell medium-3">    
+      <div class="cell medium-4">    
         <div class="user-info"> 
           <p>
             <i class="fas fa-envelope" style="padding-right: 10px;"></i>
@@ -138,8 +141,13 @@
       </div>
     </div>
   </div>
-<!-- </div> -->
 
+  <div class="tiny reveal" id="remove-plan" data-reveal>
+    <p class="remove" style="text-align: center;"></p>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
 <script src="/static/js/plans.js"></script>
 

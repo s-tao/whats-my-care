@@ -18,8 +18,7 @@
   <div class="cell medium-12 medium-cell-block"> 
     <h3>Find Providers</h3>
     <p>
-      Fill in the form below to find providers within your location that accepts 
-      your saved plans. 
+      Fill in the form below to find providers in your specified location.
     </p>
   </div>
 </div>
@@ -28,12 +27,14 @@
 <form action="/show_providers.json" method="GET" id="provider-form">
   <div class="grid-x grid-padding-x">
     <div class="cell medium-3 medium-cell-block"> 
-      <label>
-        Plan Id
-      <!-- <p>
-        Select from your saved plans or manually input plan id if you would like to find providers outside of 
-        your saved plans.
-      </p> -->
+      <span data-tooltip class="top" data-click-open="false" tabindex="2" 
+            title="Select from your saved plans or manually input a Plan Id if 
+                   you would like to find providers outside of your saved plans.">
+        <label>
+          Plan Id
+        </label>
+      </span>           
+      <br>
       <input list="plan-id" 
             id="plan-id-options" 
             name="plan-id-options"
@@ -44,16 +45,18 @@
           <option value="{{ plan.plan.vericred_id }}">{{ plan.plan.vericred_id }}</option>
         {% endfor %}
       </datalist>
-      </label>
     </div>
 
     <div class="cell medium-3 medium-cell-block"> 
+      <span data-tooltip class="top" data-click-open="false" tabindex="2" 
+            title="Input location of your choice, otherwise it will default to 
+            your registered zip code.">
+        <label>
+          Zip Code
+        </label>
+      </span>           
+      <br>
       <label>
-        Zip Code
-      <!-- <p>
-        Input location of your choice, otherwise it will default to your 
-        registered zip code.
-      </p> -->
       <input type="text" name="zipcode">
       </label>
     </div>

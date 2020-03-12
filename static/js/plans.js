@@ -168,6 +168,7 @@ moreButton.on('click', individualMedPlan, (evt) => {
   $.get('/show_plans.json', formInput, individualMedPlan); 
   previousButton.show();
 
+  $('#display-plans-div').scrollLeft(0);
   $('#display-plans-div').fadeIn(150);
 
 });
@@ -186,6 +187,7 @@ previousButton.on('click', individualMedPlan, (evt) => {
   $.get('/show_plans.json', formInput, individualMedPlan); 
   moreButton.show();
 
+  $('#display-plans-div').scrollLeft(0);
   $('#display-plans-div').fadeIn(100);
 
 });
@@ -207,12 +209,12 @@ removePlan.click(function() {
     const removeTab = $(`.tab-${planId}`);
     
     removeTab.fadeOut(1000, function() {
-    removeTab.remove();
+      removeTab.remove();
     // $(`#${planId}`).hide();
-
     });
 
-    alert(res);
+    // insert response into modal html
+    $('.remove').html(res);
 
   });
 });

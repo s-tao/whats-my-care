@@ -20,10 +20,6 @@
         integrity="sha256-GSio8qamaXapM8Fq9JYdGNTvk/dgs+cMLgPeevOYEx0= sha384-wAweiGTn38CY2DSwAaEffed6iMeflc0FMiuptanbN4J+ib+342gKGpvYRWubPd/+ sha512-QHEb6jOC8SaGTmYmGU19u2FhIfeG+t/hSacIWPpDzOp5yygnthL3JwnilM7LM1dOAbJv62R+/FICfsrKUqv4Gg==" 
         crossorigin="anonymous">
 
- <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
-          crossorigin="anonymous"> -->
-
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css">
   <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
@@ -33,25 +29,36 @@
   <body>
     {% if user_id is defined %}
     <div data-sticky-container>
-      <div class="menu align-center" data-sticky data-options="marginTop:0;" 
-                                     style="width:100%">
-        <ul class="menu align-center">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/search_plans">Search Plans</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/get_providers">Search Providers</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/user_profile">Profile</a>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Log Out</a>
-          </li>
-        </ul>
+      <div class="menu-bar" data-sticky data-options="marginTop:0;" 
+                                     style="width:100%;">
+                                     
+        <div class="grid-x padding-x" style="width:100%;">
+          <div class="cell small-3">
+            <ul class="menu align-left">
+              <li class="nav-item">
+                <img src="/static/img/logo.png" id="logo-img">
+              </li>
+            </ul>
+          </div>
+          <div class="cell small-6">
+            <ul class="menu align-center">
+
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/search_plans">Search Plans</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/get_providers">Search Providers</a>
+              </li>
+      
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Log Out</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     {% endif %}
@@ -59,7 +66,13 @@
 
     {% block content %}
     {% endblock %}
-
+    <!-- <div class="grid-x grid-padding-x">
+      <div class="cell medium-12 medium-cell-block"> 
+        <div class="fixed-footer">
+          <div class="container">What's your CARE? Copyright &copy; 2020</div>        
+        </div>
+      </div>
+    </div> -->
     <script>
       $(document).foundation();
     </script>

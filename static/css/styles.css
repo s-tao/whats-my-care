@@ -4,6 +4,14 @@ html, body {
   /* overflow: auto; */
 } 
 
+.background-img {
+  background-image: url("/static/img/pexels-homepage.jpeg");
+  background-size: cover;
+  min-width: 100%;
+  min-height: 100%;
+  position: fixed;
+}
+
 /* login, register, front page */
 .align-center-middle {
   height: 100%;
@@ -23,16 +31,23 @@ html, body {
   padding: 15px;
 }
 
-.menu { 
+.menu-bar { 
   background-color: #ffffff;
   color: #549daf;
   text-transform: uppercase;
   font-size: 13px;
+  padding: 0;
   -webkit-box-shadow: 0 3px 2px -2px #eeeeeb;
   -moz-box-shadow: 0 3px 2px -2px #eeeeeb;
   box-shadow: 0 3px 2px -2px #eeeeeb;
+  width: 100%;
 }
 
+#logo-img {
+  padding-left: 15px;
+  max-width: 55%;
+  /* margin: 0; */
+}
 
 /* plans */
 #display-plans-div {
@@ -136,15 +151,6 @@ hr {
   background: #eb9c36;
 } 
 
-
-.background-img {
-  background-image: url("/static/img/pexels-homepage.jpeg");
-  background-size: cover;
-  min-width: 100%;
-  min-height: 100%;
-  position: fixed;
-}
-
 .indiv-plan {
   flex: 0 0 auto;
   margin: 15px 15px 0 15px;
@@ -205,4 +211,9 @@ thead th{
   font-weight: 400;
   line-height: 1.5;
   color: #0a0a0a;
+}
+
+.has-tip {
+  border-bottom: dotted 1px #368fa5;
+  /* cursor: pointer; */
 }
