@@ -1,5 +1,3 @@
 env
-vericred.env
+secrets.sh
 vericred-python
-vericred_library_call.py
-marketplace.env
