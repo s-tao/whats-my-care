@@ -88,6 +88,7 @@ function initMap(providers) {
       maxWidth: 200,
     });
 
+    // add object to hold each marker id to info window 
     markerToInfoWindow[marker.providerId] = infoWindow;
 
     marker.addListener('mouseover', () => {
@@ -99,6 +100,7 @@ function initMap(providers) {
     });
   }
 
+  let allMarkers = true;
   // current active markers from accordion
   const selectMarkers = [];
 
@@ -120,17 +122,23 @@ function initMap(providers) {
           const markerIdx = selectMarkers.indexOf(marker);
           selectMarkers.splice(markerIdx, 1);
           markerToInfoWindow[marker.providerId].close();
-          marker.setMap(null);
-        };
+           // check - will only remove marker if all markers are not displayed
+          if (allMarkers == false) {
+            marker.setMap(null);
+          };
+        }
       };
     };
   });
-  
+  console.log(allMarkers, "outside of click events");
+
   // Removes the markers from the map, but keeps them in the array.
   $('#btn-hide-markers').on('click', () => {
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     };
+    allMarkers = false;
+
   });
   
   // Shows all markers
@@ -138,6 +146,9 @@ function initMap(providers) {
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(generalMap);
     };
+
+    allMarkers = true;
+
   });
   
 }

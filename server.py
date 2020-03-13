@@ -179,9 +179,10 @@ def show_providers():
     search_term = request.args.get('searchTerm')
 
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
-    # providers = find_providers(user_id, plan_id, zip_code, radius, provider_type, search_term)
+    # providers = find_providers(user_id, plan_id, zip_code, radius, 
+    #                                                        provider_type, 
+    #                                                        search_term)
     providers = temp_provider_call()
-    # print(providers) 
 
     return jsonify(providers)
 
