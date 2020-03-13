@@ -18,8 +18,8 @@ all-female coding bootcamp, Hackbright Academy.
 
 ## <a name=techstack></a>Tech Stack
 
-**Backend |** Python, Flask, Jinja, SQLAlchemy, PostgreSQL
-**Frontend |** Javascript, jQuery, AJAX, HTML, CSS, Foundation
+**Backend |** Python, Flask, Jinja, SQLAlchemy, PostgreSQL \
+**Frontend |** Javascript, jQuery, AJAX, HTML, CSS, Foundation \
 **APIs |** Vericred, Google Maps Javascript
 
 ## <a name=install></a>Installation
@@ -33,25 +33,45 @@ export GOOGLE_MAPS_JS='YOUR_KEY'
 You can also opt to restrict Google Maps Javascript API rather than saving the
 key into `secrets.sh`
 
-Clone What's My CARE repository:
-`$ git clone https://github.com/s-tao/whats-my-care.git`
+Clone What's My CARE repository
+```
+$ git clone https://github.com/s-tao/whats-my-care.git
+```
 Create a virtual environment in the directory
-`$ virtualenv env`
+```
+$ virtualenv env
+```
 Activate virtual environment
-`$ source env/bin/activate`
+```
+$ source env/bin/activate
+```
 Install dependencies 
-`$ pip3 install -r requirements.txt`
+```
+$ pip3 install -r requirements.txt
+```
 Create database
-`$ createdb healthcare`
+```
+$ createdb healthcare
+```
 Run `seed.py` to create your database tables
-`$ python3 seed.py`
+```
+$ python3 seed.py
+```
 Source your `secrets.sh`
-`$ source secrets.sh`
+```
+$ source secrets.sh
+```
 Run the app
-`$ python3 server.py`
+```
+$ python3 server.py
+```
 Open localhost:5000 on your browser
 
 ## <a name=features></a>Features
 
 
 ## <a name=future-features></a>Future Features
+* Expand insurance plans to include Dental and Vision plans
+* Incorporate an insurance plan filtering system to improve user experience
+* Allow users to search for all health insurance plans that their current provider
+accepts
