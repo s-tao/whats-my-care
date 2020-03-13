@@ -11,19 +11,45 @@ all-female coding bootcamp, Hackbright Academy.
 
 ### Contents
 
-* [Technologies and Stacks] (#tech-stack)
-* [Installation] (#install)
-* [Features] (#features)
-* [Future Features] (#future-features)
+* [Tech Stack](#techstack)
+* [Installation](#install)
+* [Features](#features)
+* [Future Features](#future-features)
 
-## <a name=tech-stack></a>Technologies and Stacks
+## <a name=techstack></a>Tech Stack
 
-** Backend | ** Python, Flask, Jinja, SQLAlchemy, PostgreSQL
-** Frontend | ** Javascript, jQuery, AJAX, HTML, CSS, Foundation
-** APIs | ** Vericred, Google Maps Javascript
+**Backend |** Python, Flask, Jinja, SQLAlchemy, PostgreSQL
+**Frontend |** Javascript, jQuery, AJAX, HTML, CSS, Foundation
+**APIs |** Vericred, Google Maps Javascript
 
 ## <a name=install></a>Installation
 
+Create a file `secrets.sh` to store your API keys for [Vericred](https://developers.vericred.com/) 
+and [Google Maps Javascript](https://developers.google.com/maps/documentation/javascript/tutorial)
+```
+export VERICRED='YOUR_KEY'
+export GOOGLE_MAPS_JS='YOUR_KEY'
+```
+You can also opt to restrict Google Maps Javascript API rather than saving the
+key into `secrets.sh`
+
+Clone What's My CARE repository:
+`$ git clone https://github.com/s-tao/whats-my-care.git`
+Create a virtual environment in the directory
+`$ virtualenv env`
+Activate virtual environment
+`$ source env/bin/activate`
+Install dependencies 
+`$ pip3 install -r requirements.txt`
+Create database
+`$ createdb healthcare`
+Run `seed.py` to create your database tables
+`$ python3 seed.py`
+Source your `secrets.sh`
+`$ source secrets.sh`
+Run the app
+`$ python3 server.py`
+Open localhost:5000 on your browser
 
 ## <a name=features></a>Features
 
