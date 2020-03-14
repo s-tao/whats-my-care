@@ -68,7 +68,35 @@ $ python3 server.py
 Open localhost:5000 on your browser
 
 ## <a name=features></a>Features
+**Login/Register** 
+Users are prompt to login or register if they don't have an account 
 
+Once the user logins, they're directed to the homepage where they can see all 
+their saved insurance plans. 
+
+**Search Plans** 
+On the Search Plans page, users will submit their information to receive all the 
+medical plans they qualify for. Currently the plans are sorted based on their 
+insurance tiers if they only choose what type of plan they're looking for. If the
+user submits additional information (age, smoker, child), the plans will be sorted
+by premium estimates. 
+
+**Save Plans** 
+User can save all the plans that interests them. 
+
+**Remove Saved Plans** 
+User can also remove the plans that they're no longer interested in. 
+
+**Search Providers** 
+On the Search Providers page, users are only required to fill in the radius to 
+set the distance based off their zip code for their search. They can also narrow
+down their search by filling out more items. 
+
+User can toggle any provider information and see their corresponding location on
+Google Maps. 
+
+They can also isolate the Google Map markers to only show the providers they're 
+interested in. 
 
 ## <a name=future-features></a>Future Features
 * Expand insurance plans to include Dental and Vision plans
