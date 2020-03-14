@@ -73,6 +73,7 @@ Users are prompt to login or register if they don't have an account
 
 Once the user logins, they're directed to the homepage where they can see all 
 their saved insurance plans. 
+
 ![](/README_gif/login.gif)
 
 **Search Plans** <br>
@@ -81,28 +82,34 @@ medical plans they qualify for. Currently the plans are sorted based on their
 insurance tiers if they only choose what type of plan they're looking for. If the
 user submits additional information (age, smoker, child), the plans will be sorted
 by premium estimates. 
+
 ![](/README_gif/search_plans.gif)
 
 **Save Plans** <br>
 User can save all the plans that interests them. 
+
 ![](/README_gif/save_plans.gif)
 
 **Remove Saved Plans** <br>
 User can also remove the plans that they're no longer interested in. 
+
 ![](/README_gif/remove_plan.gif)
 
 **Search Providers** <br>
 On the Search Providers page, users are only required to fill in the radius to 
 set the distance based off their zip code for their search. They can also narrow
 down their search by filling out more items. 
+
 ![](/README_gif/search_providers.gif)
 
 User can toggle any provider information and see their corresponding location on
 Google Maps. 
+
 ![](/README_gif/toggle_providers.gif)
 
 They can also isolate the Google Map markers to only show the providers they're 
 interested in. 
+
 ![](/README_gif/indiv_provider.gif)
 
 ## <a name=future-features></a>Future Features
