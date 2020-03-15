@@ -43,7 +43,6 @@ def add_carrier(plan_data):
 def add_plan(plan_ids, user_id):
     """Add plan to database when user saves plans"""
 
-
     plan_datas = search_medical_plan(plan_ids)
 
     for plan_data in plan_datas:

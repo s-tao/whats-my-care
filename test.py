@@ -1,5 +1,5 @@
 from model import User, Carrier, Plan, PlanCoverage, UserPlan, connect_to_db, db
-from process_plans import user_saved_plans
+from process_plans import user_saved_plans, find_fips_code
 from server import app
 import unittest
 
@@ -72,12 +72,11 @@ def example_data():
     db.session.commit()
 
 
-class TestFlaskRoutes(unittest.TestCase):
+class TestModel(unittest.TestCase):
+    """Test querying from model"""
+
     def setUp(self):
         """Prepare for testing"""
-
-        # Get Flask test client
-        self.client = app.test_client()
 
         # Show Flask errors when running tests
         app.config['TESTING'] = True
@@ -89,10 +88,6 @@ class TestFlaskRoutes(unittest.TestCase):
         # Create tables and add sample data
         db.create_all()
         example_data()
-
-        with self.client as c:
-            with c.session_transaction() as sess:
-                sess['user_id'] = 1
 
     def tearDown(self):
         """Execute after every test ends"""
@@ -143,37 +138,126 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertEqual(user_plans, plans)
 
 
-    # test flask routes 
+class TestFlaskRoutes(unittest.TestCase):
+    """Test Flask routes where user isn't logged in"""
+
+    def setUp(self):
+        """Prepare for testing"""
+
+        # Create Flask test client
+        self.client = app.test_client()
+
+        # Show Flask errors when running tests
+        app.config['TESTING'] = True
+
+
     def test_index(self):
         """Test homepage when user is not logged in"""
         
-        client = app.test_client()
+        result = self.client.get('/')
+        self.assertIn(b"<h1>What's My CARE</h1>", result.data)
 
-        result = client.get('/')
-        self.assertIn(b"<h1>What's My Care</h1>", result.data)
 
-    # def test_register(self):
-    #     """Test register page"""
+    def test_register(self):
+        """Test register page is correct"""
 
-    #     client = app.test_client()
-
-    #     result = client.get('/register', data={'email': 'jim@gmail.com',
-    #                                            'password': 'test',
-    #                                            'market': 'individual',
-    #                                            'zip_code': '94960'})
-
-    #     self.assertIn(b'<h1>Register here</h1>')
+        result = self.client.get('/register')
+        self.assertIn(b'<h2>Register here</h2>', result.data)
 
 
     def test_login(self):
-        """Test login page, should redirect to homepage"""
+        """Test login page is correct"""
+        
+        result = self.client.get('/login')
+        self.assertIn(b'<h2>Login</h2>', result.data)
+
+
+class FlaskTestsLoggedIn(unittest.TestCase):
+    """Test Flask Routes where user is logged in"""
+
+    def setUp(self):
+        """Prepare for testing"""
+
+        # Get Flask test client
+        self.client = app.test_client()
+
+        # Show Flask errors when running tests
+        app.config['TESTING'] = True
+        # app.config['SECRET_KEY'] = 'TEMP'
+
+        # Connect to test database
+        connect_to_db(app, "postgresql:///testdb")
+
+        # Create tables and add sample data
+        db.create_all()
+        example_data()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess['user_id'] = 1
+
+        # Create mock
+        def _mock_find_fips_code(fips_code):
+            return '06041'
+
+        find_fips_code = _mock_find_fips_code
+
+    def tearDown(self):
+        """Execute after every test ends"""
+
+        db.session.close()
+        db.drop_all()
+
+
+    # def test_post_register(self):
+    #     """Test register redirects when user without an account registers"""
+
+    #     client = app.test_client()
+
+    #     result = client.post('/register', 
+    #                         data={'email': 'jim@gmail.com',
+    #                               'password': 'test',
+    #                               'market': 'individual',
+    #                               'zip_code': '94960'},
+    #                         follow_redirects=True)
+
+    #     self.assertEqual(result.status_code, 200)
+    #     self.assertIn(b'<h3>User Information</h3>', result.data)
+
+
+    # def test_add_user(self):
+    #     """Test add_user function to see if user is correctly saved into 
+    #     database when user registers
+    #     """
+
+    #     fips_code = mock_find_fips_code('94960')
+    #     self.assertEqual(fips_code, '06041')
+
+    #     new_user = User(email='jim@gmail.com', 
+    #                     password='test', 
+    #                     market='individual', 
+    #                     zip_code='94960',
+    #                     fips_code=fips_code)
+
+    #     jim = User.query.filter(User.email == 'jim@gmail.com').first()
+    #     self.assertEqual(jim.email, 'jim@gmail.com')
+    #     self.assertEqual(jim.password, 'test')
+    #     self.assertEqual(jim.market, 'individual')
+    #     self.assertEqual(jim.zip_code, '94960')
+
+
+    def test_post_login(self):
+        """Test login page when user submits information, should redirect to 
+        homepage
+        """
 
         result = self.client.post('/login',
                                   data={'email': 'sarah@gmail.com',
                                         'password': 'test'},
                                   follow_redirects=True)
+
         self.assertEqual(result.status_code, 200)                                   
-        self.assertIn(b'<h2>Your Information</h2>', result.data)                                   
+        self.assertIn(b'<h3>User Information</h3>', result.data)
 
 
     def test_logout(self):
@@ -182,14 +266,14 @@ class TestFlaskRoutes(unittest.TestCase):
         result = self.client.get('/logout', follow_redirects=True)
         
         self.assertEqual(result.status_code, 200)                                   
-        self.assertIn(b"<h1>What's My Care</h1>", result.data)
+        self.assertIn(b"<h1>What's My CARE</h1>", result.data)
 
 
     def test_search_plans(self):
         """Test search plans route is the correct page"""
         
         result = self.client.get('/search_plans')
-        self.assertIn(b'<h1>Find Plans</h1>', result.data)
+        self.assertIn(b'<h3>Find Plans</h3>', result.data)
 
     # def test_search_plans_json(self):
     #     """Test search plans json route"""
@@ -203,7 +287,7 @@ class TestFlaskRoutes(unittest.TestCase):
         """Test search providers route is the correct page"""
 
         result = self.client.get('/get_providers')
-        self.assertIn(b'<h2>Find Providers</h2>', result.data)
+        self.assertIn(b'<h3>Find Providers</h3>', result.data)
 
 
     # def test_search_providers_json(self):
