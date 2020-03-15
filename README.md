@@ -18,9 +18,9 @@ all-female coding bootcamp, Hackbright Academy.
 
 ## <a name=techstack></a>Tech Stack
 
-**Backend |** Python, Flask, Jinja, SQLAlchemy, PostgreSQL 
-**Frontend |** Javascript, jQuery, AJAX, HTML, CSS, Foundation 
-**APIs |** Vericred, Google Maps Javascript
+**Backend |** Python, Flask, Jinja, SQLAlchemy, PostgreSQL <br>
+**Frontend |** Javascript, jQuery, AJAX, HTML, CSS, Foundation <br>
+**APIs |** Vericred, Google Maps Javascript <br>
 
 ## <a name=install></a>Installation
 
