@@ -9,6 +9,8 @@ saved plans.
 This project was created in February 2020 in the course of four weeks, at an 
 all-female coding bootcamp, Hackbright Academy. 
 
+<img src="/README_gif/front_page.png" alt="What's My CARE homepage"/>
+
 ### Contents
 
 * [Tech Stack](#techstack)
@@ -20,7 +22,7 @@ all-female coding bootcamp, Hackbright Academy.
 
 **Backend |** Python, Flask, Jinja, SQLAlchemy, PostgreSQL <br>
 **Frontend |** Javascript, jQuery, AJAX, HTML, CSS, Foundation <br>
-**APIs |** Vericred, Google Maps Javascript <br>
+**APIs |** Vericred, Google Maps Javascript 
 
 ## <a name=install></a>Installation
 
