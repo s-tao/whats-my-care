@@ -148,8 +148,8 @@ def show_plans():
 
     # Return medical plans based off user's zip code and fips code
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
-    # plans = show_medical_plans(user, age, smoker, child)
-    plans = temp_data_call()
+    plans = show_medical_plans(user, age, smoker, child)
+    # plans = temp_data_call()
 
     return jsonify(plans)
 
@@ -179,10 +179,10 @@ def show_providers():
     search_term = request.args.get('searchTerm')
 
     # TEMP COMMENTING OUT TO BUILD FRONT END WITHOUT CALLING
-    # providers = find_providers(user_id, plan_id, zip_code, radius, 
-    #                                                        provider_type, 
-    #                                                        search_term)
-    providers = temp_provider_call()
+    providers = find_providers(user_id, plan_id, zip_code, radius, 
+                                                           provider_type, 
+                                                           search_term)
+    # providers = temp_provider_call()
 
     return jsonify(providers)
 

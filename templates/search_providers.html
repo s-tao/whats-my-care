@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block script %}
-<link rel="stylesheet" href="/static/css/maps.css"/>
+<!-- <link rel="stylesheet" href="/static/css/maps.css"/> -->
 <script src="/static/js/mapStyles.js"></script>
 
 {% endblock %}
@@ -57,7 +57,7 @@
       </span>           
       <br>
       <label>
-      <input type="text" name="zipcode">
+      <input type="text" name="zipcode" class="zip-code-input">
       </label>
     </div>
 
@@ -98,7 +98,8 @@
           practice. 
         </p>
         <input type="text" name="search-term" 
-              placeholder="ex: Jane Doe ankle, for a podiatrist named Jane Doe">
+               class="search-term-input"
+               placeholder="ex: Jane Doe ankle, for a podiatrist named Jane Doe">
       </label>
     </div>
   </div>
@@ -108,6 +109,7 @@
       <button type="submit" class="hollow button">
         Search
       </button>
+      <span class="no-match"></span>
     </div>
   </div>
 </form>

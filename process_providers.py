@@ -17,6 +17,7 @@ def find_providers(user_id, plan_id, zip_code, radius, provider_type=None,
     if not zip_code:
         user = User.query.filter(User.user_id == user_id).first()
         zip_code = user.zip_code
+        print(zip_code, "inside condition \n\n")
 
     url = 'https://api.vericred.com/providers/search'
 
@@ -29,6 +30,9 @@ def find_providers(user_id, plan_id, zip_code, radius, provider_type=None,
                'search_term': search_term,
                'type': provider_type
               }
+
+    if not plan_id:
+        del payload['plan_ids']
 
     if (not search_term) and (not provider_type):
         del payload['search_term']
@@ -43,7 +47,7 @@ def find_providers(user_id, plan_id, zip_code, radius, provider_type=None,
     req = requests.post(url, json=payload, headers=HEADERS)
 
     all_providers = req.json()
-
+    print(all_providers)
     return all_providers.get('providers')
 
 

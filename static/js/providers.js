@@ -130,7 +130,6 @@ function initMap(providers) {
       };
     };
   });
-  console.log(allMarkers, "outside of click events");
 
   // Removes the markers from the map, but keeps them in the array.
   $('#btn-hide-markers').on('click', () => {
@@ -218,11 +217,35 @@ const providerInfo = (provider) => {
 
 // function to process provider information
 const showProviders = (providers) => {
+  
+  const allProvidersArray = []
   const allProviders = $('#display-providers');
 
-  for (const provider of providers) {
-    const providerDesc = providerInfo(provider);
-    allProviders.append(providerDesc);
+  // if there are no results from api call, hide the container and show text
+  if (providers == undefined || providers.length == 0) {
+
+    // hide & show in both conditions are set as checks & balances if user 
+    // resubmits
+    $('#provider-container').hide();
+    $('.no-match').show();
+
+    const noMatch = (`<p>
+                        Your search did not generate any provider match. Please
+                        resubmit your information with a broader search.
+                      </p>`);
+
+    $('.no-match').html(noMatch);
+
+    // if there is more than 1 match, hide 'no-match' span and display container
+  } else {
+      $('.no-match').hide();
+      $('#provider-container').show();
+      for (const provider of providers) {
+        const providerDesc = providerInfo(provider);
+        allProvidersArray.push(providerDesc);
+      }
+
+      allProviders.html(allProvidersArray);
   };
 
   // reload foundation script once provider information is displayed
@@ -238,12 +261,11 @@ $('#provider-container').hide();
 $('#provider-form').on('submit', showProviders, (evt) => {
   evt.preventDefault();
 
-
   const planId = $('input[list="plan-id"]').val();
-  const zipCode = $('input[type="zipcode"]').val();
+  const zipCode = $('.zip-code-input').val();
   const radius = $('select[name="radius"]').val();
   const providerType = $('select[name="provider-type"]').val();
-  const searchTerm = $('input[type="search-term"]').val();
+  const searchTerm = $('.search-term-input').val();
 
   const formInput = {
     'planId': planId,
@@ -252,11 +274,9 @@ $('#provider-form').on('submit', showProviders, (evt) => {
     'providerType': providerType,
     'searchTerm': searchTerm
   };
-  
+
   $.get('/show_providers.json', formInput, showProviders);
-
-  $('#provider-container').show();
-
+  
 });
 
 

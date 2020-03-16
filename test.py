@@ -1,6 +1,7 @@
 from model import User, Carrier, Plan, PlanCoverage, UserPlan, connect_to_db, db
 from process_plans import user_saved_plans, find_fips_code
 from server import app
+from seed import add_carrier, add_plan_coverage
 import unittest
 
 
@@ -73,7 +74,7 @@ def example_data():
 
 
 class TestModel(unittest.TestCase):
-    """Test querying from model"""
+    """Test database related functions"""
 
     def setUp(self):
         """Prepare for testing"""
@@ -95,47 +96,75 @@ class TestModel(unittest.TestCase):
         db.session.close()
         db.drop_all()
 
-    # test querying data from database
-    def test_find_user(self):
-        """Find user in test database"""
 
-        sarah = User.query.filter(User.email == 'sarah@gmail.com').first()
-        self.assertEqual(sarah.email, 'sarah@gmail.com')
-
-    def test_find_carrier(self):
-        """Find carrier in test database"""
-
-        carrier_1 = Carrier.query.filter(Carrier.name == 'Kaiser Permanente').first()
-        self.assertEqual(carrier_1.name, 'Kaiser Permanente')
-
-    def test_find_plan(self):
-        """Find plan in test database"""
-
-        plan_1 = Plan.query.filter(Plan.name == 'Platinum MI01 HMO').first()
-        self.assertEqual(plan_1.name, 'Platinum MI01 HMO')
-
-    def test_find_plan_coverage(self):
-        """Find plan coverage in test database"""
-        
-        plan_cov_1 = PlanCoverage.query.filter(
-                        PlanCoverage.pcp == 
-                        'In-Network: $15 / Out-of-Network: Not Covered').first()
-        self.assertEqual(plan_cov_1.pcp, 
-                         'In-Network: $15 / Out-of-Network: Not Covered')                        
-
-    def test_find_user_plan(self):
-        """Find user plan in test database"""
-        
-        user_plan_1 = UserPlan.query.filter(UserPlan.user_id == 1).first()
-        self.assertEqual(user_plan_1.user_id, 1)
-
-    # test function call to query all user plans
     def test_user_saved_plans(self):
-        """Test return all user's saved plans"""
+        """Test function call to return all user's saved plans"""
 
         user_plans = user_saved_plans(1)
         plans = Plan.query.all()
         self.assertEqual(user_plans, plans)
+
+
+    def test_add_new_carrier(self):
+        """Test function call to save new carrier to database"""
+
+        ex_carrier_data = {'id': '10544CA0080001',
+                           'carrier_name': 'Oscar',
+                           'display_name': 'Oscar Minimum Coverage EPO',
+                           'plan_type': 'EPO'}
+
+        saved_carrier = add_carrier(ex_carrier_data)
+        self.assertEqual(saved_carrier.name, 'Oscar')
+
+
+    def test_add_old_carrier(self):
+        """Test function to save old carrier to database, should not save 
+        duplicate
+        """
+
+        ex_carrier_data = {'id': '10544CA0080001',
+                           'carrier_name': 'Kaiser Permanente',
+                           'display_name': 'Bronze 60 HDHP HMO',
+                           'plan_type': 'HMO'}
+
+        saved_carrier = add_carrier(ex_carrier_data)
+        self.assertEqual(saved_carrier.name, 'Kaiser Permanente')
+
+        carrier = Carrier.query.filter(Carrier.name == 'Kaiser Permanente').all()
+        self.assertEqual(len(carrier), 1)
+
+    
+    def test_add_plan_coverage(self):
+        """Test function to save plan coverage to database"""
+
+        example_pc_data = {
+            'pcp': 'In-Network: first 3 visit(s) $0 then $0 after deductible / Out-of-Network: Not Covered', 
+            'specialist': 'In-Network: $0 after deductible / Out-of-Network: Not Covered', 
+            'emerg_rm': 'In-Network: $0 after deductible / Out-of-Network: $0 after deductible', 
+            'gen_drug': 'In-Network: $0 after deductible / Out-of-Network: Not Covered', 
+            'urg_care': 'In-Network: first 3 visit(s) $0 then $0 after deductible / Out-of-Network: first 3 visit(s) $0 then $0 after deductible',
+            'med_deduct': 'In-Network: $8,150 / Out-of-Network: Not Covered', 
+            'med_moop': 'In-Network: $8,150 / Out-of-Network: Not Covered'
+            }
+
+        saved_pc = add_plan_coverage(example_pc_data)
+        self.assertEqual(saved_pc.med_moop, 
+                         'In-Network: $8,150 / Out-of-Network: Not Covered')
+
+    def test_remove_plan(self):
+        """Test function to remove plan associated with user and from database 
+        because there is no more relationship with other users
+        """
+
+        pass
+
+
+    def test_check_remove_plan(self):
+        """Test remove_plan function to remove plan associated with user, but
+        not from database because there is still relationship with another user
+        """
+
+        pass
 
 
 class TestFlaskRoutes(unittest.TestCase):
@@ -293,6 +322,20 @@ class FlaskTestsLoggedIn(unittest.TestCase):
     # def test_search_providers_json(self):
     #     pass
 
+
+    # def test_seed_plans(self):
+    #     """Test if the selected plan is saved into database"""
+
+    #     pass
+
+    def test_remove_userplan(self):
+        """Test if the selected plan is removed and return correct message"""
+        
+        result = self.client.post('/remove_plan', 
+                                  data={'planId': '64210CA0620001'})
+                                        
+
+        self.assertIn(b'Plan successfully removed.', result.data)
 
 
 

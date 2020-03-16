@@ -27,13 +27,13 @@ def add_carrier(plan_data):
 
     check_carrier = Carrier.query.filter(Carrier.name == 
                                          plan_data['carrier_name']).first()
-    print(check_carrier)
+    # print(check_carrier)
     if not check_carrier:
         new_carrier = Carrier(name=plan_data['carrier_name'])
         db.session.add(new_carrier)
 
         db.session.commit()
-        print(new_carrier)
+        # print(new_carrier)
 
         return new_carrier
 
